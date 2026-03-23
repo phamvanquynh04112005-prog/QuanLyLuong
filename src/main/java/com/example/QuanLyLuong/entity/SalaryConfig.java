@@ -36,6 +36,36 @@ public class SalaryConfig {
     @Column(nullable = false)
     private Double deduction = 0.0;
 
+    @Column(nullable = false)
+    private Integer standardWorkDays = 26;
+
+    @Column(nullable = false)
+    private Double standardWorkHoursPerDay = 8.0;
+
+    @Column(nullable = false)
+    private Double overtimeWeekdayMultiplier = 1.5;
+
+    @Column(nullable = false)
+    private Double overtimeWeekendMultiplier = 2.0;
+
+    @Column(nullable = false)
+    private Double overtimeHolidayMultiplier = 3.0;
+
+    @Column(nullable = false)
+    private Double socialInsuranceRate = 0.08;
+
+    @Column(nullable = false)
+    private Double healthInsuranceRate = 0.015;
+
+    @Column(nullable = false)
+    private Double unemploymentInsuranceRate = 0.01;
+
+    @Column(nullable = false)
+    private Double personalIncomeTaxRate = 0.05;
+
+    @Column(nullable = false)
+    private Double personalDeduction = 11000000.0;
+
     @Column(length = 255)
     private String description;
 

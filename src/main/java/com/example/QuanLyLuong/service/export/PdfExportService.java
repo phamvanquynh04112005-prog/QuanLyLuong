@@ -5,14 +5,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.NumberFormat;
-import java.time.YearMonth;
 import java.util.List;
 
 import com.example.QuanLyLuong.common.PaymentStatus;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.Payroll;
-import com.example.QuanLyLuong.entity.SalaryConfig;
-import com.example.QuanLyLuong.service.SalaryConfigService;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -27,15 +24,11 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class PdfExportService {
-
-    private final SalaryConfigService salaryConfigService;
 
     public byte[] exportPayrollListToPdf(List<Payroll> payrolls, int month, int year) throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -77,9 +70,9 @@ public class PdfExportService {
             addCell(table, payroll.getEmployee().getFullName(), bodyFont, rowBg, Element.ALIGN_LEFT);
             addCell(table, payroll.getEmployee().getDepartment() != null ? payroll.getEmployee().getDepartment().getName() : "", bodyFont, rowBg, Element.ALIGN_LEFT);
             addCell(table, safeValue(payroll.getEmployee().getPosition()), bodyFont, rowBg, Element.ALIGN_LEFT);
-            addCell(table, numberFormat.format(payroll.getEmployee().getBaseSalary() == null ? 0.0 : payroll.getEmployee().getBaseSalary()) + " đ", bodyFont, rowBg, Element.ALIGN_RIGHT);
+            addCell(table, numberFormat.format(payroll.getEmployee().getBaseSalary() == null ? 0.0 : payroll.getEmployee().getBaseSalary()) + " d", bodyFont, rowBg, Element.ALIGN_RIGHT);
             addCell(table, String.valueOf(payroll.getTimesheet() != null ? payroll.getTimesheet().getWorkDays() : 0), bodyFont, rowBg, Element.ALIGN_CENTER);
-            addCell(table, numberFormat.format(payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary()) + " đ", bodyFont, rowBg, Element.ALIGN_RIGHT);
+            addCell(table, numberFormat.format(payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary()) + " d", bodyFont, rowBg, Element.ALIGN_RIGHT);
             addCell(table, payroll.getPaymentStatus() == PaymentStatus.PAID ? "Da chi" : "Chua chi", bodyFont, rowBg, Element.ALIGN_CENTER);
             totalSalary += payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary();
         }
@@ -94,7 +87,7 @@ public class PdfExportService {
         totalLabelCell.setPadding(6);
         table.addCell(totalLabelCell);
 
-        PdfPCell totalValueCell = new PdfPCell(new Phrase(numberFormat.format(totalSalary) + " đ", totalFont));
+        PdfPCell totalValueCell = new PdfPCell(new Phrase(numberFormat.format(totalSalary) + " d", totalFont));
         totalValueCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         totalValueCell.setPadding(6);
         table.addCell(totalValueCell);
@@ -118,7 +111,6 @@ public class PdfExportService {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
         Employee employee = payroll.getEmployee();
-        SalaryConfig config = salaryConfigService.getEffectiveConfig(employee.getId(), YearMonth.of(payroll.getYear(), payroll.getMonth()));
 
         Paragraph title = new Paragraph("PHIEU LUONG", titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
@@ -141,11 +133,16 @@ public class PdfExportService {
         PdfPTable salaryTable = new PdfPTable(2);
         salaryTable.setWidthPercentage(100);
         salaryTable.setWidths(new float[] {3.2f, 1.8f});
-        addSalaryRow(salaryTable, "Luong co ban", numberFormat.format(employee.getBaseSalary() == null ? 0.0 : employee.getBaseSalary()) + " đ", bodyFont, false);
-        addSalaryRow(salaryTable, "So ngay cong", String.valueOf(payroll.getTimesheet() != null ? payroll.getTimesheet().getWorkDays() : 0), bodyFont, false);
-        addSalaryRow(salaryTable, "Phu cap", numberFormat.format(config.getAllowance() == null ? 0.0 : config.getAllowance()) + " đ", bodyFont, false);
-        addSalaryRow(salaryTable, "Khau tru", numberFormat.format(config.getDeduction() == null ? 0.0 : config.getDeduction()) + " đ", bodyFont, false);
-        addSalaryRow(salaryTable, "Luong thuc nhan", numberFormat.format(payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary()) + " đ", totalFont, true);
+        addSalaryRow(salaryTable, "Luong co ban hop dong", money(employee.getBaseSalary(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Luong co ban theo gio cong", money(payroll.getBaseSalaryAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Tien OT", money(payroll.getOvertimePay(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Tong phu cap", money(payroll.getTotalAllowance(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Tong thuong", money(payroll.getTotalBonus(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Bao hiem", money(payroll.getInsuranceAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Thue TNCN", money(payroll.getTaxAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Khau tru khac", money(payroll.getOtherDeductionAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Luong gop", money(payroll.getGrossSalary(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Luong thuc nhan", money(payroll.getActualSalary(), numberFormat), totalFont, true);
         document.add(salaryTable);
 
         Paragraph status = new Paragraph(
@@ -216,6 +213,10 @@ public class PdfExportService {
         valueCell.setPadding(6);
         table.addCell(labelCell);
         table.addCell(valueCell);
+    }
+
+    private String money(Double value, NumberFormat numberFormat) {
+        return numberFormat.format(value == null ? 0.0 : value) + " d";
     }
 
     private String safeValue(String value) {

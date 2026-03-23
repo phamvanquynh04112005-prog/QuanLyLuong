@@ -38,6 +38,9 @@ public class Employee {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @Column(unique = true, length = 30)
+    private String employeeCode;
+
     @Column(nullable = false, length = 120)
     private String fullName;
 
@@ -64,6 +67,12 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private List<Payroll> payrolls = new ArrayList<>();
+
+    @OneToMany(mappedBy = "employee")
+    private List<AttendanceLog> attendanceLogs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "employee")
+    private List<CompensationItem> compensationItems = new ArrayList<>();
 
     @OneToOne(mappedBy = "employee")
     private User user;

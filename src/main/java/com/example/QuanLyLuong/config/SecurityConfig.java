@@ -30,7 +30,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/images/**", "/login", "/h2-console/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/employees/**", "/salary-configs/**", "/timesheets/**", "/reports/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_HR")
+                        .requestMatchers("/employees/**", "/salary-configs/**", "/timesheets/**", "/reports/**", "/compensation-items/**")
+                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_HR")
                         .requestMatchers("/payrolls/my", "/export/pdf/payslip/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_HR", "ROLE_EMPLOYEE")
                         .requestMatchers("/payrolls/**", "/export/excel/**", "/export/pdf/payroll/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_HR")
                         .anyRequest().authenticated()

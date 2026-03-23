@@ -1,47 +1,73 @@
 <div th:fragment="content">
-    <section class="panel">
-        <div class="panel-header">
-            <div>
-                <p class="panel-kicker">Bao cao chi phi luong</p>
-                <h3>Thoi gian va trong so theo phong ban</h3>
-            </div>
+    <section class="panel report-hero">
+        <div>
+            <p class="panel-kicker">Bao cao chi phi luong</p>
+            <h3>Phan tich theo phong ban va xu huong nhieu thang</h3>
+            <p class="hero-copy">Man hinh nay tong hop 2 lop thong tin: bo tranh tong quan trong giai doan da chon va chi tiet phan bo chi phi luong cua thang hien tai.</p>
         </div>
-
-        <form class="toolbar" method="get" th:action="@{/reports/department}">
+        <form class="toolbar report-filter" method="get" th:action="@{/reports/department}">
             <input class="input" style="max-width: 120px" type="number" min="1" max="12" name="month" th:value="${month}">
             <input class="input" style="max-width: 120px" type="number" min="2020" max="2099" name="year" th:value="${year}">
-            <button class="btn btn-primary" type="submit">Xem bao cao</button>
+            <select class="input" style="max-width: 160px" name="rangeMonths">
+                <option value="3" th:selected="${rangeMonths == 3}">3 thang</option>
+                <option value="6" th:selected="${rangeMonths == 6}">6 thang</option>
+                <option value="9" th:selected="${rangeMonths == 9}">9 thang</option>
+                <option value="12" th:selected="${rangeMonths == 12}">12 thang</option>
+            </select>
+            <button class="btn btn-primary" type="submit">Cap nhat bao cao</button>
         </form>
+    </section>
 
+    <section class="stats-grid">
+        <article class="stat-card"><div class="stat-label">Tong chi luong ky bao cao</div><div class="stat-value" th:text="|${#numbers.formatDecimal(reportDashboard.periodTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+        <article class="stat-card"><div class="stat-label">Trung binh moi thang</div><div class="stat-value" th:text="|${#numbers.formatDecimal(reportDashboard.averageMonthlyTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+        <article class="stat-card"><div class="stat-label">Tong bang luong trong ky</div><div class="stat-value" th:text="${reportDashboard.periodPayrollCount}"></div></article>
+        <article class="stat-card"><div class="stat-label">Ty le da chi</div><div class="stat-value" th:text="|${reportDashboard.paidRatio}%|"></div></article>
+        <article class="stat-card accent"><div class="stat-label">Phong ban dan dau thang chon</div><div class="stat-value" th:text="${reportDashboard.topDepartmentName}"></div><div class="stat-label" th:text="|${#numbers.formatDecimal(reportDashboard.topDepartmentTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header compact"><div><p class="panel-kicker">Xu huong nhieu thang</p><h3 th:text="|Bien dong tong chi luong trong ${rangeMonths} thang gan nhat|"></h3></div></div>
+        <div class="chart-bars" th:if="${not #lists.isEmpty(reportDashboard.monthlyTrend)}">
+            <div class="bar-column" th:each="trend : ${reportDashboard.monthlyTrend}">
+                <div class="bar-stack">
+                    <div class="bar-value" th:text="|${#numbers.formatDecimal(trend.totalSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+                    <div class="bar-track"><div class="bar-fill" th:style="'height:' + ${reportDashboard.maxTrendValue == 0 ? 0 : (trend.totalSalary / reportDashboard.maxTrendValue) * 220} + 'px'"></div></div>
+                </div>
+                <div class="bar-label" th:text="${trend.label}"></div>
+                <div class="bar-meta" th:text="|${trend.payrollCount} payroll|"></div>
+            </div>
+        </div>
         <table class="table">
-            <thead>
-            <tr>
-                <th>Phong ban</th>
-                <th>Tong chi luong</th>
-                <th>Ti le</th>
-                <th>Phan bo</th>
-            </tr>
-            </thead>
+            <thead><tr><th>Ky</th><th>Tong luong</th><th>Da chi</th><th>Chua chi</th><th>So payroll</th></tr></thead>
             <tbody>
-            <tr th:each="item : ${reportItems}">
-                <td th:text="${item.departmentName}"></td>
-                <td th:text="${#numbers.formatDecimal(item.totalSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
-                <td th:text="${item.percentage} + '%' "></td>
-                <td>
-                    <div class="progress-track">
-                        <div class="progress-bar" th:style="'width:' + ${item.percentage} + '%' "></div>
-                    </div>
-                </td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(reportItems)}">
-                <td colspan="4" class="empty-cell">Chua co du lieu bang luong de lap bao cao.</td>
+            <tr th:each="trend : ${reportDashboard.monthlyTrend}">
+                <td th:text="${trend.label}"></td>
+                <td th:text="|${#numbers.formatDecimal(trend.totalSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+                <td th:text="|${#numbers.formatDecimal(trend.paidSalary, 0, 'COMMA', 0, 'POINT')} VND (${trend.paidCount})|"></td>
+                <td th:text="|${#numbers.formatDecimal(trend.pendingSalary, 0, 'COMMA', 0, 'POINT')} VND (${trend.pendingCount})|"></td>
+                <td th:text="${trend.payrollCount}"></td>
             </tr>
             </tbody>
         </table>
+    </section>
 
-        <div class="summary-box" th:if="${not #lists.isEmpty(reportItems)}">
-            <div class="stat-label">Tong chi luong toan doanh nghiep</div>
-            <div class="stat-value" th:text="${#numbers.formatDecimal(overallTotal, 0, 'COMMA', 0, 'POINT')} + ' đ'"></div>
-        </div>
+    <section class="panel">
+        <div class="panel-header compact"><div><p class="panel-kicker">Chi tiet thang duoc chon</p><h3 th:text="|Phan bo luong theo phong ban trong ${month}/${year}|"></h3></div><div class="summary-pill" th:text="|${#numbers.formatDecimal(reportDashboard.selectedMonthTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></div>
+        <table class="table">
+            <thead><tr><th>Phong ban</th><th>Tong luong</th><th>Ti le</th><th>So payroll</th><th>Trung binh</th><th>Da chi / Chua chi</th><th>Do phu</th></tr></thead>
+            <tbody>
+            <tr th:each="item : ${reportDashboard.departmentItems}">
+                <td th:text="${item.departmentName}"></td>
+                <td th:text="|${#numbers.formatDecimal(item.totalSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+                <td th:text="|${item.percentage}%|"></td>
+                <td th:text="${item.payrollCount}"></td>
+                <td th:text="|${#numbers.formatDecimal(item.averageSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+                <td th:text="|${item.paidCount} / ${item.pendingCount}|"></td>
+                <td><div class="progress-track large"><div class="progress-bar" th:style="'width:' + ${item.percentage} + '%' "></div></div></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(reportDashboard.departmentItems)}"><td colspan="7" class="empty-cell">Chua co du lieu bang luong de tao bao cao.</td></tr>
+            </tbody>
+        </table>
     </section>
 </div>

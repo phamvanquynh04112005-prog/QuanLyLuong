@@ -1,9 +1,8 @@
 package com.example.QuanLyLuong.controller;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import com.example.QuanLyLuong.dto.DepartmentReportItem;
+import com.example.QuanLyLuong.dto.PayrollReportDashboard;
 import com.example.QuanLyLuong.service.ReportService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,18 +22,24 @@ public class ReportController {
     @GetMapping("/department")
     public String departmentReport(@RequestParam(required = false) Integer month,
                                    @RequestParam(required = false) Integer year,
+                                   @RequestParam(required = false) Integer rangeMonths,
                                    Model model) {
         LocalDate now = LocalDate.now();
         int selectedMonth = month == null ? now.getMonthValue() : month;
         int selectedYear = year == null ? now.getYear() : year;
-        List<DepartmentReportItem> reportItems = reportService.reportByDepartment(selectedMonth, selectedYear);
-        double total = reportItems.stream().mapToDouble(DepartmentReportItem::getTotalSalary).sum();
+        int selectedRangeMonths = rangeMonths == null ? 6 : rangeMonths;
 
-        model.addAttribute("reportItems", reportItems);
-        model.addAttribute("overallTotal", total);
+        PayrollReportDashboard reportDashboard = reportService.buildDepartmentReport(
+                selectedMonth,
+                selectedYear,
+                selectedRangeMonths
+        );
+
+        model.addAttribute("reportDashboard", reportDashboard);
         model.addAttribute("month", selectedMonth);
         model.addAttribute("year", selectedYear);
-        model.addAttribute("pageTitle", "Bao cao phong ban");
+        model.addAttribute("rangeMonths", selectedRangeMonths);
+        model.addAttribute("pageTitle", "Bao cao luong nang cao");
         model.addAttribute("contentTemplate", "report/department");
         return "layout/base";
     }

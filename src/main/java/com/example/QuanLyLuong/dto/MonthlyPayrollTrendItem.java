@@ -5,12 +5,14 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class DepartmentReportItem {
-    private final String departmentName;
+public class MonthlyPayrollTrendItem {
+    private final Integer month;
+    private final Integer year;
+    private final String label;
     private final double totalSalary;
-    private final double percentage;
     private final long payrollCount;
     private final long paidCount;
     private final long pendingCount;
-    private final double averageSalary;
+    private final double paidSalary;
+    private final double pendingSalary;
 }

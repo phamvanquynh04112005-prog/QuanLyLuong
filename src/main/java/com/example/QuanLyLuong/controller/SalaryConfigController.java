@@ -54,11 +54,37 @@ public class SalaryConfigController {
     public String save(@RequestParam Long employeeId,
                        @RequestParam(required = false) Double allowance,
                        @RequestParam(required = false) Double deduction,
+                       @RequestParam(required = false) Integer standardWorkDays,
+                       @RequestParam(required = false) Double standardWorkHoursPerDay,
+                       @RequestParam(required = false) Double overtimeWeekdayMultiplier,
+                       @RequestParam(required = false) Double overtimeWeekendMultiplier,
+                       @RequestParam(required = false) Double overtimeHolidayMultiplier,
+                       @RequestParam(required = false) Double socialInsuranceRate,
+                       @RequestParam(required = false) Double healthInsuranceRate,
+                       @RequestParam(required = false) Double unemploymentInsuranceRate,
+                       @RequestParam(required = false) Double personalIncomeTaxRate,
+                       @RequestParam(required = false) Double personalDeduction,
                        @RequestParam(required = false) String description,
                        @RequestParam(required = false) LocalDate effectiveDate,
                        RedirectAttributes redirectAttributes) {
-        salaryConfigService.save(employeeId, allowance, deduction, description, effectiveDate);
-        redirectAttributes.addFlashAttribute("successMsg", "Da luu cau hinh luong.");
+        salaryConfigService.save(
+                employeeId,
+                allowance,
+                deduction,
+                standardWorkDays,
+                standardWorkHoursPerDay,
+                overtimeWeekdayMultiplier,
+                overtimeWeekendMultiplier,
+                overtimeHolidayMultiplier,
+                socialInsuranceRate,
+                healthInsuranceRate,
+                unemploymentInsuranceRate,
+                personalIncomeTaxRate,
+                personalDeduction,
+                description,
+                effectiveDate
+        );
+        redirectAttributes.addFlashAttribute("successMsg", "Da luu cau hinh luong nang cao.");
         return "redirect:/salary-configs";
     }
 }

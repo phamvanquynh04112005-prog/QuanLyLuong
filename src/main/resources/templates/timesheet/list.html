@@ -3,24 +3,16 @@
         <div class="panel-header">
             <div>
                 <p class="panel-kicker">Theo doi cong lam viec</p>
-                <h3 th:text="'Cham cong thang ' + ${month} + '/' + ${year}"></h3>
+                <h3 th:text="|Cham cong thang ${month}/${year}|"></h3>
             </div>
-            <a class="btn btn-primary" th:href="@{/timesheets/new(month=${month},year=${year})}">Nhap cham cong</a>
+            <a class="btn btn-primary" th:href="@{/timesheets/new(month=${month},year=${year})}">Nhap chi tiet</a>
         </div>
 
         <div class="summary-row">
-            <div class="summary-box">
-                <div class="stat-label">Tong nhan vien da co bang cong</div>
-                <div class="stat-value" th:text="${summary.totalEmployees}"></div>
-            </div>
-            <div class="summary-box">
-                <div class="stat-label">Di lam du 26 cong</div>
-                <div class="stat-value" th:text="${summary.fullAttendanceCount}"></div>
-            </div>
-            <div class="summary-box">
-                <div class="stat-label">Trung binh ngay cong</div>
-                <div class="stat-value" th:text="${summary.averageWorkDays}"></div>
-            </div>
+            <div class="summary-box"><div class="stat-label">Tong nhan vien da co bang cong</div><div class="stat-value" th:text="${summary.totalEmployees}"></div></div>
+            <div class="summary-box"><div class="stat-label">Di lam du 26 cong</div><div class="stat-value" th:text="${summary.fullAttendanceCount}"></div></div>
+            <div class="summary-box"><div class="stat-label">Trung binh ngay cong</div><div class="stat-value" th:text="${summary.averageWorkDays}"></div></div>
+            <div class="summary-box"><div class="stat-label">Tong gio thuong / OT</div><div class="stat-value small-stack"><span th:text="|${summary.totalRegularHours}h thuong|"></span><span th:text="|${summary.totalOvertimeHours}h OT|"></span></div></div>
         </div>
 
         <div class="toolbar">
@@ -36,38 +28,66 @@
             </form>
         </div>
 
+        <div class="detail-grid">
+            <div class="summary-box wide-card">
+                <div class="panel-header compact">
+                    <div>
+                        <p class="panel-kicker">Import Excel / May cham cong</p>
+                        <h3>Nap file log theo ngay va gio</h3>
+                    </div>
+                </div>
+                <form class="stack-form" th:action="@{/timesheets/import}" method="post" enctype="multipart/form-data">
+                    <div class="grid two-col">
+                        <div>
+                            <label class="field-label">Thang</label>
+                            <input class="input" type="number" name="month" min="1" max="12" th:value="${month}" required>
+                        </div>
+                        <div>
+                            <label class="field-label">Nam</label>
+                            <input class="input" type="number" name="year" min="2020" max="2099" th:value="${year}" required>
+                        </div>
+                        <div>
+                            <label class="field-label">Nguon du lieu</label>
+                            <select class="input" name="source">
+                                <option th:each="source : ${attendanceSources}" th:value="${source}" th:text="${source.label}" th:selected="${source.name() == 'EXCEL_IMPORT'}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label">File .xlsx</label>
+                            <input class="input" type="file" name="file" accept=".xlsx" required>
+                        </div>
+                    </div>
+                    <div class="summary-box helper-card">
+                        Cot ho tro: <strong>employeeCode</strong> hoac <strong>email</strong>, <strong>attendanceDate</strong>, <strong>checkIn</strong>, <strong>checkOut</strong>, <strong>regularHours</strong>, <strong>overtimeWeekdayHours</strong>, <strong>overtimeWeekendHours</strong>, <strong>overtimeHolidayHours</strong>, <strong>lateMinutes</strong>, <strong>machineCode</strong>, <strong>note</strong>.
+                    </div>
+                    <div class="actions-row">
+                        <button class="btn btn-primary" type="submit">Import file</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <table class="table">
-            <thead>
-            <tr>
-                <th>Nhan vien</th>
-                <th>Phong ban</th>
-                <th>Ngay cong</th>
-                <th>Nghi phep</th>
-                <th>Ngay vang</th>
-                <th>Ghi chu</th>
-                <th>Thao tac</th>
-            </tr>
-            </thead>
+            <thead><tr><th>Nhan vien</th><th>Phong ban</th><th>Ngay cong</th><th>Nghi phep</th><th>Gio thuong</th><th>OT tong</th><th>So log</th><th>Ghi chu</th><th>Thao tac</th></tr></thead>
             <tbody>
             <tr th:each="timesheet : ${timesheets}">
-                <td th:text="${timesheet.employee.fullName}"></td>
+                <td>
+                    <div th:text="${timesheet.employee.fullName}"></div>
+                    <small class="muted-text" th:text="${timesheet.employee.employeeCode != null ? timesheet.employee.employeeCode : 'Chua co ma'}"></small>
+                </td>
                 <td th:text="${timesheet.employee.department != null ? timesheet.employee.department.name : 'Chua co phong'}"></td>
                 <td th:text="${timesheet.workDays}"></td>
                 <td th:text="${timesheet.leaveDays}"></td>
-                <td th:text="${T(java.lang.Math).max(0, 26 - timesheet.workDays - timesheet.leaveDays)}"></td>
+                <td th:text="|${timesheet.regularHours}h|"></td>
+                <td th:text="|${timesheet.overtimeWeekdayHours + timesheet.overtimeWeekendHours + timesheet.overtimeHolidayHours}h|"></td>
+                <td th:text="${timesheet.importedLogCount}"></td>
                 <td th:text="${timesheet.note != null and !timesheet.note.isBlank() ? timesheet.note : 'Khong co'}"></td>
                 <td class="actions">
-                    <a class="btn btn-secondary btn-sm" th:href="@{/timesheets/new(employeeId=${timesheet.employee.id},month=${month},year=${year})}">Sua</a>
-                    <form th:action="@{/timesheets/{id}/delete(id=${timesheet.id})}" method="post">
-                        <input type="hidden" name="month" th:value="${month}">
-                        <input type="hidden" name="year" th:value="${year}">
-                        <button class="btn btn-danger btn-sm" type="submit">Xoa</button>
-                    </form>
+                    <a class="btn btn-secondary btn-sm" th:href="@{/timesheets/new(employeeId=${timesheet.employee.id},month=${month},year=${year})}">Chi tiet</a>
+                    <form th:action="@{/timesheets/{id}/delete(id=${timesheet.id})}" method="post"><input type="hidden" name="month" th:value="${month}"><input type="hidden" name="year" th:value="${year}"><button class="btn btn-danger btn-sm" type="submit">Xoa</button></form>
                 </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(timesheets)}">
-                <td colspan="7" class="empty-cell">Chua co du lieu cham cong. Ban co the khoi tao hang loat roi nhap cho tung nhan vien.</td>
-            </tr>
+            <tr th:if="${#lists.isEmpty(timesheets)}"><td colspan="9" class="empty-cell">Chua co du lieu cham cong. Ban co the khoi tao hang loat hoac import file log Excel.</td></tr>
             </tbody>
         </table>
     </section>

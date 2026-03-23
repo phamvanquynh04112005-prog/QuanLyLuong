@@ -1,9 +1,14 @@
 package com.example.QuanLyLuong.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.example.QuanLyLuong.common.PaymentStatus;
+import com.example.QuanLyLuong.dto.PayrollSearchCriteria;
+import com.example.QuanLyLuong.dto.PayrollSearchSummary;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.Payroll;
+import com.example.QuanLyLuong.service.DepartmentService;
 import com.example.QuanLyLuong.service.PayrollService;
 import com.example.QuanLyLuong.service.UserService;
 
@@ -25,6 +30,7 @@ public class PayrollController {
 
     private final PayrollService payrollService;
     private final UserService userService;
+    private final DepartmentService departmentService;
 
     @GetMapping
     public String list(@RequestParam(required = false) Integer month,
@@ -40,6 +46,37 @@ public class PayrollController {
         model.addAttribute("year", selectedYear);
         model.addAttribute("pageTitle", "Bang luong");
         model.addAttribute("contentTemplate", "payroll/list");
+        return "layout/base";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(required = false) Integer month,
+                         @RequestParam(required = false) Integer year,
+                         @RequestParam(required = false) Long departmentId,
+                         @RequestParam(required = false) PaymentStatus paymentStatus,
+                         @RequestParam(required = false) String keyword,
+                         @RequestParam(required = false) Double minSalary,
+                         @RequestParam(required = false) Double maxSalary,
+                         Model model) {
+        PayrollSearchCriteria criteria = new PayrollSearchCriteria();
+        criteria.setMonth(month);
+        criteria.setYear(year);
+        criteria.setDepartmentId(departmentId);
+        criteria.setPaymentStatus(paymentStatus);
+        criteria.setKeyword(keyword);
+        criteria.setMinSalary(minSalary);
+        criteria.setMaxSalary(maxSalary);
+
+        List<Payroll> payrolls = payrollService.searchPayrolls(criteria);
+        PayrollSearchSummary summary = payrollService.buildSearchSummary(payrolls);
+
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("payrolls", payrolls);
+        model.addAttribute("summary", summary);
+        model.addAttribute("departments", departmentService.findAll());
+        model.addAttribute("paymentStatuses", PaymentStatus.values());
+        model.addAttribute("pageTitle", "Tra cuu phieu luong");
+        model.addAttribute("contentTemplate", "payroll/search");
         return "layout/base";
     }
 

@@ -1,0 +1,63 @@
+<div th:fragment="content">
+    <section class="panel report-hero">
+        <div>
+            <p class="panel-kicker">Tra cuu cho HR</p>
+            <h3>Loc bang luong theo nhieu tieu chi</h3>
+            <p class="hero-copy">Tim nhanh payroll theo ky, phong ban, trang thai, tu khoa nhan vien va khoang luong. Ket qua di kem tong hop de HR doi chieu truoc khi xuat file.</p>
+        </div>
+    </section>
+
+    <section class="panel">
+        <form class="search-grid" method="get" th:action="@{/payrolls/search}">
+            <div><label class="field-label">Thang</label><input class="input" type="number" min="1" max="12" name="month" th:value="${criteria.month}"></div>
+            <div><label class="field-label">Nam</label><input class="input" type="number" min="2020" max="2099" name="year" th:value="${criteria.year}"></div>
+            <div>
+                <label class="field-label">Phong ban</label>
+                <select class="input" name="departmentId">
+                    <option value="">Tat ca phong ban</option>
+                    <option th:each="department : ${departments}" th:value="${department.id}" th:selected="${criteria.departmentId != null and criteria.departmentId == department.id}" th:text="${department.name}"></option>
+                </select>
+            </div>
+            <div>
+                <label class="field-label">Trang thai chi luong</label>
+                <select class="input" name="paymentStatus">
+                    <option value="">Tat ca trang thai</option>
+                    <option th:each="status : ${paymentStatuses}" th:value="${status}" th:selected="${criteria.paymentStatus != null and criteria.paymentStatus == status}" th:text="${status.label}"></option>
+                </select>
+            </div>
+            <div><label class="field-label">Tu khoa</label><input class="input" type="text" name="keyword" th:value="${criteria.keyword}" placeholder="Ten, email, chuc vu..."></div>
+            <div><label class="field-label">Luong tu</label><input class="input" type="number" min="0" step="1000" name="minSalary" th:value="${criteria.minSalary}"></div>
+            <div><label class="field-label">Luong den</label><input class="input" type="number" min="0" step="1000" name="maxSalary" th:value="${criteria.maxSalary}"></div>
+            <div class="search-actions"><button class="btn btn-primary" type="submit">Tim payroll</button><a class="btn btn-secondary" th:href="@{/payrolls/search}">Dat lai bo loc</a></div>
+        </form>
+    </section>
+
+    <section class="stats-grid">
+        <article class="stat-card"><div class="stat-label">So ket qua</div><div class="stat-value" th:text="${summary.resultCount}"></div></article>
+        <article class="stat-card"><div class="stat-label">Tong luong loc duoc</div><div class="stat-value" th:text="|${#numbers.formatDecimal(summary.totalSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+        <article class="stat-card"><div class="stat-label">Luong trung binh</div><div class="stat-value" th:text="|${#numbers.formatDecimal(summary.averageSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+        <article class="stat-card"><div class="stat-label">Da chi / Chua chi</div><div class="stat-value" th:text="|${summary.paidCount} / ${summary.pendingCount}|"></div></article>
+        <article class="stat-card"><div class="stat-label">Min / Max</div><div class="stat-value small-stack"><span th:text="|${#numbers.formatDecimal(summary.minSalary, 0, 'COMMA', 0, 'POINT')} VND|"></span><span th:text="|${#numbers.formatDecimal(summary.maxSalary, 0, 'COMMA', 0, 'POINT')} VND|"></span></div></article>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header compact"><div><p class="panel-kicker">Ket qua chi tiet</p><h3>Danh sach payroll thoa dieu kien loc</h3></div></div>
+        <table class="table">
+            <thead><tr><th>Ky</th><th>Nhan vien</th><th>Phong ban</th><th>Chuc vu</th><th>Ngay cong</th><th>Luong</th><th>Trang thai</th><th>Ngay chi</th><th>Phieu luong</th></tr></thead>
+            <tbody>
+            <tr th:each="payroll : ${payrolls}">
+                <td th:text="|${payroll.month}/${payroll.year}|"></td>
+                <td><div class="cell-title" th:text="${payroll.employee.fullName}"></div><div class="cell-subtitle" th:text="${payroll.employee.email}"></div></td>
+                <td th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${payroll.employee.position}"></td>
+                <td th:text="${payroll.timesheet != null ? payroll.timesheet.workDays : 0}"></td>
+                <td th:text="|${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+                <td><span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'" th:text="${payroll.paymentStatus.label}"></span></td>
+                <td th:text="${payroll.paymentDate != null ? payroll.paymentDate : '--'}"></td>
+                <td><a class="btn btn-outline btn-sm" th:href="@{/export/pdf/payslip/{id}(id=${payroll.id})}">Tai PDF</a></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(payrolls)}"><td colspan="9" class="empty-cell">Khong tim thay payroll nao phu hop voi bo loc hien tai.</td></tr>
+            </tbody>
+        </table>
+    </section>
+</div>

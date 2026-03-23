@@ -52,6 +52,30 @@ public class Payroll {
     private Integer year;
 
     @Column(nullable = false)
+    private Double baseSalaryAmount = 0.0;
+
+    @Column(nullable = false)
+    private Double overtimePay = 0.0;
+
+    @Column(nullable = false)
+    private Double totalAllowance = 0.0;
+
+    @Column(nullable = false)
+    private Double totalBonus = 0.0;
+
+    @Column(nullable = false)
+    private Double insuranceAmount = 0.0;
+
+    @Column(nullable = false)
+    private Double taxAmount = 0.0;
+
+    @Column(nullable = false)
+    private Double otherDeductionAmount = 0.0;
+
+    @Column(nullable = false)
+    private Double grossSalary = 0.0;
+
+    @Column(nullable = false)
     private Double actualSalary = 0.0;
 
     @Enumerated(EnumType.STRING)

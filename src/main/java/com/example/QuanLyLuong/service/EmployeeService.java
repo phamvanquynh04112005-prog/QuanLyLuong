@@ -33,19 +33,29 @@ public class EmployeeService {
 
     public Employee save(Employee employee) {
         employee.setDepartment(resolveDepartment(employee));
-        return employeeRepository.save(employee);
+        employee.setEmployeeCode(normalizeCode(employee.getEmployeeCode()));
+        employee.setEmail(normalizeText(employee.getEmail()));
+        employee.setFullName(normalizeText(employee.getFullName()));
+        employee.setPosition(normalizeText(employee.getPosition()));
+        Employee savedEmployee = employeeRepository.save(employee);
+        return ensureGeneratedCode(savedEmployee);
     }
 
     public Employee update(Long id, Employee updatedEmployee) {
         Employee existing = findById(id);
-        existing.setFullName(updatedEmployee.getFullName());
-        existing.setEmail(updatedEmployee.getEmail());
-        existing.setPosition(updatedEmployee.getPosition());
+        existing.setFullName(normalizeText(updatedEmployee.getFullName()));
+        existing.setEmail(normalizeText(updatedEmployee.getEmail()));
+        existing.setPosition(normalizeText(updatedEmployee.getPosition()));
         existing.setBaseSalary(updatedEmployee.getBaseSalary());
         existing.setJoinDate(updatedEmployee.getJoinDate());
         existing.setStatus(updatedEmployee.getStatus());
         existing.setDepartment(resolveDepartment(updatedEmployee));
-        return employeeRepository.save(existing);
+        String requestedCode = normalizeCode(updatedEmployee.getEmployeeCode());
+        if (requestedCode != null) {
+            existing.setEmployeeCode(requestedCode);
+        }
+        Employee savedEmployee = employeeRepository.save(existing);
+        return ensureGeneratedCode(savedEmployee);
     }
 
     public void delete(Long id) {
@@ -69,5 +79,24 @@ public class EmployeeService {
         return departmentRepository.findById(employee.getDepartment().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Khong tim thay phong ban co ID: " + employee.getDepartment().getId()));
+    }
+
+    private Employee ensureGeneratedCode(Employee employee) {
+        if (employee.getEmployeeCode() == null || employee.getEmployeeCode().isBlank()) {
+            employee.setEmployeeCode(String.format("EMP%04d", employee.getId()));
+            return employeeRepository.save(employee);
+        }
+        return employee;
+    }
+
+    private String normalizeCode(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        return value.trim().toUpperCase();
+    }
+
+    private String normalizeText(String value) {
+        return value == null ? null : value.trim();
     }
 }

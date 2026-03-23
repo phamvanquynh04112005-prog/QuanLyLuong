@@ -7,10 +7,11 @@ import com.example.QuanLyLuong.common.PaymentStatus;
 import com.example.QuanLyLuong.entity.Payroll;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface PayrollRepository extends JpaRepository<Payroll, Long> {
+public interface PayrollRepository extends JpaRepository<Payroll, Long>, JpaSpecificationExecutor<Payroll> {
 
     Optional<Payroll> findByEmployeeIdAndMonthAndYear(Long employeeId, Integer month, Integer year);
 

@@ -1,14 +1,20 @@
 package com.example.QuanLyLuong.entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import com.example.QuanLyLuong.common.AttendanceSource;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
@@ -20,12 +26,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(
-        name = "timesheets",
+        name = "attendance_logs",
         uniqueConstraints = {
-            @UniqueConstraint(columnNames = {"employee_id", "month_value", "year_value"})
+            @UniqueConstraint(columnNames = {"employee_id", "attendance_date"})
         }
 )
-public class Timesheet {
+public class AttendanceLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,20 +41,12 @@ public class Timesheet {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @Column(name = "month_value", nullable = false)
-    private Integer month;
+    @Column(name = "attendance_date", nullable = false)
+    private LocalDate attendanceDate;
 
-    @Column(name = "year_value", nullable = false)
-    private Integer year;
+    private LocalTime checkInTime;
 
-    @Column(nullable = false)
-    private Integer workDays = 0;
-
-    @Column(nullable = false)
-    private Integer leaveDays = 0;
-
-    @Column(nullable = false)
-    private Integer absentDays = 0;
+    private LocalTime checkOutTime;
 
     @Column(nullable = false)
     private Double regularHours = 0.0;
@@ -63,11 +61,15 @@ public class Timesheet {
     private Double overtimeHolidayHours = 0.0;
 
     @Column(nullable = false)
-    private Integer importedLogCount = 0;
+    private Integer lateMinutes = 0;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private AttendanceSource source = AttendanceSource.MANUAL;
+
+    @Column(length = 80)
+    private String machineCode;
 
     @Column(length = 255)
     private String note;
-
-    @OneToOne(mappedBy = "timesheet")
-    private Payroll payroll;
 }

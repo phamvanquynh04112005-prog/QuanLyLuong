@@ -16,6 +16,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th>Ma NV</th>
                 <th>Ho ten</th>
                 <th>Email</th>
                 <th>Chuc vu</th>
@@ -27,11 +28,12 @@
             </thead>
             <tbody>
             <tr th:each="employee : ${employees}">
+                <td th:text="${employee.employeeCode != null ? employee.employeeCode : 'Chua cap'}"></td>
                 <td th:text="${employee.fullName}"></td>
                 <td th:text="${employee.email}"></td>
                 <td th:text="${employee.position}"></td>
                 <td th:text="${employee.department != null ? employee.department.name : 'Chua co phong'}"></td>
-                <td th:text="${#numbers.formatDecimal(employee.baseSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td th:text="|${#numbers.formatDecimal(employee.baseSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
                 <td>
                     <span class="badge" th:classappend="${employee.status.name() == 'ACTIVE'} ? ' badge-success' : ' badge-muted'"
                           th:text="${employee.status.label}"></span>
@@ -44,7 +46,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(employees)}">
-                <td colspan="7" class="empty-cell">Chua co nhan vien nao.</td>
+                <td colspan="8" class="empty-cell">Chua co nhan vien nao.</td>
             </tr>
             </tbody>
         </table>

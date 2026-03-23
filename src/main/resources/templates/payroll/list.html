@@ -3,9 +3,10 @@
         <div class="panel-header">
             <div>
                 <p class="panel-kicker">Tinh luong theo thang</p>
-                <h3 th:text="'Bang luong thang ' + ${month} + '/' + ${year}"></h3>
+                <h3 th:text="|Bang luong thang ${month}/${year}|"></h3>
             </div>
             <div class="actions-row">
+                <a class="btn btn-outline" th:href="@{/payrolls/search(month=${month},year=${year})}">Tra cuu nang cao</a>
                 <a class="btn btn-secondary" th:href="@{/export/excel/payroll(month=${month},year=${year})}">Xuat Excel</a>
                 <a class="btn btn-secondary" th:href="@{/export/pdf/payroll(month=${month},year=${year})}">Xuat PDF</a>
             </div>
@@ -26,26 +27,33 @@
 
         <table class="table">
             <thead>
-            <tr>
-                <th>Nhan vien</th>
-                <th>Phong ban</th>
-                <th>Ngay cong</th>
-                <th>Luong thuc nhan</th>
-                <th>Trang thai</th>
-                <th>Ngay chi</th>
-                <th>Thao tac</th>
-            </tr>
+            <tr><th>Nhan vien</th><th>Cong / Gio</th><th>Luong co ban tinh</th><th>OT</th><th>Phu cap + Thuong</th><th>BH + Thue + Khau tru</th><th>Thuc nhan</th><th>Trang thai</th><th>Thao tac</th></tr>
             </thead>
             <tbody>
             <tr th:each="payroll : ${payrolls}">
-                <td th:text="${payroll.employee.fullName}"></td>
-                <td th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'}"></td>
-                <td th:text="${payroll.timesheet != null ? payroll.timesheet.workDays : 0}"></td>
-                <td th:text="${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
                 <td>
-                    <span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'" th:text="${payroll.paymentStatus.label}"></span>
+                    <div th:text="${payroll.employee.fullName}"></div>
+                    <small class="muted-text" th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'}"></small>
                 </td>
-                <td th:text="${payroll.paymentDate != null ? payroll.paymentDate : '--'}"></td>
+                <td>
+                    <div th:text="|${payroll.timesheet != null ? payroll.timesheet.workDays : 0} cong|"></div>
+                    <small class="muted-text" th:text="|${payroll.timesheet != null ? payroll.timesheet.regularHours : 0}h / OT ${payroll.timesheet != null ? payroll.timesheet.overtimeWeekdayHours + payroll.timesheet.overtimeWeekendHours + payroll.timesheet.overtimeHolidayHours : 0}h|"></small>
+                </td>
+                <td th:text="|${#numbers.formatDecimal(payroll.baseSalaryAmount, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+                <td th:text="|${#numbers.formatDecimal(payroll.overtimePay, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+                <td>
+                    <div th:text="|PC: ${#numbers.formatDecimal(payroll.totalAllowance, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+                    <small class="muted-text" th:text="|Thuong: ${#numbers.formatDecimal(payroll.totalBonus, 0, 'COMMA', 0, 'POINT')} VND|"></small>
+                </td>
+                <td>
+                    <div th:text="|BH: ${#numbers.formatDecimal(payroll.insuranceAmount, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+                    <small class="muted-text" th:text="|Thue: ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - Khau tru: ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                </td>
+                <td>
+                    <div th:text="|${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+                    <small class="muted-text" th:text="|Gross: ${#numbers.formatDecimal(payroll.grossSalary, 0, 'COMMA', 0, 'POINT')} VND|"></small>
+                </td>
+                <td><span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'" th:text="${payroll.paymentStatus.label}"></span></td>
                 <td class="actions">
                     <form th:if="${payroll.paymentStatus.name() == 'PENDING'}" th:action="@{/payrolls/pay/{id}(id=${payroll.id})}" method="post">
                         <input type="hidden" name="month" th:value="${month}">
@@ -55,15 +63,13 @@
                     <a class="btn btn-outline btn-sm" th:href="@{/export/pdf/payslip/{id}(id=${payroll.id})}">Phieu luong</a>
                 </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(payrolls)}">
-                <td colspan="7" class="empty-cell">Chua co bang luong. Hay nhap cham cong roi bam "Tinh luong hang loat".</td>
-            </tr>
+            <tr th:if="${#lists.isEmpty(payrolls)}"><td colspan="9" class="empty-cell">Chua co bang luong. Hay nhap cham cong roi bam Tinh luong hang loat.</td></tr>
             </tbody>
         </table>
 
         <div class="summary-box" th:if="${not #lists.isEmpty(payrolls)}">
-            <div class="stat-label">Tong chi luong cua thang</div>
-            <div class="stat-value" th:text="${#numbers.formatDecimal(totalSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></div>
+            <div class="stat-label">Tong chi luong thuc nhan cua thang</div>
+            <div class="stat-value" th:text="|${#numbers.formatDecimal(totalSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div>
         </div>
     </section>
 </div>

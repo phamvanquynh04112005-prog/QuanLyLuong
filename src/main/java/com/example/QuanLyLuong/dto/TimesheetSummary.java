@@ -10,4 +10,6 @@ public class TimesheetSummary {
     private final long fullAttendanceCount;
     private final double averageWorkDays;
     private final int standardWorkDays;
+    private final double totalRegularHours;
+    private final double totalOvertimeHours;
 }

@@ -43,10 +43,10 @@ public class DataInitializer implements ApplicationRunner {
         Department finance = ensureDepartment("Ke toan", "Nguyen Van Binh");
         Department it = ensureDepartment("Cong nghe thong tin", "Le Hoang Minh");
 
-        Employee adminEmployee = ensureEmployee("admin@quanlyluong.local", "Nguyen Van Admin", "Giam sat he thong", hr, 25000000d, LocalDate.of(2023, 1, 10));
-        Employee hrEmployee = ensureEmployee("hr01@quanlyluong.local", "Tran Thi HR", "Chuyen vien nhan su", hr, 18000000d, LocalDate.of(2023, 4, 5));
-        Employee employee = ensureEmployee("nv001@quanlyluong.local", "Le Van Nhan Vien", "Lap trinh vien", it, 15000000d, LocalDate.of(2024, 2, 1));
-        ensureEmployee("kt01@quanlyluong.local", "Pham Thi Ke Toan", "Ke toan tong hop", finance, 17000000d, LocalDate.of(2023, 8, 12));
+        Employee adminEmployee = ensureEmployee("EMP0001", "admin@quanlyluong.local", "Nguyen Van Admin", "Giam sat he thong", hr, 25000000d, LocalDate.of(2023, 1, 10));
+        Employee hrEmployee = ensureEmployee("EMP0002", "hr01@quanlyluong.local", "Tran Thi HR", "Chuyen vien nhan su", hr, 18000000d, LocalDate.of(2023, 4, 5));
+        Employee employee = ensureEmployee("EMP0003", "nv001@quanlyluong.local", "Le Van Nhan Vien", "Lap trinh vien", it, 15000000d, LocalDate.of(2024, 2, 1));
+        ensureEmployee("EMP0004", "kt01@quanlyluong.local", "Pham Thi Ke Toan", "Ke toan tong hop", finance, 17000000d, LocalDate.of(2023, 8, 12));
 
         ensureSalaryConfig(adminEmployee.getId(), 2500000d, 800000d, "Phu cap quan tri");
         ensureSalaryConfig(hrEmployee.getId(), 1500000d, 500000d, "Phu cap nhan su");
@@ -67,10 +67,23 @@ public class DataInitializer implements ApplicationRunner {
                 });
     }
 
-    private Employee ensureEmployee(String email, String fullName, String position, Department department, Double baseSalary, LocalDate joinDate) {
+    private Employee ensureEmployee(String employeeCode,
+                                    String email,
+                                    String fullName,
+                                    String position,
+                                    Department department,
+                                    Double baseSalary,
+                                    LocalDate joinDate) {
         return employeeRepository.findByEmailIgnoreCase(email)
+                .map(existing -> {
+                    if (existing.getEmployeeCode() == null || existing.getEmployeeCode().isBlank()) {
+                        existing.setEmployeeCode(employeeCode);
+                    }
+                    return employeeRepository.save(existing);
+                })
                 .orElseGet(() -> {
                     Employee employee = new Employee();
+                    employee.setEmployeeCode(employeeCode);
                     employee.setEmail(email);
                     employee.setFullName(fullName);
                     employee.setPosition(position);

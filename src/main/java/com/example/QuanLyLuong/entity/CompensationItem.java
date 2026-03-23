@@ -1,16 +1,20 @@
 package com.example.QuanLyLuong.entity;
 
+import java.time.LocalDate;
+
+import com.example.QuanLyLuong.common.CompensationItemType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,13 +23,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(
-        name = "timesheets",
-        uniqueConstraints = {
-            @UniqueConstraint(columnNames = {"employee_id", "month_value", "year_value"})
-        }
-)
-public class Timesheet {
+@Table(name = "compensation_items")
+public class CompensationItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,39 +34,30 @@ public class Timesheet {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @Column(name = "month_value", nullable = false)
-    private Integer month;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private CompensationItemType componentType;
 
-    @Column(name = "year_value", nullable = false)
-    private Integer year;
-
-    @Column(nullable = false)
-    private Integer workDays = 0;
+    @Column(nullable = false, length = 120)
+    private String name;
 
     @Column(nullable = false)
-    private Integer leaveDays = 0;
+    private Double amount = 0.0;
 
     @Column(nullable = false)
-    private Integer absentDays = 0;
+    private Boolean taxable = Boolean.FALSE;
 
     @Column(nullable = false)
-    private Double regularHours = 0.0;
+    private Boolean recurring = Boolean.TRUE;
 
     @Column(nullable = false)
-    private Double overtimeWeekdayHours = 0.0;
+    private Boolean active = Boolean.TRUE;
 
     @Column(nullable = false)
-    private Double overtimeWeekendHours = 0.0;
+    private LocalDate effectiveDate = LocalDate.now();
 
-    @Column(nullable = false)
-    private Double overtimeHolidayHours = 0.0;
-
-    @Column(nullable = false)
-    private Integer importedLogCount = 0;
+    private LocalDate endDate;
 
     @Column(length = 255)
     private String note;
-
-    @OneToOne(mappedBy = "timesheet")
-    private Payroll payroll;
 }
