@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dang nhap | Quan Ly Luong</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-body">
+<div class="auth-shell">
+    <div class="auth-card">
+        <p class="brand-kicker">Payroll Login</p>
+        <h1>Quan Ly Luong</h1>
+        <p class="auth-copy">Dang nhap de quan ly nhan vien, cham cong, bang luong va bao cao.</p>
+
+        <div class="alert danger" th:if="${param.error}">Ten dang nhap hoac mat khau khong dung.</div>
+        <div class="alert success" th:if="${param.logout}">Ban da dang xuat thanh cong.</div>
+
+        <form th:action="@{/login}" method="post" class="stack-form">
+            <label class="field-label" for="username">Ten dang nhap</label>
+            <input class="input" id="username" name="username" type="text" required autofocus>
+
+            <label class="field-label" for="password">Mat khau</label>
+            <input class="input" id="password" name="password" type="password" required>
+
+            <label class="checkbox-row">
+                <input type="checkbox" name="remember-me">
+                <span>Ghi nho dang nhap trong 7 ngay</span>
+            </label>
+
+            <button class="btn btn-primary btn-block" type="submit">Dang nhap</button>
+        </form>
+
+        <div class="login-hint">
+            <strong>Tai khoan mau:</strong>
+            <span>`admin / Admin@123`, `hr01 / Hr@123`, `nv001 / Nv@123`</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

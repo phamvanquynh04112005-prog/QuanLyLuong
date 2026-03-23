@@ -1,0 +1,74 @@
+<div th:fragment="content">
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Theo doi cong lam viec</p>
+                <h3 th:text="'Cham cong thang ' + ${month} + '/' + ${year}"></h3>
+            </div>
+            <a class="btn btn-primary" th:href="@{/timesheets/new(month=${month},year=${year})}">Nhap cham cong</a>
+        </div>
+
+        <div class="summary-row">
+            <div class="summary-box">
+                <div class="stat-label">Tong nhan vien da co bang cong</div>
+                <div class="stat-value" th:text="${summary.totalEmployees}"></div>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">Di lam du 26 cong</div>
+                <div class="stat-value" th:text="${summary.fullAttendanceCount}"></div>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">Trung binh ngay cong</div>
+                <div class="stat-value" th:text="${summary.averageWorkDays}"></div>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <form class="toolbar" method="get" th:action="@{/timesheets}">
+                <input class="input" style="max-width: 120px" type="number" min="1" max="12" name="month" th:value="${month}">
+                <input class="input" style="max-width: 120px" type="number" min="2020" max="2099" name="year" th:value="${year}">
+                <button class="btn btn-outline" type="submit">Xem thang</button>
+            </form>
+            <form th:action="@{/timesheets/bulk-init}" method="post">
+                <input type="hidden" name="month" th:value="${month}">
+                <input type="hidden" name="year" th:value="${year}">
+                <button class="btn btn-secondary" type="submit">Khoi tao hang loat</button>
+            </form>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nhan vien</th>
+                <th>Phong ban</th>
+                <th>Ngay cong</th>
+                <th>Nghi phep</th>
+                <th>Ngay vang</th>
+                <th>Ghi chu</th>
+                <th>Thao tac</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="timesheet : ${timesheets}">
+                <td th:text="${timesheet.employee.fullName}"></td>
+                <td th:text="${timesheet.employee.department != null ? timesheet.employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${timesheet.workDays}"></td>
+                <td th:text="${timesheet.leaveDays}"></td>
+                <td th:text="${T(java.lang.Math).max(0, 26 - timesheet.workDays - timesheet.leaveDays)}"></td>
+                <td th:text="${timesheet.note != null and !timesheet.note.isBlank() ? timesheet.note : 'Khong co'}"></td>
+                <td class="actions">
+                    <a class="btn btn-secondary btn-sm" th:href="@{/timesheets/new(employeeId=${timesheet.employee.id},month=${month},year=${year})}">Sua</a>
+                    <form th:action="@{/timesheets/{id}/delete(id=${timesheet.id})}" method="post">
+                        <input type="hidden" name="month" th:value="${month}">
+                        <input type="hidden" name="year" th:value="${year}">
+                        <button class="btn btn-danger btn-sm" type="submit">Xoa</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(timesheets)}">
+                <td colspan="7" class="empty-cell">Chua co du lieu cham cong. Ban co the khoi tao hang loat roi nhap cho tung nhan vien.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

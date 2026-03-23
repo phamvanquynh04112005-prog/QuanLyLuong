@@ -1,0 +1,45 @@
+<div th:fragment="content">
+    <section class="panel form-panel">
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">Bang cau hinh luong</p>
+                <h3>Ghi nhan phu cap, khau tru va ngay hieu luc</h3>
+            </div>
+            <a class="btn btn-outline" th:href="@{/salary-configs}">Quay lai</a>
+        </div>
+
+        <form class="stack-form" th:action="@{/salary-configs/save}" method="post">
+            <div class="grid two-col">
+                <div>
+                    <label class="field-label">Nhan vien</label>
+                    <select class="input" name="employeeId" required>
+                        <option value="">Chon nhan vien</option>
+                        <option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}" th:text="${employee.fullName} + ' - ' + (${employee.department != null ? employee.department.name : 'Chua co phong'})"></option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">Ngay ap dung</label>
+                    <input class="input" type="date" name="effectiveDate" th:value="${defaultDate}">
+                </div>
+                <div>
+                    <label class="field-label">Phu cap</label>
+                    <input class="input" type="number" step="1000" min="0" name="allowance" value="0">
+                </div>
+                <div>
+                    <label class="field-label">Khau tru</label>
+                    <input class="input" type="number" step="1000" min="0" name="deduction" value="0">
+                </div>
+            </div>
+
+            <div>
+                <label class="field-label">Mo ta</label>
+                <textarea class="input" name="description" rows="4" placeholder="Vi du: phu cap trach nhiem, BHXH, thuong KPI..."></textarea>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn btn-primary" type="submit">Luu cau hinh</button>
+                <a class="btn btn-secondary" th:href="@{/salary-configs}">Huy</a>
+            </div>
+        </form>
+    </section>
+</div>

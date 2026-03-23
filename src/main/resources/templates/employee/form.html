@@ -1,0 +1,56 @@
+<div th:fragment="content">
+    <section class="panel form-panel">
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">Ho so nhan vien</p>
+                <h3 th:text="${employee.id == null ? 'Them nhan vien moi' : 'Cap nhat nhan vien'}"></h3>
+            </div>
+            <a class="btn btn-outline" th:href="@{/employees}">Quay lai</a>
+        </div>
+
+        <form class="stack-form" th:action="@{/employees/save}" th:object="${employee}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="grid two-col">
+                <div>
+                    <label class="field-label">Ho va ten</label>
+                    <input class="input" type="text" th:field="*{fullName}" required>
+                </div>
+                <div>
+                    <label class="field-label">Email</label>
+                    <input class="input" type="email" th:field="*{email}" required>
+                </div>
+                <div>
+                    <label class="field-label">Chuc vu</label>
+                    <input class="input" type="text" th:field="*{position}">
+                </div>
+                <div>
+                    <label class="field-label">Phong ban</label>
+                    <select class="input" th:field="*{department.id}">
+                        <option value="">Chon phong ban</option>
+                        <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">Luong co ban</label>
+                    <input class="input" type="number" min="0" step="1000" th:field="*{baseSalary}">
+                </div>
+                <div>
+                    <label class="field-label">Ngay vao lam</label>
+                    <input class="input" type="date" th:field="*{joinDate}">
+                </div>
+                <div>
+                    <label class="field-label">Trang thai</label>
+                    <select class="input" th:field="*{status}">
+                        <option th:each="status : ${statuses}" th:value="${status}" th:text="${status.label}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn btn-primary" type="submit">Luu thong tin</button>
+                <a class="btn btn-secondary" th:href="@{/employees}">Huy</a>
+            </div>
+        </form>
+    </section>
+</div>

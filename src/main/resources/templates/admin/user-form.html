@@ -1,0 +1,49 @@
+<div th:fragment="content">
+    <section class="panel form-panel">
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">Tao va cap nhat tai khoan</p>
+                <h3 th:text="${user.id == null ? 'Them tai khoan' : 'Cap nhat tai khoan'}"></h3>
+            </div>
+            <a class="btn btn-outline" th:href="@{/admin/users}">Quay lai</a>
+        </div>
+
+        <form class="stack-form" th:action="@{/admin/users/save}" method="post">
+            <input type="hidden" name="id" th:value="${user.id}">
+
+            <div class="grid two-col">
+                <div>
+                    <label class="field-label">Nhan vien lien ket</label>
+                    <select class="input" name="employeeId">
+                        <option value="">Khong lien ket nhan vien</option>
+                        <option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${employeeId != null and employeeId == employee.id}" th:text="${employee.fullName} + ' - ' + (${employee.department != null ? employee.department.name : 'Chua co phong'})"></option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">Role</label>
+                    <select class="input" name="role">
+                        <option th:each="role : ${roles}" th:value="${role}" th:selected="${user.role != null and user.role == role}" th:text="${role.label}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">Username</label>
+                    <input class="input" type="text" name="username" th:value="${user.username}" required>
+                </div>
+                <div>
+                    <label class="field-label">Mat khau <span class="stat-label" th:if="${user.id != null}">(bo trong neu khong doi)</span></label>
+                    <input class="input" type="password" name="password">
+                </div>
+            </div>
+
+            <label class="checkbox-row">
+                <input type="checkbox" name="enabled" th:checked="${user.id == null or user.enabled}">
+                <span>Cho phep tai khoan dang nhap</span>
+            </label>
+
+            <div class="actions-row">
+                <button class="btn btn-primary" type="submit">Luu tai khoan</button>
+                <a class="btn btn-secondary" th:href="@{/admin/users}">Huy</a>
+            </div>
+        </form>
+    </section>
+</div>

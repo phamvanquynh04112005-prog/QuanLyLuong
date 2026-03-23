@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Loi</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-body">
+<div class="auth-shell">
+    <div class="auth-card error-card">
+        <p class="brand-kicker">Application Error</p>
+        <h1 th:text="${errorTitle}">Da xay ra loi</h1>
+        <p class="auth-copy" th:text="${errorMessage}">Vui long thu lai.</p>
+        <a class="btn btn-primary btn-block" th:href="@{/dashboard}">Quay ve dashboard</a>
+    </div>
+</div>
+</body>
+</html>

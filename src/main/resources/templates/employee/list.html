@@ -1,0 +1,52 @@
+<div th:fragment="content">
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Danh sach nhan vien</p>
+                <h3>Them, cap nhat va tra cuu ho so nhan su</h3>
+            </div>
+            <a class="btn btn-primary" th:href="@{/employees/new}">Them nhan vien</a>
+        </div>
+
+        <form class="toolbar" method="get" th:action="@{/employees}">
+            <input class="input" type="text" name="keyword" placeholder="Tim theo ho ten..." th:value="${keyword}">
+            <button class="btn btn-outline" type="submit">Tim kiem</button>
+        </form>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Ho ten</th>
+                <th>Email</th>
+                <th>Chuc vu</th>
+                <th>Phong ban</th>
+                <th>Luong co ban</th>
+                <th>Trang thai</th>
+                <th>Thao tac</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.fullName}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.position}"></td>
+                <td th:text="${employee.department != null ? employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${#numbers.formatDecimal(employee.baseSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td>
+                    <span class="badge" th:classappend="${employee.status.name() == 'ACTIVE'} ? ' badge-success' : ' badge-muted'"
+                          th:text="${employee.status.label}"></span>
+                </td>
+                <td class="actions">
+                    <a class="btn btn-secondary btn-sm" th:href="@{/employees/edit/{id}(id=${employee.id})}">Sua</a>
+                    <form th:action="@{/employees/{id}/delete(id=${employee.id})}" method="post">
+                        <button class="btn btn-danger btn-sm" type="submit">Xoa</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(employees)}">
+                <td colspan="7" class="empty-cell">Chua co nhan vien nao.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

@@ -1,0 +1,41 @@
+<div th:fragment="content">
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Tra cuu thu nhap ca nhan</p>
+                <h3>Phieu luong cua toi</h3>
+            </div>
+            <a class="btn btn-outline" th:href="@{/dashboard}">Ve dashboard</a>
+        </div>
+
+        <div class="alert danger" th:if="${employee == null}">Tai khoan nay chua duoc lien ket voi nhan vien, vui long nhan admin cap quyen.</div>
+
+        <table class="table" th:if="${employee != null}">
+            <thead>
+            <tr>
+                <th>Thang/Nam</th>
+                <th>Ngay cong</th>
+                <th>Luong thuc nhan</th>
+                <th>Trang thai</th>
+                <th>Phieu luong</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="payroll : ${payrolls}">
+                <td th:text="${payroll.month} + '/' + ${payroll.year}"></td>
+                <td th:text="${payroll.timesheet != null ? payroll.timesheet.workDays : 0}"></td>
+                <td th:text="${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td>
+                    <span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'" th:text="${payroll.paymentStatus.label}"></span>
+                </td>
+                <td>
+                    <a class="btn btn-outline btn-sm" th:href="@{/export/pdf/payslip/{id}(id=${payroll.id})}">Tai PDF</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(payrolls)}">
+                <td colspan="5" class="empty-cell">Ban chua co bang luong nao.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

@@ -1,0 +1,73 @@
+<div th:fragment="content">
+    <section class="hero-panel">
+        <div>
+            <p class="eyebrow">Tong quan van hanh</p>
+            <h2>Dieu phoi nhan su, cham cong va luong tren mot giao dien duy nhat.</h2>
+            <p class="hero-copy">MVP nay da noi thong toan bo luong cong viec: tao nhan vien, cau hinh luong, nhap cham cong, tinh luong, theo doi chi tra va xuat file.</p>
+        </div>
+        <div class="hero-tag">Thang <span th:text="${currentMonth}">1</span>/<span th:text="${currentYear}">2026</span></div>
+    </section>
+
+    <section class="stats-grid">
+        <article class="stat-card">
+            <div class="stat-label">Tong nhan vien</div>
+            <div class="stat-value" th:text="${stats.totalEmployees}">0</div>
+        </article>
+        <article class="stat-card">
+            <div class="stat-label">Nhan vien dang hoat dong</div>
+            <div class="stat-value" th:text="${stats.activeEmployees}">0</div>
+        </article>
+        <article class="stat-card">
+            <div class="stat-label">Phong ban</div>
+            <div class="stat-value" th:text="${stats.totalDepartments}">0</div>
+        </article>
+        <article class="stat-card">
+            <div class="stat-label">Tai khoan he thong</div>
+            <div class="stat-value" th:text="${stats.totalUsers}">0</div>
+        </article>
+        <article class="stat-card">
+            <div class="stat-label">Bang luong trong thang</div>
+            <div class="stat-value" th:text="${stats.payrollCount}">0</div>
+        </article>
+        <article class="stat-card accent">
+            <div class="stat-label">Tong chi luong</div>
+            <div class="stat-value" th:text="${#numbers.formatDecimal(stats.payrollTotal, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</div>
+        </article>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Bang luong gan day</p>
+                <h3>Du lieu thang hien tai</h3>
+            </div>
+            <a class="btn btn-primary" th:href="@{/payrolls}">Mo bang luong</a>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nhân viên</th>
+                <th>Phong ban</th>
+                <th>Ngay cong</th>
+                <th>Luong thuc nhan</th>
+                <th>Trang thai</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="payroll : ${recentPayrolls}">
+                <td th:text="${payroll.employee.fullName}"></td>
+                <td th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${payroll.timesheet != null ? payroll.timesheet.workDays : 0}"></td>
+                <td th:text="${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td>
+                    <span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'"
+                          th:text="${payroll.paymentStatus.label}"></span>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(recentPayrolls)}">
+                <td colspan="5" class="empty-cell">Chua co bang luong thang nay. Hay nhap cham cong va tinh luong.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

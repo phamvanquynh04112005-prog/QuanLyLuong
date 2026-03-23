@@ -1,0 +1,69 @@
+<div th:fragment="content">
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Tinh luong theo thang</p>
+                <h3 th:text="'Bang luong thang ' + ${month} + '/' + ${year}"></h3>
+            </div>
+            <div class="actions-row">
+                <a class="btn btn-secondary" th:href="@{/export/excel/payroll(month=${month},year=${year})}">Xuat Excel</a>
+                <a class="btn btn-secondary" th:href="@{/export/pdf/payroll(month=${month},year=${year})}">Xuat PDF</a>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <form class="toolbar" method="get" th:action="@{/payrolls}">
+                <input class="input" style="max-width: 120px" type="number" min="1" max="12" name="month" th:value="${month}">
+                <input class="input" style="max-width: 120px" type="number" min="2020" max="2099" name="year" th:value="${year}">
+                <button class="btn btn-outline" type="submit">Xem du lieu</button>
+            </form>
+            <form th:action="@{/payrolls/calculate}" method="post">
+                <input type="hidden" name="month" th:value="${month}">
+                <input type="hidden" name="year" th:value="${year}">
+                <button class="btn btn-primary" type="submit">Tinh luong hang loat</button>
+            </form>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nhan vien</th>
+                <th>Phong ban</th>
+                <th>Ngay cong</th>
+                <th>Luong thuc nhan</th>
+                <th>Trang thai</th>
+                <th>Ngay chi</th>
+                <th>Thao tac</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="payroll : ${payrolls}">
+                <td th:text="${payroll.employee.fullName}"></td>
+                <td th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${payroll.timesheet != null ? payroll.timesheet.workDays : 0}"></td>
+                <td th:text="${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td>
+                    <span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'" th:text="${payroll.paymentStatus.label}"></span>
+                </td>
+                <td th:text="${payroll.paymentDate != null ? payroll.paymentDate : '--'}"></td>
+                <td class="actions">
+                    <form th:if="${payroll.paymentStatus.name() == 'PENDING'}" th:action="@{/payrolls/pay/{id}(id=${payroll.id})}" method="post">
+                        <input type="hidden" name="month" th:value="${month}">
+                        <input type="hidden" name="year" th:value="${year}">
+                        <button class="btn btn-primary btn-sm" type="submit">Xac nhan chi</button>
+                    </form>
+                    <a class="btn btn-outline btn-sm" th:href="@{/export/pdf/payslip/{id}(id=${payroll.id})}">Phieu luong</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(payrolls)}">
+                <td colspan="7" class="empty-cell">Chua co bang luong. Hay nhap cham cong roi bam "Tinh luong hang loat".</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="summary-box" th:if="${not #lists.isEmpty(payrolls)}">
+            <div class="stat-label">Tong chi luong cua thang</div>
+            <div class="stat-value" th:text="${#numbers.formatDecimal(totalSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></div>
+        </div>
+    </section>
+</div>

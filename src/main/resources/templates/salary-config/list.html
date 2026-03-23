@@ -1,0 +1,46 @@
+<div th:fragment="content">
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Phu cap va khau tru</p>
+                <h3>Cau hinh luong theo nhan vien</h3>
+            </div>
+            <a class="btn btn-primary" th:href="@{/salary-configs/new}">Them cau hinh</a>
+        </div>
+
+        <form class="toolbar" method="get" th:action="@{/salary-configs}">
+            <select class="input" name="employeeId">
+                <option value="">Xem cau hinh moi nhat cua tat ca</option>
+                <option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}" th:text="${employee.fullName}"></option>
+            </select>
+            <button class="btn btn-outline" type="submit">Loc du lieu</button>
+            <a class="btn btn-secondary" th:if="${historyView}" th:href="@{/salary-configs}">Ve danh sach tong</a>
+        </form>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nhan vien</th>
+                <th>Phong ban</th>
+                <th>Phu cap</th>
+                <th>Khau tru</th>
+                <th>Ngay ap dung</th>
+                <th>Mo ta</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="config : ${salaryConfigs}">
+                <td th:text="${config.employee.fullName}"></td>
+                <td th:text="${config.employee.department != null ? config.employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${#numbers.formatDecimal(config.allowance, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td th:text="${#numbers.formatDecimal(config.deduction, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                <td th:text="${config.effectiveDate}"></td>
+                <td th:text="${config.description}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(salaryConfigs)}">
+                <td colspan="6" class="empty-cell">Chua co cau hinh luong nao.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

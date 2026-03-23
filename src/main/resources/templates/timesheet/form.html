@@ -1,0 +1,62 @@
+<div th:fragment="content">
+    <section class="panel form-panel">
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">Nhap cong tung nhan vien</p>
+                <h3>Chon thang, nam va nhan vien de cap nhat bang cong</h3>
+            </div>
+            <a class="btn btn-outline" th:href="@{/timesheets(month=${month},year=${year})}">Quay lai</a>
+        </div>
+
+        <form class="toolbar" method="get" th:action="@{/timesheets/new}">
+            <input class="input" style="max-width: 120px" type="number" min="1" max="12" name="month" th:value="${month}">
+            <input class="input" style="max-width: 120px" type="number" min="2020" max="2099" name="year" th:value="${year}">
+            <select class="input" name="employeeId" style="min-width: 260px">
+                <option value="">Chon nhan vien</option>
+                <option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}" th:text="${employee.fullName} + ' - ' + (${employee.department != null ? employee.department.name : 'Chua co phong'})"></option>
+            </select>
+            <button class="btn btn-secondary" type="submit">Tai du lieu</button>
+        </form>
+
+        <form class="stack-form" th:if="${selectedEmployeeId != null}" th:action="@{/timesheets/save}" method="post">
+            <input type="hidden" name="employeeId" th:value="${selectedEmployeeId}">
+            <input type="hidden" name="month" th:value="${month}">
+            <input type="hidden" name="year" th:value="${year}">
+
+            <div class="grid two-col">
+                <div>
+                    <label class="field-label">Ngay cong thuc te</label>
+                    <input class="input" id="workDays" type="number" min="0" max="31" name="workDays" th:value="${timesheet.workDays != null ? timesheet.workDays : 0}" oninput="calcAbsent()" required>
+                </div>
+                <div>
+                    <label class="field-label">Ngay nghi phep</label>
+                    <input class="input" id="leaveDays" type="number" min="0" max="31" name="leaveDays" th:value="${timesheet.leaveDays != null ? timesheet.leaveDays : 0}" oninput="calcAbsent()">
+                </div>
+                <div>
+                    <label class="field-label">Ngay vang</label>
+                    <input class="input" id="absentDays" type="text" readonly>
+                </div>
+            </div>
+            <div>
+                <label class="field-label">Ghi chu</label>
+                <textarea class="input" rows="4" name="note" th:text="${timesheet.note}"></textarea>
+            </div>
+            <div class="actions-row">
+                <button class="btn btn-primary" type="submit">Luu cham cong</button>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        function calcAbsent() {
+            const work = parseInt(document.getElementById('workDays')?.value || '0', 10);
+            const leave = parseInt(document.getElementById('leaveDays')?.value || '0', 10);
+            const absent = Math.max(0, 26 - work - leave);
+            const target = document.getElementById('absentDays');
+            if (target) {
+                target.value = absent + ' ngay';
+            }
+        }
+        calcAbsent();
+    </script>
+</div>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} + ' | Quan Ly Luong'">Quan Ly Luong</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand-block">
+            <div class="brand-kicker">Payroll Web</div>
+            <a class="brand-title" th:href="@{/dashboard}">Quan Ly Luong</a>
+            <p class="brand-subtitle">Spring Boot, Thymeleaf, JPA, Security</p>
+        </div>
+
+        <nav class="nav-menu">
+            <a class="nav-link" th:href="@{/dashboard}">Tong quan</a>
+            <a class="nav-link" th:href="@{/employees}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Nhan vien</a>
+            <a class="nav-link" th:href="@{/salary-configs}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Cau hinh luong</a>
+            <a class="nav-link" th:href="@{/timesheets}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Cham cong</a>
+            <a class="nav-link" th:href="@{/payrolls}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Bang luong</a>
+            <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Bao cao</a>
+            <a class="nav-link" th:href="@{/payrolls/my}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR','ROLE_EMPLOYEE')">Phieu luong</a>
+            <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_ADMIN')">Tai khoan</a>
+            <a class="nav-link" th:href="@{/h2-console}" target="_blank">H2 Console</a>
+        </nav>
+    </aside>
+
+    <main class="main-panel">
+        <header class="topbar">
+            <div>
+                <p class="page-kicker">He thong web quan ly luong</p>
+                <h1 class="page-title" th:text="${pageTitle}">Trang</h1>
+            </div>
+            <div class="account-box">
+                <div>
+                    <div class="account-name" sec:authentication="name">username</div>
+                    <div class="account-role" sec:authentication="principal.role">ROLE_ADMIN</div>
+                </div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-outline">Dang xuat</button>
+                </form>
+            </div>
+        </header>
+
+        <section class="content-area">
+            <div class="alert success" th:if="${successMsg}" th:text="${successMsg}"></div>
+            <div class="alert danger" th:if="${errorMsg}" th:text="${errorMsg}"></div>
+            <div th:replace="~{${contentTemplate} :: content}"></div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
