@@ -64,11 +64,14 @@ public class PayrollService {
         }
 
         double baseSalaryAmount = round2(hourlyRate * Math.min(regularHours, standardMonthlyHours));
-        double overtimePay = round2(hourlyRate * (
-                safeDouble(timesheet.getOvertimeWeekdayHours()) * positiveDouble(config.getOvertimeWeekdayMultiplier(), 1.5)
-                        + safeDouble(timesheet.getOvertimeWeekendHours()) * positiveDouble(config.getOvertimeWeekendMultiplier(), 2.0)
-                        + safeDouble(timesheet.getOvertimeHolidayHours()) * positiveDouble(config.getOvertimeHolidayMultiplier(), 3.0)
-        ));
+        double totalOvertimeHours = safeDouble(timesheet.getOvertimeWeekdayHours())
+                + safeDouble(timesheet.getOvertimeWeekendHours())
+                + safeDouble(timesheet.getOvertimeHolidayHours());
+        double overtimePay = round2(
+                hourlyRate
+                        * totalOvertimeHours
+                        * positiveDouble(config.getOvertimeWeekdayMultiplier(), 1.5)
+        );
 
         double dynamicAllowance = sumByType(applicableItems, CompensationItemType.ALLOWANCE);
         double dynamicBonus = sumByType(applicableItems, CompensationItemType.BONUS);

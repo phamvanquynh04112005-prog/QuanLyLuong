@@ -573,6 +573,10 @@ textarea:focus {
     gap: 18px;
 }
 
+.detail-grid[hidden] {
+    display: none !important;
+}
+
 .wide-card {
     width: 100%;
 }

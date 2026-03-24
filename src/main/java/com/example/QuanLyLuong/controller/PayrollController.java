@@ -9,6 +9,7 @@ import com.example.QuanLyLuong.dto.PayrollSearchSummary;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.Payroll;
 import com.example.QuanLyLuong.service.DepartmentService;
+import com.example.QuanLyLuong.service.PayrollMailService;
 import com.example.QuanLyLuong.service.PayrollService;
 import com.example.QuanLyLuong.service.UserService;
 
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PayrollController {
 
     private final PayrollService payrollService;
+    private final PayrollMailService payrollMailService;
     private final UserService userService;
     private final DepartmentService departmentService;
 
@@ -96,6 +98,44 @@ public class PayrollController {
                       RedirectAttributes redirectAttributes) {
         payrollService.markAsPaid(id);
         redirectAttributes.addFlashAttribute("successMsg", "Da cap nhat trang thai chi luong.");
+        return "redirect:/payrolls?month=" + month + "&year=" + year;
+    }
+
+    @PostMapping("/send-mail/{id}")
+    public String sendMail(@PathVariable Long id,
+                           @RequestParam Integer month,
+                           @RequestParam Integer year,
+                           RedirectAttributes redirectAttributes) {
+        Payroll payroll = payrollService.findById(id);
+        return sendMailInternal(payroll, month, year, redirectAttributes);
+    }
+
+    @GetMapping("/send-mail/{id}")
+    public String sendMailFallback(@PathVariable Long id,
+                                   @RequestParam(required = false) Integer month,
+                                   @RequestParam(required = false) Integer year,
+                                   RedirectAttributes redirectAttributes) {
+        Payroll payroll = payrollService.findById(id);
+        int resolvedMonth = month != null ? month : payroll.getMonth();
+        int resolvedYear = year != null ? year : payroll.getYear();
+        return sendMailInternal(payroll, resolvedMonth, resolvedYear, redirectAttributes);
+    }
+
+    private String sendMailInternal(Payroll payroll,
+                                    Integer month,
+                                    Integer year,
+                                    RedirectAttributes redirectAttributes) {
+        if (payroll.getPaymentStatus() != PaymentStatus.PAID) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Chi gui mail sau khi bang luong da o trang thai Da chi.");
+            return "redirect:/payrolls?month=" + month + "&year=" + year;
+        }
+        try {
+            payrollMailService.sendPayslipEmail(payroll);
+            String recipient = payroll.getEmployee() != null ? payroll.getEmployee().getEmail() : "";
+            redirectAttributes.addFlashAttribute("successMsg", "Da gui phieu luong qua email: " + recipient);
+        } catch (Exception exception) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Gui mail that bai: " + exception.getMessage());
+        }
         return "redirect:/payrolls?month=" + month + "&year=" + year;
     }
 

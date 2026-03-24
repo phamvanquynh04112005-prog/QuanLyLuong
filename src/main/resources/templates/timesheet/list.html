@@ -5,14 +5,6 @@
                 <p class="panel-kicker">Theo doi cong lam viec</p>
                 <h3 th:text="|Cham cong thang ${month}/${year}|"></h3>
             </div>
-            <a class="btn btn-primary" th:href="@{/timesheets/new(month=${month},year=${year})}">Nhap chi tiet</a>
-        </div>
-
-        <div class="summary-row">
-            <div class="summary-box"><div class="stat-label">Tong nhan vien da co bang cong</div><div class="stat-value" th:text="${summary.totalEmployees}"></div></div>
-            <div class="summary-box"><div class="stat-label">Di lam du 26 cong</div><div class="stat-value" th:text="${summary.fullAttendanceCount}"></div></div>
-            <div class="summary-box"><div class="stat-label">Trung binh ngay cong</div><div class="stat-value" th:text="${summary.averageWorkDays}"></div></div>
-            <div class="summary-box"><div class="stat-label">Tong gio thuong / OT</div><div class="stat-value small-stack"><span th:text="|${summary.totalRegularHours}h thuong|"></span><span th:text="|${summary.totalOvertimeHours}h OT|"></span></div></div>
         </div>
 
         <div class="toolbar">
@@ -21,14 +13,17 @@
                 <input class="input" style="max-width: 120px" type="number" min="2020" max="2099" name="year" th:value="${year}">
                 <button class="btn btn-outline" type="submit">Xem thang</button>
             </form>
-            <form th:action="@{/timesheets/bulk-init}" method="post">
-                <input type="hidden" name="month" th:value="${month}">
-                <input type="hidden" name="year" th:value="${year}">
-                <button class="btn btn-secondary" type="submit">Khoi tao hang loat</button>
-            </form>
+            <button class="btn btn-secondary"
+                    type="button"
+                    id="toggleImportFormBtn"
+                    aria-expanded="false"
+                    aria-controls="importFormWrapper">
+                Import bang cong Excel
+            </button>
+            <a class="btn btn-outline" th:href="@{/export/excel/timesheet(month=${month},year=${year})}">Export bang cong Excel</a>
         </div>
 
-        <div class="detail-grid">
+        <div class="detail-grid" id="importFormWrapper" hidden>
             <div class="summary-box wide-card">
                 <div class="panel-header compact">
                     <div>
@@ -49,16 +44,13 @@
                         <div>
                             <label class="field-label">Nguon du lieu</label>
                             <select class="input" name="source">
-                                <option th:each="source : ${attendanceSources}" th:value="${source}" th:text="${source.label}" th:selected="${source.name() == 'EXCEL_IMPORT'}"></option>
+                                <option value="EXCEL_IMPORT" selected>Import Excel</option>
                             </select>
                         </div>
                         <div>
                             <label class="field-label">File .xlsx</label>
                             <input class="input" type="file" name="file" accept=".xlsx" required>
                         </div>
-                    </div>
-                    <div class="summary-box helper-card">
-                        Cot ho tro: <strong>employeeCode</strong> hoac <strong>email</strong>, <strong>attendanceDate</strong>, <strong>checkIn</strong>, <strong>checkOut</strong>, <strong>regularHours</strong>, <strong>overtimeWeekdayHours</strong>, <strong>overtimeWeekendHours</strong>, <strong>overtimeHolidayHours</strong>, <strong>lateMinutes</strong>, <strong>machineCode</strong>, <strong>note</strong>.
                     </div>
                     <div class="actions-row">
                         <button class="btn btn-primary" type="submit">Import file</button>
@@ -68,7 +60,7 @@
         </div>
 
         <table class="table">
-            <thead><tr><th>Nhan vien</th><th>Phong ban</th><th>Ngay cong</th><th>Nghi phep</th><th>Gio thuong</th><th>OT tong</th><th>So log</th><th>Ghi chu</th><th>Thao tac</th></tr></thead>
+            <thead><tr><th>Nhan vien</th><th>Phong ban</th><th>Ngay cong</th><th>Nghi phep</th><th>Gio thuong</th><th>GIO TANG CA</th><th>So log</th><th>Ghi chu</th><th>Thao tac</th></tr></thead>
             <tbody>
             <tr th:each="timesheet : ${timesheets}">
                 <td>
@@ -83,12 +75,27 @@
                 <td th:text="${timesheet.importedLogCount}"></td>
                 <td th:text="${timesheet.note != null and !timesheet.note.isBlank() ? timesheet.note : 'Khong co'}"></td>
                 <td class="actions">
-                    <a class="btn btn-secondary btn-sm" th:href="@{/timesheets/new(employeeId=${timesheet.employee.id},month=${month},year=${year})}">Chi tiet</a>
+                    <a class="btn btn-outline btn-sm" th:href="@{/timesheets/{id}/details(id=${timesheet.id},month=${month},year=${year})}">Chi tiet</a>
                     <form th:action="@{/timesheets/{id}/delete(id=${timesheet.id})}" method="post"><input type="hidden" name="month" th:value="${month}"><input type="hidden" name="year" th:value="${year}"><button class="btn btn-danger btn-sm" type="submit">Xoa</button></form>
                 </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(timesheets)}"><td colspan="9" class="empty-cell">Chua co du lieu cham cong. Ban co the khoi tao hang loat hoac import file log Excel.</td></tr>
+            <tr th:if="${#lists.isEmpty(timesheets)}"><td colspan="9" class="empty-cell">Chua co du lieu cham cong. Ban co the import file log Excel.</td></tr>
             </tbody>
         </table>
     </section>
+    <script>
+        (() => {
+            const toggleButton = document.getElementById("toggleImportFormBtn");
+            const importFormWrapper = document.getElementById("importFormWrapper");
+            if (!toggleButton || !importFormWrapper) {
+                return;
+            }
+            toggleButton.addEventListener("click", () => {
+                const willShow = importFormWrapper.hasAttribute("hidden");
+                importFormWrapper.toggleAttribute("hidden");
+                toggleButton.setAttribute("aria-expanded", String(willShow));
+                toggleButton.textContent = willShow ? "An form import" : "Import bang cong Excel";
+            });
+        })();
+    </script>
 </div>

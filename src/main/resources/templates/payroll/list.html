@@ -60,6 +60,11 @@
                         <input type="hidden" name="year" th:value="${year}">
                         <button class="btn btn-primary btn-sm" type="submit">Xac nhan chi</button>
                     </form>
+                    <form th:if="${payroll.paymentStatus.name() == 'PAID'}" th:action="@{/payrolls/send-mail/{id}(id=${payroll.id})}" method="post">
+                        <input type="hidden" name="month" th:value="${month}">
+                        <input type="hidden" name="year" th:value="${year}">
+                        <button class="btn btn-secondary btn-sm" type="submit" formmethod="post">Gui mail</button>
+                    </form>
                     <a class="btn btn-outline btn-sm" th:href="@{/export/pdf/payslip/{id}(id=${payroll.id})}">Phieu luong</a>
                 </td>
             </tr>

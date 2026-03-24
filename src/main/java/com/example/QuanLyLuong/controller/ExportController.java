@@ -4,6 +4,7 @@ import com.example.QuanLyLuong.common.Role;
 import com.example.QuanLyLuong.entity.Payroll;
 import com.example.QuanLyLuong.entity.User;
 import com.example.QuanLyLuong.service.PayrollService;
+import com.example.QuanLyLuong.service.TimesheetService;
 import com.example.QuanLyLuong.service.UserService;
 import com.example.QuanLyLuong.service.export.ExcelExportService;
 import com.example.QuanLyLuong.service.export.PdfExportService;
@@ -28,6 +29,7 @@ public class ExportController {
     private final ExcelExportService excelExportService;
     private final PdfExportService pdfExportService;
     private final PayrollService payrollService;
+    private final TimesheetService timesheetService;
     private final UserService userService;
 
     @GetMapping("/excel/payroll")
@@ -45,6 +47,15 @@ public class ExportController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=bang-luong-" + month + "-" + year + ".pdf")
                 .contentType(MediaType.APPLICATION_PDF)
+                .body(data);
+    }
+
+    @GetMapping("/excel/timesheet")
+    public ResponseEntity<byte[]> exportTimesheetExcel(@RequestParam Integer month, @RequestParam Integer year) throws Exception {
+        byte[] data = excelExportService.exportTimesheetToExcel(timesheetService.findAllByMonth(month, year), month, year);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=bang-cong-" + month + "-" + year + ".xlsx")
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
                 .body(data);
     }
 

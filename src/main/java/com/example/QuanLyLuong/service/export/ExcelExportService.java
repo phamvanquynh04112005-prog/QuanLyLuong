@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.QuanLyLuong.common.PaymentStatus;
 import com.example.QuanLyLuong.entity.Payroll;
+import com.example.QuanLyLuong.entity.Timesheet;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -110,5 +111,121 @@ public class ExcelExportService {
             workbook.write(outputStream);
             return outputStream.toByteArray();
         }
+    }
+
+    public byte[] exportTimesheetToExcel(List<Timesheet> timesheets, int month, int year) throws IOException {
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Bang cong " + month + "-" + year);
+
+            CellStyle titleStyle = workbook.createCellStyle();
+            Font titleFont = workbook.createFont();
+            titleFont.setBold(true);
+            titleFont.setFontHeightInPoints((short) 14);
+            titleStyle.setFont(titleFont);
+
+            CellStyle headerStyle = workbook.createCellStyle();
+            headerStyle.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyle.setBorderBottom(BorderStyle.THIN);
+            headerStyle.setAlignment(HorizontalAlignment.CENTER);
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerFont.setColor(IndexedColors.WHITE.getIndex());
+            headerStyle.setFont(headerFont);
+
+            CellStyle numberStyle = workbook.createCellStyle();
+            DataFormat format = workbook.createDataFormat();
+            numberStyle.setDataFormat(format.getFormat("#,##0.00"));
+            numberStyle.setAlignment(HorizontalAlignment.RIGHT);
+
+            CellStyle totalStyle = workbook.createCellStyle();
+            totalStyle.cloneStyleFrom(numberStyle);
+            totalStyle.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
+            totalStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            Font totalFont = workbook.createFont();
+            totalFont.setBold(true);
+            totalStyle.setFont(totalFont);
+
+            Row titleRow = sheet.createRow(0);
+            Cell titleCell = titleRow.createCell(0);
+            titleCell.setCellValue("BANG CONG THANG " + month + "/" + year);
+            titleCell.setCellStyle(titleStyle);
+            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 8));
+
+            String[] headers = {"STT", "Nhan vien", "Phong ban", "Ngay cong", "Nghi phep", "Gio thuong", "Gio tang ca", "So log", "Ghi chu"};
+            Row headerRow = sheet.createRow(2);
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+                cell.setCellStyle(headerStyle);
+            }
+
+            double totalWorkDays = 0.0;
+            double totalLeaveDays = 0.0;
+            double totalRegularHours = 0.0;
+            double totalOvertimeHours = 0.0;
+
+            int rowNum = 3;
+            for (int i = 0; i < timesheets.size(); i++) {
+                Timesheet timesheet = timesheets.get(i);
+                double overtimeHours = safeDouble(timesheet.getOvertimeWeekdayHours())
+                        + safeDouble(timesheet.getOvertimeWeekendHours())
+                        + safeDouble(timesheet.getOvertimeHolidayHours());
+
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(i + 1);
+                row.createCell(1).setCellValue(timesheet.getEmployee().getFullName());
+                row.createCell(2).setCellValue(timesheet.getEmployee().getDepartment() != null ? timesheet.getEmployee().getDepartment().getName() : "");
+                row.createCell(3).setCellValue(timesheet.getWorkDays() == null ? 0 : timesheet.getWorkDays());
+                row.createCell(4).setCellValue(timesheet.getLeaveDays() == null ? 0 : timesheet.getLeaveDays());
+
+                Cell regularHoursCell = row.createCell(5);
+                regularHoursCell.setCellValue(safeDouble(timesheet.getRegularHours()));
+                regularHoursCell.setCellStyle(numberStyle);
+
+                Cell overtimeHoursCell = row.createCell(6);
+                overtimeHoursCell.setCellValue(overtimeHours);
+                overtimeHoursCell.setCellStyle(numberStyle);
+
+                row.createCell(7).setCellValue(timesheet.getImportedLogCount() == null ? 0 : timesheet.getImportedLogCount());
+                row.createCell(8).setCellValue(timesheet.getNote() == null ? "" : timesheet.getNote());
+
+                totalWorkDays += timesheet.getWorkDays() == null ? 0 : timesheet.getWorkDays();
+                totalLeaveDays += timesheet.getLeaveDays() == null ? 0 : timesheet.getLeaveDays();
+                totalRegularHours += safeDouble(timesheet.getRegularHours());
+                totalOvertimeHours += overtimeHours;
+            }
+
+            Row totalRow = sheet.createRow(rowNum);
+            totalRow.createCell(2).setCellValue("Tong cong");
+
+            Cell totalWorkDaysCell = totalRow.createCell(3);
+            totalWorkDaysCell.setCellValue(totalWorkDays);
+            totalWorkDaysCell.setCellStyle(totalStyle);
+
+            Cell totalLeaveDaysCell = totalRow.createCell(4);
+            totalLeaveDaysCell.setCellValue(totalLeaveDays);
+            totalLeaveDaysCell.setCellStyle(totalStyle);
+
+            Cell totalRegularHoursCell = totalRow.createCell(5);
+            totalRegularHoursCell.setCellValue(totalRegularHours);
+            totalRegularHoursCell.setCellStyle(totalStyle);
+
+            Cell totalOvertimeHoursCell = totalRow.createCell(6);
+            totalOvertimeHoursCell.setCellValue(totalOvertimeHours);
+            totalOvertimeHoursCell.setCellStyle(totalStyle);
+
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            workbook.write(outputStream);
+            return outputStream.toByteArray();
+        }
+    }
+
+    private double safeDouble(Double value) {
+        return value == null ? 0.0 : value;
     }
 }

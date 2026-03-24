@@ -1,0 +1,2964 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.example:QuanLyLuong >-----------------------
+[INFO] Building QuanLyLuong 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.4:run (default-cli) > test-compile @ QuanLyLuong >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ QuanLyLuong ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 18 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ QuanLyLuong ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ QuanLyLuong ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ QuanLyLuong ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.4:run (default-cli) < test-compile @ QuanLyLuong <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.4:run (default-cli) @ QuanLyLuong ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.4)
+
+2026-03-24T22:44:24.092+07:00  INFO 19248 --- [QuanLyLuong] [           main] c.e.QuanLyLuong.QuanLyLuongApplication   : Starting QuanLyLuongApplication using Java 25.0.1 with PID 19248 (D:\DuLieuDaiHoc\2026nam3\KI-2\ontap-jva\QuanLyLuong\target\classes started by ADMIN in D:\DuLieuDaiHoc\2026nam3\KI-2\ontap-jva\QuanLyLuong)
+2026-03-24T22:44:24.095+07:00  INFO 19248 --- [QuanLyLuong] [           main] c.e.QuanLyLuong.QuanLyLuongApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-03-24T22:44:24.095+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.boot.SpringApplication               : Loading source class com.example.QuanLyLuong.QuanLyLuongApplication
+2026-03-24T22:44:24.123+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.server.servlet.context.AnnotationConfigServletWebServerApplicationContext@727eb8cb
+2026-03-24T22:44:24.561+07:00  INFO 19248 --- [QuanLyLuong] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-24T22:44:24.573+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.example.QuanLyLuong'. Automatic @Repository and @Entity scanning is enabled.
+2026-03-24T22:44:24.624+07:00  INFO 19248 --- [QuanLyLuong] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56 ms. Found 8 JPA repository interfaces.
+2026-03-24T22:44:24.972+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.t.s.TomcatServletWebServerFactory  : Code archive: C:\Users\ADMIN\.m2\repository\org\springframework\boot\spring-boot-web-server\4.0.4\spring-boot-web-server-4.0.4.jar
+2026-03-24T22:44:24.972+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.t.s.TomcatServletWebServerFactory  : Code archive: C:\Users\ADMIN\.m2\repository\org\springframework\boot\spring-boot-web-server\4.0.4\spring-boot-web-server-4.0.4.jar
+2026-03-24T22:44:24.972+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.t.s.TomcatServletWebServerFactory  : None of the document roots [src/main/webapp, public, static] point to a directory and will be ignored.
+2026-03-24T22:44:24.987+07:00  INFO 19248 --- [QuanLyLuong] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-24T22:44:24.996+07:00  INFO 19248 --- [QuanLyLuong] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-24T22:44:24.996+07:00  INFO 19248 --- [QuanLyLuong] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-24T22:44:25.030+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] b.w.c.s.WebApplicationContextInitializer : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2026-03-24T22:44:25.030+07:00  INFO 19248 --- [QuanLyLuong] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 907 ms
+2026-03-24T22:44:25.049+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.w.s.ServletContextInitializerBeans : Mapping filters: springSecurityFilterChain urls=[/*] order=-100, characterEncodingFilter urls=[/*] order=-2147483648, formContentFilter urls=[/*] order=-9900, requestContextFilter urls=[/*] order=-105
+2026-03-24T22:44:25.049+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.w.s.ServletContextInitializerBeans : Mapping servlets: dispatcherServlet urls=[/]
+2026-03-24T22:44:25.063+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.s.f.OrderedRequestContextFilter    : Filter 'requestContextFilter' configured for use
+2026-03-24T22:44:25.064+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.s.f.OrderedCharacterEncodingFilter : Filter 'characterEncodingFilter' configured for use
+2026-03-24T22:44:25.064+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] .DelegatingFilterProxyRegistrationBean$1 : Filter 'springSecurityFilterChain' configured for use
+2026-03-24T22:44:25.064+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.s.filter.OrderedFormContentFilter  : Filter 'formContentFilter' configured for use
+2026-03-24T22:44:25.154+07:00  INFO 19248 --- [QuanLyLuong] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-24T22:44:25.179+07:00  INFO 19248 --- [QuanLyLuong] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-03-24T22:44:25.455+07:00  INFO 19248 --- [QuanLyLuong] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-24T22:44:25.475+07:00  INFO 19248 --- [QuanLyLuong] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-24T22:44:25.603+07:00  INFO 19248 --- [QuanLyLuong] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:quanlyluong user=SA
+2026-03-24T22:44:25.604+07:00  INFO 19248 --- [QuanLyLuong] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-24T22:44:25.641+07:00  INFO 19248 --- [QuanLyLuong] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:quanlyluong]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: QUANLYLUONG/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-24T22:44:26.304+07:00  INFO 19248 --- [QuanLyLuong] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-24T22:44:26.337+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table attendance_logs (
+        id bigint generated by default as identity,
+        attendance_date date not null,
+        check_in_time time(0),
+        check_out_time time(0),
+        late_minutes integer not null,
+        machine_code varchar(80),
+        note varchar(255),
+        overtime_holiday_hours float(53) not null,
+        overtime_weekday_hours float(53) not null,
+        overtime_weekend_hours float(53) not null,
+        regular_hours float(53) not null,
+        source enum ('EXCEL_IMPORT','MACHINE_IMPORT','MANUAL') not null,
+        employee_id bigint not null,
+        primary key (id)
+    )
+2026-03-24T22:44:26.344+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table compensation_items (
+        id bigint generated by default as identity,
+        active boolean not null,
+        amount float(53) not null,
+        component_type enum ('ALLOWANCE','BONUS','DEDUCTION') not null,
+        effective_date date not null,
+        end_date date,
+        name varchar(120) not null,
+        note varchar(255),
+        recurring boolean not null,
+        taxable boolean not null,
+        employee_id bigint not null,
+        primary key (id)
+    )
+2026-03-24T22:44:26.344+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table departments (
+        id bigint generated by default as identity,
+        manager_name varchar(100),
+        name varchar(100) not null,
+        primary key (id)
+    )
+2026-03-24T22:44:26.345+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table employees (
+        id bigint generated by default as identity,
+        base_salary float(53) not null,
+        email varchar(150) not null,
+        employee_code varchar(30),
+        full_name varchar(120) not null,
+        join_date date,
+        position varchar(100),
+        status enum ('ACTIVE','INACTIVE') not null,
+        department_id bigint,
+        primary key (id)
+    )
+2026-03-24T22:44:26.346+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table payrolls (
+        id bigint generated by default as identity,
+        actual_salary float(53) not null,
+        base_salary_amount float(53) not null,
+        gross_salary float(53) not null,
+        insurance_amount float(53) not null,
+        month_value integer not null,
+        other_deduction_amount float(53) not null,
+        overtime_pay float(53) not null,
+        payment_date date,
+        payment_status enum ('PAID','PENDING') not null,
+        tax_amount float(53) not null,
+        total_allowance float(53) not null,
+        total_bonus float(53) not null,
+        year_value integer not null,
+        employee_id bigint not null,
+        timesheet_id bigint,
+        primary key (id)
+    )
+2026-03-24T22:44:26.347+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table salary_configs (
+        id bigint generated by default as identity,
+        allowance float(53) not null,
+        deduction float(53) not null,
+        description varchar(255),
+        effective_date date not null,
+        health_insurance_rate float(53) not null,
+        overtime_holiday_multiplier float(53) not null,
+        overtime_weekday_multiplier float(53) not null,
+        overtime_weekend_multiplier float(53) not null,
+        personal_deduction float(53) not null,
+        personal_income_tax_rate float(53) not null,
+        social_insurance_rate float(53) not null,
+        standard_work_days integer not null,
+        standard_work_hours_per_day float(53) not null,
+        unemployment_insurance_rate float(53) not null,
+        employee_id bigint not null,
+        primary key (id)
+    )
+2026-03-24T22:44:26.348+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table timesheets (
+        id bigint generated by default as identity,
+        absent_days integer not null,
+        imported_log_count integer not null,
+        leave_days integer not null,
+        month_value integer not null,
+        note varchar(255),
+        overtime_holiday_hours float(53) not null,
+        overtime_weekday_hours float(53) not null,
+        overtime_weekend_hours float(53) not null,
+        regular_hours float(53) not null,
+        work_days integer not null,
+        year_value integer not null,
+        employee_id bigint not null,
+        primary key (id)
+    )
+2026-03-24T22:44:26.349+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    create table users (
+        id bigint generated by default as identity,
+        enabled boolean not null,
+        password varchar(255) not null,
+        role enum ('ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_HR') not null,
+        username varchar(80) not null,
+        employee_id bigint,
+        primary key (id)
+    )
+2026-03-24T22:44:26.350+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists attendance_logs 
+       drop constraint if exists UKm1d2dauulqe42qxby5whson42
+2026-03-24T22:44:26.350+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists attendance_logs 
+       add constraint UKm1d2dauulqe42qxby5whson42 unique (employee_id, attendance_date)
+2026-03-24T22:44:26.352+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists departments 
+       drop constraint if exists UKj6cwks7xecs5jov19ro8ge3qk
+2026-03-24T22:44:26.352+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists departments 
+       add constraint UKj6cwks7xecs5jov19ro8ge3qk unique (name)
+2026-03-24T22:44:26.353+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists employees 
+       drop constraint if exists UKj9xgmd0ya5jmus09o0b8pqrpb
+2026-03-24T22:44:26.353+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists employees 
+       add constraint UKj9xgmd0ya5jmus09o0b8pqrpb unique (email)
+2026-03-24T22:44:26.354+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists employees 
+       drop constraint if exists UKetqhw9qqnad1kyjq3ks1glw8x
+2026-03-24T22:44:26.354+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists employees 
+       add constraint UKetqhw9qqnad1kyjq3ks1glw8x unique (employee_code)
+2026-03-24T22:44:26.354+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists payrolls 
+       drop constraint if exists UKleuhpguahbiaixqs19kok7fh5
+2026-03-24T22:44:26.354+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists payrolls 
+       add constraint UKleuhpguahbiaixqs19kok7fh5 unique (employee_id, month_value, year_value)
+2026-03-24T22:44:26.355+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists payrolls 
+       drop constraint if exists UKim1mqq7ajqwlgvm2tb78vaqwj
+2026-03-24T22:44:26.355+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists payrolls 
+       add constraint UKim1mqq7ajqwlgvm2tb78vaqwj unique (timesheet_id)
+2026-03-24T22:44:26.355+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists timesheets 
+       drop constraint if exists UKi4qkmqgfyx100odj9ksgnlj1
+2026-03-24T22:44:26.355+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists timesheets 
+       add constraint UKi4qkmqgfyx100odj9ksgnlj1 unique (employee_id, month_value, year_value)
+2026-03-24T22:44:26.356+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       drop constraint if exists UKr43af9ap4edm43mmtq01oddj6
+2026-03-24T22:44:26.357+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       add constraint UKr43af9ap4edm43mmtq01oddj6 unique (username)
+2026-03-24T22:44:26.357+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       drop constraint if exists UKd1s31g1a7ilra77m65xmka3ei
+2026-03-24T22:44:26.357+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       add constraint UKd1s31g1a7ilra77m65xmka3ei unique (employee_id)
+2026-03-24T22:44:26.358+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists attendance_logs 
+       add constraint FKjt6lbm029cv43dj7iaukcg5v3 
+       foreign key (employee_id) 
+       references employees
+2026-03-24T22:44:26.363+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists compensation_items 
+       add constraint FKil4hokh8vbtri27ms9snrcc6m 
+       foreign key (employee_id) 
+       references employees
+2026-03-24T22:44:26.364+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists employees 
+       add constraint FKgy4qe3dnqrm3ktd76sxp7n4c2 
+       foreign key (department_id) 
+       references departments
+2026-03-24T22:44:26.365+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists payrolls 
+       add constraint FKiyfp8uysuhgfkod3xcdhjm7qf 
+       foreign key (employee_id) 
+       references employees
+2026-03-24T22:44:26.366+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists payrolls 
+       add constraint FKkdkclsvcfgr5iaji3byveuhry 
+       foreign key (timesheet_id) 
+       references timesheets
+2026-03-24T22:44:26.367+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists salary_configs 
+       add constraint FK8ou89al8dxsbvfjk3xxds1h41 
+       foreign key (employee_id) 
+       references employees
+2026-03-24T22:44:26.368+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists timesheets 
+       add constraint FK2hwwbmujjb8y8qqkrxx9yog38 
+       foreign key (employee_id) 
+       references employees
+2026-03-24T22:44:26.369+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] org.hibernate.SQL                        : 
+    alter table if exists users 
+       add constraint FK6p2ib82uai0pj9yk1iassppgq 
+       foreign key (employee_id) 
+       references employees
+2026-03-24T22:44:26.370+07:00  INFO 19248 --- [QuanLyLuong] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-24T22:44:26.423+07:00  INFO 19248 --- [QuanLyLuong] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-24T22:44:27.247+07:00  WARN 19248 --- [QuanLyLuong] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-24T22:44:27.308+07:00  INFO 19248 --- [QuanLyLuong] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-03-24T22:44:27.457+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.AdminUserController:
+	{GET [/admin/users]}: list(Model)
+	{POST [/admin/users/save]}: save(Long,Long,String,String,Role,boolean,RedirectAttributes)
+	{GET [/admin/users/new]}: newForm(Model)
+	{POST [/admin/users/{id}/delete]}: delete(Long,RedirectAttributes)
+	{GET [/admin/users/edit/{id}]}: editForm(Long,Model)
+2026-03-24T22:44:27.476+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.AppExceptionHandler:
+	
+2026-03-24T22:44:27.477+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.CompensationItemController:
+	{GET [/compensation-items]}: list(Long,Model)
+	{POST [/compensation-items/save]}: save(Long,CompensationItemType,String,Double,Boolean,Boolean,Boolean,LocalDate,LocalDate,String,RedirectAttributes)
+	{POST [/compensation-items/{id}/delete]}: delete(Long,Long,RedirectAttributes)
+2026-03-24T22:44:27.508+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.EmployeeController:
+	{GET [/employees]}: list(String,Model)
+	{POST [/employees/save]}: save(Employee,RedirectAttributes)
+	{GET [/employees/new]}: newForm(Model)
+	{POST [/employees/{id}/delete]}: delete(Long,RedirectAttributes)
+	{GET [/employees/edit/{id}]}: editForm(Long,Model)
+2026-03-24T22:44:27.514+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.ExportController:
+	{GET [/export/excel/payroll]}: exportPayrollExcel(Integer,Integer)
+	{GET [/export/pdf/payroll]}: exportPayrollPdf(Integer,Integer)
+	{GET [/export/excel/timesheet]}: exportTimesheetExcel(Integer,Integer)
+	{GET [/export/pdf/payslip/{payrollId}]}: exportPayslip(Long,Authentication)
+2026-03-24T22:44:27.515+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.HomeController:
+	{GET [/]}: home()
+	{GET [/login]}: login(Authentication)
+	{GET [/access-denied]}: accessDenied(Model)
+	{GET [/dashboard]}: dashboard(Model)
+2026-03-24T22:44:27.517+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.PayrollController:
+	{GET [/payrolls]}: list(Integer,Integer,Model)
+	{GET [/payrolls/search]}: search(Integer,Integer,Long,PaymentStatus,String,Double,Double,Model)
+	{POST [/payrolls/calculate]}: calculate(Integer,Integer,RedirectAttributes)
+	{POST [/payrolls/pay/{id}]}: pay(Long,Integer,Integer,RedirectAttributes)
+	{GET [/payrolls/my]}: myPayroll(Authentication,Model)
+2026-03-24T22:44:27.520+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.ReportController:
+	{GET [/reports/department]}: departmentReport(Integer,Integer,Integer,Model)
+2026-03-24T22:44:27.522+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.SalaryConfigController:
+	{GET [/salary-configs]}: list(Long,Model)
+	{POST [/salary-configs/save]}: save(Long,Double,Double,Integer,Double,Double,Double,Double,Double,Double,Double,Double,Double,String,LocalDate,RedirectAttributes)
+	{GET [/salary-configs/new]}: newForm(Long,Model)
+2026-03-24T22:44:27.531+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	c.e.Q.c.TimesheetController:
+	{GET [/timesheets]}: list(Integer,Integer,Model)
+	{POST [/timesheets/{id}/delete]}: delete(Long,Integer,Integer,RedirectAttributes)
+	{GET [/timesheets/{id}/details]}: details(Long,Integer,Integer,Model)
+	{POST [/timesheets/import]}: importExcel(Integer,Integer,AttendanceSource,MultipartFile,RedirectAttributes)
+2026-03-24T22:44:27.540+07:00 TRACE 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 
+	o.s.b.w.a.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2026-03-24T22:44:27.541+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 36 mappings in 'requestMappingHandlerMapping'
+2026-03-24T22:44:27.569+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-03-24T22:44:27.585+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-03-24T22:44:27.634+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-03-24T22:44:27.718+07:00  WARN 19248 --- [QuanLyLuong] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-03-24T22:44:27.720+07:00  INFO 19248 --- [QuanLyLuong] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-24T22:44:27.721+07:00  INFO 19248 --- [QuanLyLuong] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-24T22:44:27.722+07:00  INFO 19248 --- [QuanLyLuong] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-24T22:44:27.724+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+
+============================
+CONDITIONS EVALUATION REPORT
+============================
+
+
+Positive matches:
+-----------------
+
+   AopAutoConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.aop.auto=true) matched (OnPropertyCondition)
+
+   AopAutoConfiguration.AspectJAutoProxyingConfiguration matched:
+      - @ConditionalOnClass found required class 'org.aspectj.weaver.Advice' (OnClassCondition)
+
+   AopAutoConfiguration.AspectJAutoProxyingConfiguration.CglibAutoProxyConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=true) matched (OnPropertyCondition)
+
+   ApplicationAvailabilityAutoConfiguration#applicationAvailability matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.availability.ApplicationAvailability; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataJpaRepositoriesAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.data.jpa.repository.JpaRepository' (OnClassCondition)
+      - @ConditionalOnBooleanProperty (spring.data.jpa.repositories.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnBean (types: javax.sql.DataSource; SearchStrategy: all) found bean 'dataSource'; @ConditionalOnMissingBean (types: org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean,org.springframework.data.jpa.repository.config.JpaRepositoryConfigExtension; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType' (OnClassCondition)
+      - @ConditionalOnMissingBean (types: io.r2dbc.spi.ConnectionFactory; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration.PooledDataSourceConfiguration matched:
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.PooledDataSourceAvailable PooledDataSource found supported DataSource; NestedCondition on DataSourceAutoConfiguration.PooledDataSourceCondition.ExplicitType @ConditionalOnProperty (spring.datasource.type) did not find property 'spring.datasource.type' (DataSourceAutoConfiguration.PooledDataSourceCondition)
+      - @ConditionalOnMissingBean (types: javax.sql.DataSource,javax.sql.XADataSource; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceAutoConfiguration.PooledDataSourceConfiguration#jdbcConnectionDetails matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceConfiguration.Hikari matched:
+      - @ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource' (OnClassCondition)
+      - @ConditionalOnProperty (spring.datasource.type=com.zaxxer.hikari.HikariDataSource) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: javax.sql.DataSource; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourceInitializationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.jdbc.datasource.init.DatabasePopulator' (OnClassCondition)
+      - SQL InitializationDatabase Initialization default value is EMBEDDED (OnSqlInitializationCondition)
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource'; @ConditionalOnMissingBean (types: org.springframework.boot.sql.autoconfigure.init.ApplicationScriptDatabaseInitializer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.HikariPoolDataSourceMetadataProviderConfiguration matched:
+      - @ConditionalOnClass found required class 'com.zaxxer.hikari.HikariDataSource' (OnClassCondition)
+
+   DataSourceTransactionManagerAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate', 'org.springframework.transaction.TransactionManager' (OnClassCondition)
+
+   DataSourceTransactionManagerAutoConfiguration.JdbcTransactionManagerConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource' (OnBeanCondition)
+
+   DataWebAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.springframework.data.web.PageableHandlerMethodArgumentResolver', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.PageableHandlerMethodArgumentResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataWebAutoConfiguration#pageableCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataWebAutoConfiguration#sortCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.config.SortHandlerMethodArgumentResolverCustomizer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DataWebAutoConfiguration#springDataWebSettings matched:
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.config.SpringDataWebSettings; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   DispatcherServletAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration' (OnClassCondition)
+      - Default DispatcherServlet did not find dispatcher servlet beans (DispatcherServletAutoConfiguration.DefaultDispatcherServletCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletRegistrationConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.servlet.ServletRegistration' (OnClassCondition)
+      - DispatcherServlet Registration did not find servlet registration bean (DispatcherServletAutoConfiguration.DispatcherServletRegistrationCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletRegistrationConfiguration#dispatcherServletRegistration matched:
+      - @ConditionalOnBean (names: dispatcherServlet types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet' (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   ErrorMvcAutoConfiguration#basicErrorController matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.error.ErrorController; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration#errorAttributes matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.error.ErrorAttributes; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.DefaultErrorViewResolverConfiguration#conventionErrorViewResolver matched:
+      - @ConditionalOnBean (types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) found bean 'dispatcherServlet'; @ConditionalOnMissingBean (types: org.springframework.boot.webmvc.autoconfigure.error.ErrorViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HibernateJpaAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean', 'jakarta.persistence.EntityManager', 'org.hibernate.engine.spi.SessionImplementor' (OnClassCondition)
+
+   HibernateJpaConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource' (OnBeanCondition)
+
+   HttpEncodingAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.filter.CharacterEncodingFilter' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.servlet.encoding.enabled=true) matched (OnPropertyCondition)
+
+   HttpEncodingAutoConfiguration#characterEncodingFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.CharacterEncodingFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpMessageConvertersAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.HttpMessageConverter' (OnClassCondition)
+      - NoneNestedConditions 0 matched 1 did not; NestedCondition on HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition.ReactiveWebApplication did not find reactive web application classes (HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition)
+
+   HttpMessageConvertersAutoConfiguration.StringHttpMessageConverterConfiguration#stringHttpMessageConvertersCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.StringHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'tools.jackson.databind.json.JsonMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration#jacksonJsonMapper matched:
+      - @ConditionalOnMissingBean (types: tools.jackson.databind.json.JsonMapper; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration#jsonMapperBuilder matched:
+      - @ConditionalOnMissingBean (types: tools.jackson.databind.json.JsonMapper$Builder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration.JsonProblemDetailsConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.ProblemDetail' (OnClassCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonJsonHttpMessageConverterConfiguration matched:
+      - @ConditionalOnClass found required class 'tools.jackson.databind.json.JsonMapper' (OnClassCondition)
+      - @ConditionalOnProperty (spring.http.converters.preferred-json-mapper=jackson) matched (OnPropertyCondition)
+      - @ConditionalOnBean (types: tools.jackson.databind.json.JsonMapper; SearchStrategy: all) found bean 'jacksonJsonMapper' (OnBeanCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonJsonHttpMessageConverterConfiguration#jacksonJsonHttpMessageConvertersCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.json.JacksonJsonHttpMessageConverter ignored: org.springframework.hateoas.server.mvc.TypeConstrainedJacksonJsonHttpMessageConverter,org.springframework.data.rest.webmvc.alps.AlpsJacksonJsonHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JdbcClientAutoConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate; SearchStrategy: all) found a single bean 'namedParameterJdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.simple.JdbcClient; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JdbcTemplateAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.core.JdbcTemplate' (OnClassCondition)
+      - @ConditionalOnSingleCandidate (types: javax.sql.DataSource; SearchStrategy: all) found a single bean 'dataSource' (OnBeanCondition)
+
+   JdbcTemplateConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.jdbc.core.JdbcOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JpaBaseConfiguration#entityManagerFactory matched:
+      - @ConditionalOnMissingBean (types: org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean,jakarta.persistence.EntityManagerFactory; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JpaBaseConfiguration#entityManagerFactoryBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.jpa.EntityManagerFactoryBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JpaBaseConfiguration#jpaVendorAdapter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.orm.jpa.JpaVendorAdapter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JpaBaseConfiguration#transactionManager matched:
+      - @ConditionalOnMissingBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JpaBaseConfiguration.JpaWebConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.jpa.open-in-view=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor,org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JpaBaseConfiguration.PersistenceManagedTypesConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean,jakarta.persistence.EntityManagerFactory; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JpaBaseConfiguration.PersistenceManagedTypesConfiguration#persistenceManagedTypes matched:
+      - @ConditionalOnMissingBean (types: org.springframework.orm.jpa.persistenceunit.PersistenceManagedTypes; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JtaAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.transaction.Transaction' (OnClassCondition)
+      - @ConditionalOnBooleanProperty (spring.jta.enabled=true) matched (OnPropertyCondition)
+
+   LifecycleAutoConfiguration#defaultLifecycleProcessor matched:
+      - @ConditionalOnMissingBean (names: lifecycleProcessor; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.multipart.support.StandardServletMultipartResolver', 'jakarta.servlet.MultipartConfigElement' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.servlet.multipart.enabled=true) matched (OnPropertyCondition)
+
+   MultipartAutoConfiguration#multipartConfigElement matched:
+      - @ConditionalOnMissingBean (types: jakarta.servlet.MultipartConfigElement; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MultipartAutoConfiguration#multipartResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   NamedParameterJdbcTemplateConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.jdbc.core.JdbcTemplate; SearchStrategy: all) found a single bean 'jdbcTemplate'; @ConditionalOnMissingBean (types: org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   PersistenceExceptionTranslationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor' (OnClassCondition)
+
+   PersistenceExceptionTranslationAutoConfiguration#persistenceExceptionTranslationPostProcessor matched:
+      - @ConditionalOnBooleanProperty (spring.persistence.exceptiontranslation.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   PropertyPlaceholderAutoConfiguration#propertySourcesPlaceholderConfigurer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.context.support.PropertySourcesPlaceholderConfigurer; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   SecurityAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.DefaultAuthenticationEventPublisher' (OnClassCondition)
+
+   SecurityAutoConfiguration#authenticationEventPublisher matched:
+      - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationEventPublisher; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   SecurityFilterAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer', 'org.springframework.security.config.http.SessionCreationPolicy' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   SecurityFilterAutoConfiguration#securityFilterChainRegistration matched:
+      - @ConditionalOnBean (names: springSecurityFilterChain; SearchStrategy: all) found bean 'springSecurityFilterChain' (OnBeanCondition)
+
+   ServletWebSecurityAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   ServletWebSecurityAutoConfiguration.EnableWebSecurityConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+      - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ServletWebSecurityAutoConfiguration.PathPatternRequestMatcherBuilderConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath' (OnClassCondition)
+      - @ConditionalOnBean (types: org.springframework.boot.webmvc.autoconfigure.DispatcherServletPath; SearchStrategy: all) found bean 'dispatcherServletRegistration' (OnBeanCondition)
+
+   ServletWebSecurityAutoConfiguration.PathPatternRequestMatcherBuilderConfiguration#pathPatternRequestMatcherBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher$Builder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   SslAutoConfiguration#sslBundleRegistry matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.ssl.SslBundleRegistry,org.springframework.boot.ssl.SslBundles; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutionAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor' (OnClassCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration matched:
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ModelCondition @ConditionalOnProperty (spring.task.execution.mode=force) did not find property 'spring.task.execution.mode'; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ExecutorBeanCondition @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (TaskExecutorConfigurations.OnExecutorCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.ThreadPoolTaskExecutorBuilderConfiguration#threadPoolTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.ThreadPoolTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskSchedulingAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler' (OnClassCondition)
+
+   TaskSchedulingConfigurations.SimpleAsyncTaskSchedulerBuilderConfiguration#simpleAsyncTaskSchedulerBuilder matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskSchedulingConfigurations.ThreadPoolTaskSchedulerBuilderConfiguration#threadPoolTaskSchedulerBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TemplateEngineConfigurations.DefaultTemplateEngineConfiguration#templateEngine matched:
+      - @ConditionalOnMissingBean (types: org.thymeleaf.spring6.ISpringTemplateEngine; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ThymeleafAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.thymeleaf.templatemode.TemplateMode', 'org.thymeleaf.spring6.SpringTemplateEngine' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.DefaultTemplateResolverConfiguration matched:
+      - @ConditionalOnMissingBean (names: defaultTemplateResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafSecurityDialectConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect', 'org.springframework.security.web.server.csrf.CsrfToken' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafSecurityDialectConfiguration#securityDialect matched:
+      - @ConditionalOnMissingBean (types: org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration matched:
+      - found 'session' scope (OnWebApplicationCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration.ThymeleafViewResolverConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.servlet.view.AbstractCachingViewResolver' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration.ThymeleafViewResolverConfiguration#thymeleafViewResolver matched:
+      - @ConditionalOnMissingBean (names: thymeleafViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TomcatServletWebServerAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.ServletRequest', 'org.apache.catalina.startup.Tomcat', 'org.apache.coyote.UpgradeProtocol', 'org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   TomcatServletWebServerAutoConfiguration#tomcatServletWebServerFactory matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.server.servlet.ServletWebServerFactory; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   TomcatWebServerConfiguration matched:
+      - @ConditionalOnWarDeployment the application is not deployed as a WAR file. (OnWarDeploymentCondition)
+
+   TomcatWebServerConfiguration.TomcatWebSocketConfiguration matched:
+      - @ConditionalOnClass found required class 'org.apache.tomcat.websocket.server.WsSci' (OnClassCondition)
+
+   TransactionAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager' (OnClassCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration matched:
+      - @ConditionalOnBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) found bean 'transactionManager'; @ConditionalOnMissingBean (types: org.springframework.transaction.annotation.AbstractTransactionManagementConfiguration; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration.CglibAutoProxyConfiguration matched:
+      - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=true) matched (OnPropertyCondition)
+
+   TransactionAutoConfiguration.TransactionTemplateConfiguration matched:
+      - @ConditionalOnSingleCandidate (types: org.springframework.transaction.PlatformTransactionManager; SearchStrategy: all) found a single bean 'transactionManager' (OnBeanCondition)
+
+   TransactionAutoConfiguration.TransactionTemplateConfiguration#transactionTemplate matched:
+      - @ConditionalOnMissingBean (types: org.springframework.transaction.support.TransactionOperations; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionManagerCustomizationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.transaction.PlatformTransactionManager' (OnClassCondition)
+
+   TransactionManagerCustomizationAutoConfiguration#platformTransactionManagerCustomizers matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.transaction.autoconfigure.TransactionManagerCustomizers; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.validation.executable.ExecutableValidator' (OnClassCondition)
+      - @ConditionalOnResource found location classpath:META-INF/services/jakarta.validation.spi.ValidationProvider (OnResourceCondition)
+
+   ValidationAutoConfiguration#defaultValidator matched:
+      - @ConditionalOnMissingBean (types: jakarta.validation.Validator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration#methodValidationPostProcessor matched:
+      - @ConditionalOnMissingBean (types: org.springframework.validation.beanvalidation.MethodValidationPostProcessor; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration#formContentFilter matched:
+      - @ConditionalOnBooleanProperty (spring.mvc.formcontent.filter.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.FormContentFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#flashMapManager matched:
+      - @ConditionalOnMissingBean (names: flashMapManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#localeResolver matched:
+      - @ConditionalOnMissingBean (names: localeResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#viewNameTranslator matched:
+      - @ConditionalOnMissingBean (names: viewNameTranslator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#defaultViewResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.InternalResourceViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#requestContextFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.context.request.RequestContextListener,org.springframework.web.filter.RequestContextFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#viewResolver matched:
+      - @ConditionalOnBean (types: org.springframework.web.servlet.ViewResolver; SearchStrategy: all) found beans 'defaultViewResolver', 'mvcViewResolver'; @ConditionalOnMissingBean (names: viewResolver types: org.springframework.web.servlet.view.ContentNegotiatingViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+   AopAutoConfiguration.AspectJAutoProxyingConfiguration.JdkDynamicAutoProxyConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=false) did not find property 'spring.aop.proxy-target-class' (OnPropertyCondition)
+
+   AopAutoConfiguration.ClassProxyingConfiguration:
+      Did not match:
+         - @ConditionalOnMissingClass found unwanted class 'org.aspectj.weaver.Advice' (OnClassCondition)
+
+   DataJpaRepositoriesAutoConfiguration#entityManagerFactoryBootstrapExecutorCustomizer:
+      Did not match:
+         - AnyNestedCondition 0 matched 2 did not; NestedCondition on DataJpaRepositoriesAutoConfiguration.BootstrapExecutorCondition.LazyBootstrapMode @ConditionalOnProperty (spring.data.jpa.repositories.bootstrap-mode=lazy) did not find property 'spring.data.jpa.repositories.bootstrap-mode'; NestedCondition on DataJpaRepositoriesAutoConfiguration.BootstrapExecutorCondition.DeferredBootstrapMode @ConditionalOnProperty (spring.data.jpa.repositories.bootstrap-mode=deferred) did not find property 'spring.data.jpa.repositories.bootstrap-mode' (DataJpaRepositoriesAutoConfiguration.BootstrapExecutorCondition)
+
+   DataRepositoryMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBean did not find required type 'io.micrometer.core.instrument.MeterRegistry' (OnBeanCondition)
+
+   DataSourceAutoConfiguration.EmbeddedDatabaseConfiguration:
+      Did not match:
+         - EmbeddedDataSource spring.datasource.url is set (DataSourceAutoConfiguration.EmbeddedDatabaseCondition)
+
+   DataSourceCheckpointRestoreConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.crac.Resource' (OnClassCondition)
+
+   DataSourceConfiguration.Dbcp2:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.commons.dbcp2.BasicDataSource' (OnClassCondition)
+
+   DataSourceConfiguration.Generic:
+      Did not match:
+         - @ConditionalOnProperty (spring.datasource.type) did not find property 'spring.datasource.type' (OnPropertyCondition)
+
+   DataSourceConfiguration.OracleUcp:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'oracle.ucp.jdbc.PoolDataSourceImpl', 'oracle.jdbc.OracleConnection' (OnClassCondition)
+
+   DataSourceConfiguration.Tomcat:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.tomcat.jdbc.pool.DataSource' (OnClassCondition)
+
+   DataSourceHealthContributorAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.health.autoconfigure.contributor.ConditionalOnEnabledHealthIndicator' (OnClassCondition)
+
+   DataSourceJmxConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.jmx.enabled=true) did not find property 'spring.jmx.enabled' (OnPropertyCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.CommonsDbcp2PoolDataSourceMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.commons.dbcp2.BasicDataSource' (OnClassCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.OracleUcpPoolDataSourceMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'oracle.ucp.jdbc.PoolDataSource', 'oracle.jdbc.OracleConnection' (OnClassCondition)
+
+   DataSourcePoolMetadataProvidersConfiguration.TomcatDataSourcePoolMetadataProviderConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.apache.tomcat.jdbc.pool.DataSource' (OnClassCondition)
+
+   DataSourcePoolMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'io.micrometer.core.instrument.MeterRegistry' (OnClassCondition)
+
+   DataSourceTransactionManagerAutoConfiguration.JdbcTransactionManagerConfiguration#transactionManager:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.transaction.TransactionManager; SearchStrategy: all) found beans of type 'org.springframework.transaction.TransactionManager' transactionManager (OnBeanCondition)
+
+   DispatcherServletAutoConfiguration.DispatcherServletConfiguration#multipartResolver:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.web.multipart.MultipartResolver; SearchStrategy: all) did not find any beans of type org.springframework.web.multipart.MultipartResolver (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration:
+      Did not match:
+         - ErrorTemplate Missing found template from org.springframework.boot.thymeleaf.autoconfigure.ThymeleafTemplateAvailabilityProvider@796d3c9f (ErrorMvcAutoConfiguration.ErrorTemplateMissingCondition)
+      Matched:
+         - @ConditionalOnBooleanProperty (spring.web.error.whitelabel.enabled=true) matched (OnPropertyCondition)
+
+   GsonHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.google.gson.Gson' (OnClassCondition)
+
+   HibernateMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'io.micrometer.core.instrument.MeterRegistry' (OnClassCondition)
+
+   Jackson2HttpMessageConvertersConfiguration.MappingJackson2HttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.fasterxml.jackson.databind.ObjectMapper' (OnClassCondition)
+
+   Jackson2HttpMessageConvertersConfiguration.MappingJackson2XmlHttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.fasterxml.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration.CborConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.cbor.CBORMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration.XmlConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JacksonHttpMessageConvertersConfiguration.JacksonXmlHttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'tools.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JmxAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.jmx.enabled=true) did not find property 'spring.jmx.enabled' (OnPropertyCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.jmx.export.MBeanExporter' (OnClassCondition)
+
+   JndiDataSourceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnProperty (spring.datasource.jndi-name) did not find property 'spring.datasource.jndi-name' (OnPropertyCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType' (OnClassCondition)
+
+   JndiJtaConfiguration:
+      Did not match:
+         - @ConditionalOnJndi JNDI environment is not available (OnJndiCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.transaction.jta.JtaTransactionManager' (OnClassCondition)
+
+   JsonbHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.json.bind.Jsonb' (OnClassCondition)
+
+   KotlinSerializationHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required classes 'kotlinx.serialization.Serializable', 'kotlinx.serialization.json.Json' (OnClassCondition)
+
+   ManagementWebSecurityAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration' (OnClassCondition)
+
+   MessageSourceAutoConfiguration:
+      Did not match:
+         - ResourceBundle did not find bundle with basename messages (MessageSourceAutoConfiguration.ResourceBundleCondition)
+
+   ProjectInfoAutoConfiguration#buildProperties:
+      Did not match:
+         - @ConditionalOnResource did not find resource '${spring.info.build.location:classpath:META-INF/build-info.properties}' (OnResourceCondition)
+
+   ProjectInfoAutoConfiguration#gitProperties:
+      Did not match:
+         - GitResource did not find git info at classpath:git.properties (ProjectInfoAutoConfiguration.GitResourceAvailableCondition)
+
+   RSocketSecurityAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.rsocket.server.RSocketServerCustomizer' (OnClassCondition)
+
+   ReactiveManagementWebSecurityAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration' (OnClassCondition)
+
+   ReactiveUserDetailsServiceAutoConfiguration:
+      Did not match:
+         - AnyNestedCondition 0 matched 2 did not; NestedCondition on ReactiveUserDetailsServiceAutoConfiguration.RSocketEnabledOrReactiveWebApplication.ReactiveWebApplicationCondition did not find reactive web application classes; NestedCondition on ReactiveUserDetailsServiceAutoConfiguration.RSocketEnabledOrReactiveWebApplication.RSocketSecurityEnabledCondition @ConditionalOnBean (types: org.springframework.messaging.rsocket.annotation.support.RSocketMessageHandler; SearchStrategy: all) did not find any beans of type org.springframework.messaging.rsocket.annotation.support.RSocketMessageHandler (ReactiveUserDetailsServiceAutoConfiguration.RSocketEnabledOrReactiveWebApplication)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.ReactiveAuthenticationManager' (OnClassCondition)
+         - AnyNestedCondition 1 matched 2 did not; NestedCondition on MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured.PasswordConfigured @ConditionalOnProperty (spring.security.user.password) did not find property 'spring.security.user.password'; NestedCondition on MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured.NameConfigured @ConditionalOnProperty (spring.security.user.name) did not find property 'spring.security.user.name'; NestedCondition on MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured.MissingAlternative @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured)
+
+   ReactiveWebSecurityAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'reactor.core.publisher.Flux' (OnClassCondition)
+
+   SecurityAutoConfiguration.SecurityDataConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.security.data.repository.query.SecurityEvaluationContextExtension' (OnClassCondition)
+
+   ServletHttpExchangesAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBean did not find required type 'org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository' (OnBeanCondition)
+
+   ServletManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties' (OnClassCondition)
+
+   ServletMappingsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint' (OnClassCondition)
+
+   ServletWebSecurityAutoConfiguration.SecurityFilterChainConfiguration:
+      Did not match:
+         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' filterChain; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   ServletWebServerConfiguration#forwardedHeaderFilter:
+      Did not match:
+         - @ConditionalOnProperty (server.forward-headers-strategy=framework) did not find property 'server.forward-headers-strategy' (OnPropertyCondition)
+
+   SpringApplicationAdminJmxAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.application.admin.enabled=true) did not find property 'spring.application.admin.enabled' (OnPropertyCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerWrapperConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans of type org.springframework.scheduling.annotation.AsyncConfigurer (OnBeanCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilderVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutorVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TaskSchedulingAutoConfiguration#scheduledBeanLazyInitializationExcludeFilter:
+      Did not match:
+         - @ConditionalOnBean (names: org.springframework.scheduling.config.internalScheduledAnnotationProcessor; SearchStrategy: all) did not find any beans named org.springframework.scheduling.config.internalScheduledAnnotationProcessor (OnBeanCondition)
+
+   TaskSchedulingConfigurations.SimpleAsyncTaskSchedulerBuilderConfiguration#simpleAsyncTaskSchedulerBuilderVirtualThreads:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder; SearchStrategy: all) found beans of type 'org.springframework.boot.task.SimpleAsyncTaskSchedulerBuilder' simpleAsyncTaskSchedulerBuilder (OnBeanCondition)
+
+   TaskSchedulingConfigurations.TaskSchedulerConfiguration:
+      Did not match:
+         - @ConditionalOnBean (names: org.springframework.scheduling.config.internalScheduledAnnotationProcessor; SearchStrategy: all) did not find any beans named org.springframework.scheduling.config.internalScheduledAnnotationProcessor (OnBeanCondition)
+
+   TemplateEngineConfigurations.ReactiveTemplateEngineConfiguration:
+      Did not match:
+         - did not find reactive web application classes (OnWebApplicationCondition)
+
+   ThymeleafAutoConfiguration.DataAttributeDialectConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebFluxConfiguration:
+      Did not match:
+         - did not find reactive web application classes (OnWebApplicationCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebLayoutConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration#resourceUrlEncodingFilter:
+      Did not match:
+         - @ConditionalOnEnabledResourceChain did not find class org.webjars.WebJarVersionLocator (OnEnabledResourceChainCondition)
+
+   TomcatMetricsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'io.micrometer.core.instrument.binder.tomcat.TomcatMetrics' (OnClassCondition)
+
+   TomcatReactiveManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextFactory' (OnClassCondition)
+
+   TomcatReactiveWebServerAutoConfiguration:
+      Did not match:
+         - @ConditionalOnWebApplication did not find reactive web application classes (OnWebApplicationCondition)
+
+   TomcatServletManagementContextAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextFactory' (OnClassCondition)
+
+   TomcatServletWebServerAutoConfiguration#tomcatForwardedHeaderFilterCustomizer:
+      Did not match:
+         - @ConditionalOnProperty (server.forward-headers-strategy=framework) did not find property 'server.forward-headers-strategy' (OnPropertyCondition)
+
+   TomcatWebServerConfiguration#tomcatVirtualThreadsProtocolHandlerCustomizer:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TransactionAutoConfiguration#transactionalOperator:
+      Did not match:
+         - @ConditionalOnSingleCandidate (types: org.springframework.transaction.ReactiveTransactionManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TransactionAutoConfiguration.AspectJTransactionManagementConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.transaction.aspectj.AbstractTransactionAspect; SearchStrategy: all) did not find any beans of type org.springframework.transaction.aspectj.AbstractTransactionAspect (OnBeanCondition)
+
+   TransactionAutoConfiguration.EnableTransactionManagementConfiguration.JdkDynamicAutoProxyConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.aop.proxy-target-class=false) did not find property 'spring.aop.proxy-target-class' (OnPropertyCondition)
+
+   UserDetailsServiceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' customUserDetailsService (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+         - found 'session' scope (OnWebApplicationCondition)
+         - AnyNestedCondition 1 matched 2 did not; NestedCondition on MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured.PasswordConfigured @ConditionalOnProperty (spring.security.user.password) did not find property 'spring.security.user.password'; NestedCondition on MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured.NameConfigured @ConditionalOnProperty (spring.security.user.name) did not find property 'spring.security.user.name'; NestedCondition on MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured.MissingAlternative @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (MissingAlternativeUserDetailsManagerOrUserPropertiesConfigured)
+
+   WebMvcAutoConfiguration#hiddenHttpMethodFilter:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.hiddenmethod.filter.enabled=true) did not find property 'spring.mvc.hiddenmethod.filter.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ProblemDetailsErrorHandlingConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.problemdetails.enabled=true) did not find property 'spring.mvc.problemdetails.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ResourceChainCustomizerConfiguration:
+      Did not match:
+         - @ConditionalOnEnabledResourceChain did not find class org.webjars.WebJarVersionLocator (OnEnabledResourceChainCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#beanNameViewResolver:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.web.servlet.View; SearchStrategy: all) did not find any beans of type org.springframework.web.servlet.View (OnBeanCondition)
+
+   WebMvcHealthEndpointExtensionAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.health.actuate.endpoint.HealthEndpoint' (OnClassCondition)
+
+   WebMvcMappingsAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint' (OnClassCondition)
+
+   WebMvcObservationAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties' (OnClassCondition)
+
+   XADataSourceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.boot.jdbc.XADataSourceWrapper; SearchStrategy: all) did not find any beans of type org.springframework.boot.jdbc.XADataSourceWrapper (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'javax.sql.DataSource', 'jakarta.transaction.TransactionManager', 'org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration
+
+    org.springframework.boot.autoconfigure.ssl.SslAutoConfiguration
+
+    org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration
+
+    org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration
+
+    org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration
+
+    org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration
+
+
+
+2026-03-24T22:44:27.738+07:00 DEBUG 19248 --- [QuanLyLuong] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : Application failed to start due to an exception
+
+org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+	at org.springframework.boot.web.server.PortInUseException.lambda$throwIfPortBindingException$0(PortInUseException.java:73) ~[spring-boot-web-server-4.0.4.jar:4.0.4]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$0(PortInUseException.java:89) ~[spring-boot-web-server-4.0.4.jar:4.0.4]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:107) ~[spring-boot-web-server-4.0.4.jar:4.0.4]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:85) ~[spring-boot-web-server-4.0.4.jar:4.0.4]
+	at org.springframework.boot.web.server.PortInUseException.throwIfPortBindingException(PortInUseException.java:72) ~[spring-boot-web-server-4.0.4.jar:4.0.4]
+	at org.springframework.boot.tomcat.TomcatWebServer.start(TomcatWebServer.java:247) ~[spring-boot-tomcat-4.0.4.jar:4.0.4]
+	at org.springframework.boot.web.server.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-web-server-4.0.4.jar:4.0.4]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:420) ~[spring-context-7.0.6.jar:7.0.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:409) ~[spring-context-7.0.6.jar:7.0.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:613) ~[spring-context-7.0.6.jar:7.0.6]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:379) ~[spring-context-7.0.6.jar:7.0.6]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:306) ~[spring-context-7.0.6.jar:7.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:1013) ~[spring-context-7.0.6.jar:7.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-7.0.6.jar:7.0.6]
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.0.4.jar:4.0.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.0.4.jar:4.0.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.0.4.jar:4.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.0.4.jar:4.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.0.4.jar:4.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.0.4.jar:4.0.4]
+	at com.example.QuanLyLuong.QuanLyLuongApplication.main(QuanLyLuongApplication.java:10) ~[classes/:na]
+Caused by: java.lang.IllegalArgumentException: standardService.connector.startFailed
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:220) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.springframework.boot.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:307) ~[spring-boot-tomcat-4.0.4.jar:4.0.4]
+	at org.springframework.boot.tomcat.TomcatWebServer.start(TomcatWebServer.java:233) ~[spring-boot-tomcat-4.0.4.jar:4.0.4]
+	... 16 common frames omitted
+Caused by: org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1119) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:217) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	... 18 common frames omitted
+Caused by: java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:522) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:335) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:297) ~[na:na]
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:265) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:220) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1633) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1716) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:644) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1116) ~[tomcat-embed-core-11.0.18.jar:11.0.18]
+	... 20 common frames omitted
+
+2026-03-24T22:44:27.740+07:00 ERROR 19248 --- [QuanLyLuong] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.495 s
+[INFO] Finished at: 2026-03-24T22:44:27+07:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.0.4:run (default-cli) on project QuanLyLuong: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          2026-03-24T22:46:11.988+07:00  INFO 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-24T22:46:11.988+07:00  INFO 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-24T22:46:11.988+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-03-24T22:46:11.988+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-03-24T22:46:11.989+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@503c8431
+2026-03-24T22:46:11.990+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@16c90eac
+2026-03-24T22:46:11.990+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-03-24T22:46:11.990+07:00  INFO 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-03-24T22:46:12.054+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2026-03-24T22:46:12.144+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/timesheets/13/details?month=3&year=2026", parameters={masked}
+2026-03-24T22:46:12.160+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#details(Long, Integer, Integer, Model)
+2026-03-24T22:46:12.183+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        payrolls p1_0 
+            on t1_0.id=p1_0.timesheet_id 
+    where
+        t1_0.id=?
+2026-03-24T22:46:12.197+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleKnownException(Exception, Model)
+2026-03-24T22:46:12.200+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.example.QuanLyLuong.exception.ResourceNotFoundException: Khong tim thay bang cong co ID: 13] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Khong the hoan thanh yeu cau, errorMessage=Khong tim thay bang cong co ID: 13}]
+2026-03-24T22:46:12.200+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Khong the hoan thanh yeu cau, errorMessage=Khong tim thay bang cong co ID: 13}]
+2026-03-24T22:46:12.203+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-03-24T22:46:12.361+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:46:17.748+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2026-03-24T22:46:17.828+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/timesheets/13/details?month=3&year=2026", parameters={masked}
+2026-03-24T22:46:17.832+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#details(Long, Integer, Integer, Model)
+2026-03-24T22:46:17.834+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        payrolls p1_0 
+            on t1_0.id=p1_0.timesheet_id 
+    where
+        t1_0.id=?
+2026-03-24T22:46:17.834+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleKnownException(Exception, Model)
+2026-03-24T22:46:17.836+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.example.QuanLyLuong.exception.ResourceNotFoundException: Khong tim thay bang cong co ID: 13] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Khong the hoan thanh yeu cau, errorMessage=Khong tim thay bang cong co ID: 13}]
+2026-03-24T22:46:17.836+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Khong the hoan thanh yeu cau, errorMessage=Khong tim thay bang cong co ID: 13}]
+2026-03-24T22:46:17.836+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-03-24T22:46:17.844+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:46:27.510+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2026-03-24T22:46:27.583+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/timesheets?month=3&year=2026", parameters={masked}
+2026-03-24T22:46:27.583+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#list(Integer, Integer, Model)
+2026-03-24T22:46:27.595+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=t1_0.employee_id 
+    where
+        t1_0.month_value=? 
+        and t1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:46:27.601+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-03-24T22:46:27.645+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:38.543+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/login", parameters={}
+2026-03-24T22:49:38.543+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.HomeController#login(Authentication)
+2026-03-24T22:49:38.551+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:38.553+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:38.563+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:38.563+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:38.578+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:39.118+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/login", parameters={}
+2026-03-24T22:49:39.118+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.HomeController#login(Authentication)
+2026-03-24T22:49:39.119+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:39.122+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:45.963+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2026-03-24T22:49:46.028+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/dashboard", parameters={}
+2026-03-24T22:49:46.028+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.HomeController#dashboard(Model)
+2026-03-24T22:49:46.044+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        count(*) 
+    from
+        employees e1_0
+2026-03-24T22:49:46.044+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        count(e1_0.id) 
+    from
+        employees e1_0 
+    where
+        e1_0.status=?
+2026-03-24T22:49:46.044+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        count(*) 
+    from
+        departments d1_0
+2026-03-24T22:49:46.044+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        count(*) 
+    from
+        users u1_0
+2026-03-24T22:49:46.053+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=p1_0.employee_id 
+    where
+        p1_0.month_value=? 
+        and p1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:46.055+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        count(p1_0.id) 
+    from
+        payrolls p1_0 
+    where
+        p1_0.payment_status=?
+2026-03-24T22:49:46.059+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        coalesce(sum(p1_0.actual_salary), 0) 
+    from
+        payrolls p1_0 
+    where
+        p1_0.month_value=? 
+        and p1_0.year_value=?
+2026-03-24T22:49:46.062+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=p1_0.employee_id 
+    where
+        p1_0.month_value=? 
+        and p1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:46.071+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:46.096+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:46.114+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:46.115+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:46.116+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:46.175+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:46.176+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:46.177+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:46.178+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:46.178+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:46.178+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:46.178+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:46.184+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:47.531+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/compensation-items", parameters={}
+2026-03-24T22:49:47.533+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.CompensationItemController#list(Long, Model)
+2026-03-24T22:49:47.541+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        ci1_0.id,
+        ci1_0.active,
+        ci1_0.amount,
+        ci1_0.component_type,
+        ci1_0.effective_date,
+        ci1_0.employee_id,
+        ci1_0.end_date,
+        ci1_0.name,
+        ci1_0.note,
+        ci1_0.recurring,
+        ci1_0.taxable 
+    from
+        compensation_items ci1_0
+2026-03-24T22:49:47.543+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status 
+    from
+        employees e1_0 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:47.545+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:47.545+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:47.545+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:47.545+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:47.545+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:47.553+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:47.553+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:47.553+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:47.562+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:47.573+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:47.578+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:47.581+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:47.624+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:47.626+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:47.626+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:47.627+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:47.627+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:47.627+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:47.628+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:47.630+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:47.793+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/timesheets", parameters={}
+2026-03-24T22:49:47.794+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#list(Integer, Integer, Model)
+2026-03-24T22:49:47.795+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=t1_0.employee_id 
+    where
+        t1_0.month_value=? 
+        and t1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:47.796+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:47.801+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:47.816+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:47.816+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:47.817+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:47.856+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:47.857+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:47.857+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:47.857+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:47.857+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:47.857+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:47.857+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:47.857+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:48.656+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/payrolls", parameters={}
+2026-03-24T22:49:48.656+07:00 TRACE 23720 --- [QuanLyLuong] [io-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.PayrollController#list(Integer, Integer, Model)
+2026-03-24T22:49:48.657+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=p1_0.employee_id 
+    where
+        p1_0.month_value=? 
+        and p1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:48.659+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        coalesce(sum(p1_0.actual_salary), 0) 
+    from
+        payrolls p1_0 
+    where
+        p1_0.month_value=? 
+        and p1_0.year_value=?
+2026-03-24T22:49:48.660+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:48.666+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:48.673+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:48.673+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:48.685+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:48.719+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:48.719+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:48.720+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:48.720+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:48.720+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:48.720+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:48.721+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:48.722+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:49.135+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/timesheets", parameters={}
+2026-03-24T22:49:49.136+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#list(Integer, Integer, Model)
+2026-03-24T22:49:49.137+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=t1_0.employee_id 
+    where
+        t1_0.month_value=? 
+        and t1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:49.137+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:49.141+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:49.156+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:49.156+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:49.159+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:49.192+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:49.193+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:49.193+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:49.193+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:49.193+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:49.193+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:49.195+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:49.196+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:53.873+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/timesheets/import", parameters={multipart}
+2026-03-24T22:49:53.875+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#importExcel(Integer, Integer, AttendanceSource, MultipartFile, RedirectAttributes)
+2026-03-24T22:49:53.883+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status 
+    from
+        employees e1_0 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:53.883+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:53.883+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:53.883+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:53.883+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.employee_id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.employee_id=?
+2026-03-24T22:49:54.198+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.201+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date=?
+2026-03-24T22:49:54.205+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        attendance_logs
+        (attendance_date, check_in_time, check_out_time, employee_id, late_minutes, machine_code, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, source, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.207+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    where
+        t1_0.employee_id=? 
+        and t1_0.month_value=? 
+        and t1_0.year_value=?
+2026-03-24T22:49:54.214+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date between ? and ? 
+    order by
+        al1_0.attendance_date
+2026-03-24T22:49:54.216+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.220+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        timesheets
+        (absent_days, employee_id, imported_log_count, leave_days, month_value, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, work_days, year_value, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.221+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.223+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date=?
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        attendance_logs
+        (attendance_date, check_in_time, check_out_time, employee_id, late_minutes, machine_code, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, source, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    where
+        t1_0.employee_id=? 
+        and t1_0.month_value=? 
+        and t1_0.year_value=?
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date between ? and ? 
+    order by
+        al1_0.attendance_date
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        timesheets
+        (absent_days, employee_id, imported_log_count, leave_days, month_value, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, work_days, year_value, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date=?
+2026-03-24T22:49:54.224+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        attendance_logs
+        (attendance_date, check_in_time, check_out_time, employee_id, late_minutes, machine_code, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, source, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.233+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    where
+        t1_0.employee_id=? 
+        and t1_0.month_value=? 
+        and t1_0.year_value=?
+2026-03-24T22:49:54.233+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date between ? and ? 
+    order by
+        al1_0.attendance_date
+2026-03-24T22:49:54.233+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.233+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        timesheets
+        (absent_days, employee_id, imported_log_count, leave_days, month_value, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, work_days, year_value, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.233+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.240+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date=?
+2026-03-24T22:49:54.240+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        attendance_logs
+        (attendance_date, check_in_time, check_out_time, employee_id, late_minutes, machine_code, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, source, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.241+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    where
+        t1_0.employee_id=? 
+        and t1_0.month_value=? 
+        and t1_0.year_value=?
+2026-03-24T22:49:54.242+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date between ? and ? 
+    order by
+        al1_0.attendance_date
+2026-03-24T22:49:54.243+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        sc1_0.id,
+        sc1_0.allowance,
+        sc1_0.deduction,
+        sc1_0.description,
+        sc1_0.effective_date,
+        sc1_0.employee_id,
+        sc1_0.health_insurance_rate,
+        sc1_0.overtime_holiday_multiplier,
+        sc1_0.overtime_weekday_multiplier,
+        sc1_0.overtime_weekend_multiplier,
+        sc1_0.personal_deduction,
+        sc1_0.personal_income_tax_rate,
+        sc1_0.social_insurance_rate,
+        sc1_0.standard_work_days,
+        sc1_0.standard_work_hours_per_day,
+        sc1_0.unemployment_insurance_rate 
+    from
+        salary_configs sc1_0 
+    where
+        sc1_0.employee_id=? 
+        and sc1_0.effective_date<=? 
+    order by
+        sc1_0.effective_date desc 
+    fetch
+        first ? rows only
+2026-03-24T22:49:54.244+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    insert 
+    into
+        timesheets
+        (absent_days, employee_id, imported_log_count, leave_days, month_value, note, overtime_holiday_hours, overtime_weekday_hours, overtime_weekend_hours, regular_hours, work_days, year_value, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-03-24T22:49:54.251+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.view.RedirectView        : View name [redirect:], model {}
+2026-03-24T22:49:54.253+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 302 FOUND
+2026-03-24T22:49:54.255+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/timesheets?month=3&year=2026", parameters={masked}
+2026-03-24T22:49:54.257+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#list(Integer, Integer, Model)
+2026-03-24T22:49:54.258+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=t1_0.employee_id 
+    where
+        t1_0.month_value=? 
+        and t1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:54.259+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:54.260+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:54.260+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:54.260+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:54.261+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:54.263+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:54.292+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:54.293+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:54.294+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:54.337+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:54.338+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:54.340+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:54.340+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:54.340+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:54.340+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:54.341+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:54.342+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:55.216+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/timesheets/1/details?month=3&year=2026", parameters={masked}
+2026-03-24T22:49:55.216+07:00 TRACE 23720 --- [QuanLyLuong] [io-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#details(Long, Integer, Integer, Model)
+2026-03-24T22:49:55.217+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        payrolls p1_0 
+            on t1_0.id=p1_0.timesheet_id 
+    where
+        t1_0.id=?
+2026-03-24T22:49:55.218+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date between ? and ? 
+    order by
+        al1_0.attendance_date
+2026-03-24T22:49:55.220+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:55.237+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:55.243+07:00 DEBUG 23720 --- [QuanLyLuong] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:55.265+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:55.266+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:55.268+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:55.302+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:55.303+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:55.303+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:55.303+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:55.304+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:55.304+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:55.304+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:55.305+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:59.444+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/timesheets?month=3&year=2026", parameters={masked}
+2026-03-24T22:49:59.444+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#list(Integer, Integer, Model)
+2026-03-24T22:49:59.446+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        employees e1_0 
+            on e1_0.id=t1_0.employee_id 
+    where
+        t1_0.month_value=? 
+        and t1_0.year_value=? 
+    order by
+        e1_0.full_name
+2026-03-24T22:49:59.446+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:59.446+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:59.447+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:59.447+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.timesheet_id,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value 
+    from
+        payrolls p1_0 
+    where
+        p1_0.timesheet_id=?
+2026-03-24T22:49:59.448+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:49:59.451+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:59.453+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:59.454+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:59.455+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:59.456+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:59.456+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        d1_0.id,
+        d1_0.manager_name,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+2026-03-24T22:49:59.458+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:49:59.459+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:59.474+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:49:59.476+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:59.477+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:49:59.508+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:49:59.508+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:49:59.510+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:49:59.510+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:49:59.510+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:59.510+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:49:59.510+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:49:59.512+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:50:00.860+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/timesheets/1/details?month=3&year=2026", parameters={masked}
+2026-03-24T22:50:00.861+07:00 TRACE 23720 --- [QuanLyLuong] [nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.QuanLyLuong.controller.TimesheetController#details(Long, Integer, Integer, Model)
+2026-03-24T22:50:00.861+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        t1_0.id,
+        t1_0.absent_days,
+        t1_0.employee_id,
+        t1_0.imported_log_count,
+        t1_0.leave_days,
+        t1_0.month_value,
+        t1_0.note,
+        t1_0.overtime_holiday_hours,
+        t1_0.overtime_weekday_hours,
+        t1_0.overtime_weekend_hours,
+        p1_0.id,
+        p1_0.actual_salary,
+        p1_0.base_salary_amount,
+        p1_0.employee_id,
+        p1_0.gross_salary,
+        p1_0.insurance_amount,
+        p1_0.month_value,
+        p1_0.other_deduction_amount,
+        p1_0.overtime_pay,
+        p1_0.payment_date,
+        p1_0.payment_status,
+        p1_0.tax_amount,
+        p1_0.total_allowance,
+        p1_0.total_bonus,
+        p1_0.year_value,
+        t1_0.regular_hours,
+        t1_0.work_days,
+        t1_0.year_value 
+    from
+        timesheets t1_0 
+    left join
+        payrolls p1_0 
+            on t1_0.id=p1_0.timesheet_id 
+    where
+        t1_0.id=?
+2026-03-24T22:50:00.863+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        al1_0.id,
+        al1_0.attendance_date,
+        al1_0.check_in_time,
+        al1_0.check_out_time,
+        al1_0.employee_id,
+        al1_0.late_minutes,
+        al1_0.machine_code,
+        al1_0.note,
+        al1_0.overtime_holiday_hours,
+        al1_0.overtime_weekday_hours,
+        al1_0.overtime_weekend_hours,
+        al1_0.regular_hours,
+        al1_0.source 
+    from
+        attendance_logs al1_0 
+    where
+        al1_0.employee_id=? 
+        and al1_0.attendance_date between ? and ? 
+    order by
+        al1_0.attendance_date
+2026-03-24T22:50:00.865+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2026-03-24T22:50:00.868+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        e1_0.id,
+        e1_0.base_salary,
+        e1_0.department_id,
+        e1_0.email,
+        e1_0.employee_code,
+        e1_0.full_name,
+        e1_0.join_date,
+        e1_0.position,
+        e1_0.status,
+        u1_0.id,
+        u1_0.enabled,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username 
+    from
+        employees e1_0 
+    left join
+        users u1_0 
+            on e1_0.id=u1_0.employee_id 
+    where
+        e1_0.id=?
+2026-03-24T22:50:00.870+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:50:00.886+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/css/app.css", parameters={}
+2026-03-24T22:50:00.886+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:50:00.888+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-03-24T22:50:00.931+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
+2026-03-24T22:50:00.932+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-03-24T22:50:00.932+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2026-03-24T22:50:00.933+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.QuanLyLuong.controller.AppExceptionHandler#handleUnexpectedException(Exception, Model)
+2026-03-24T22:50:00.933+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico for request '/favicon.ico'.] to ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:50:00.933+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Using resolved error view: ModelAndView [view="error"; model={pageTitle=Da xay ra loi, errorTitle=Loi he thong, errorMessage=No static resource favicon.ico for request '/favicon.ico'.}]
+2026-03-24T22:50:00.939+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8]
+2026-03-24T22:50:00.942+07:00 DEBUG 23720 --- [QuanLyLuong] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
