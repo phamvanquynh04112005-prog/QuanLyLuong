@@ -29,7 +29,6 @@
           <a class="nav-link" th:href="@{/payrolls/search}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Tra cứu payroll</a>
           <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Báo cáo</a>
           <a class="nav-link" th:href="@{/employee-cost-dashboard}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Chi phí nhân sự</a>
-          <a class="nav-link" th:href="@{/payrolls/my}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR','ROLE_ACCOUNTANT','ROLE_EMPLOYEE')">Phiếu lương</a>
           <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_ADMIN')">Tài khoản</a>
           <a class="nav-link" th:href="@{/h2-console}" target="_blank">H2 Console</a>
         </nav>
