@@ -40,6 +40,7 @@ public class PayrollService {
     private final EmployeeRepository employeeRepository;
     private final SalaryConfigService salaryConfigService;
     private final CompensationItemService compensationItemService;
+    private final VietnamPersonalIncomeTaxService vietnamPersonalIncomeTaxService;
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_HR')")
     public Payroll calculateForOne(Long employeeId, Integer month, Integer year) {
@@ -91,17 +92,16 @@ public class PayrollService {
                 + positiveDouble(config.getUnemploymentInsuranceRate(), 0.01);
         double insuranceAmount = round2(baseSalaryAmount * insuranceRate);
 
-        double taxableIncome = Math.max(
-                0.0,
-                baseSalaryAmount
-                        + overtimePay
-                        + safeDouble(config.getAllowance())
-                        + taxableDynamicIncome
-                        - insuranceAmount
-                        - otherDeductionAmount
-                        - positiveDouble(config.getPersonalDeduction(), 11000000.0)
+        double taxableGrossIncome = baseSalaryAmount + overtimePay + safeDouble(config.getAllowance()) + taxableDynamicIncome;
+        VietnamPersonalIncomeTaxService.TaxComputation taxComputation = vietnamPersonalIncomeTaxService.calculateMonthlyTax(
+                taxableGrossIncome,
+                insuranceAmount,
+                safeInteger(employee.getDependentCount()),
+                positiveDouble(config.getPersonalDeduction(), 11_000_000.0),
+                positiveDouble(config.getDependentDeductionPerPerson(), 4_400_000.0)
         );
-        double taxAmount = round2(taxableIncome * positiveDouble(config.getPersonalIncomeTaxRate(), 0.05));
+
+        double taxAmount = taxComputation.taxAmount();
         double actualSalary = round2(Math.max(0.0, grossSalary - insuranceAmount - taxAmount - otherDeductionAmount));
 
         Payroll payroll = payrollRepository.findByEmployeeIdAndMonthAndYear(employeeId, month, year)
@@ -116,6 +116,8 @@ public class PayrollService {
         payroll.setTotalAllowance(totalAllowance);
         payroll.setTotalBonus(totalBonus);
         payroll.setInsuranceAmount(insuranceAmount);
+        payroll.setDependentDeductionAmount(taxComputation.dependentDeductionAmount());
+        payroll.setTaxableIncome(taxComputation.taxableIncome());
         payroll.setTaxAmount(taxAmount);
         payroll.setOtherDeductionAmount(otherDeductionAmount);
         payroll.setGrossSalary(grossSalary);

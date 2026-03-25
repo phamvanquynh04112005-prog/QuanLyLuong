@@ -25,7 +25,7 @@
             <a class="nav-link" th:href="@{/payrolls/search}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Tra cuu payroll</a>
             <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Bao cao</a>
             <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_ADMIN')">Tai khoan</a>
-            <a class="nav-link" th:href="@{/h2-console}" target="_blank">H2 Console</a>
+            <a class="nav-link" th:href="@{/h2-console/}" target="_blank">H2 Console</a>
         </nav>
     </aside>
 

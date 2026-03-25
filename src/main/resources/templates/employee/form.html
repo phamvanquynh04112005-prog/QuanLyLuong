@@ -44,6 +44,10 @@
                     <input class="input" type="date" th:field="*{joinDate}">
                 </div>
                 <div>
+                    <label class="field-label">So nguoi phu thuoc</label>
+                    <input class="input" type="number" min="0" step="1" th:field="*{dependentCount}">
+                </div>
+                <div>
                     <label class="field-label">Trang thai</label>
                     <select class="input" th:field="*{status}">
                         <option th:each="status : ${statuses}" th:value="${status}" th:text="${status.label}"></option>

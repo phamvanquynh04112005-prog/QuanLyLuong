@@ -3,7 +3,7 @@
         <div class="panel-header">
             <div>
                 <p class="panel-kicker">Rule tinh luong</p>
-                <h3>Cau hinh co dinh theo nhan vien cho cong chuan, OT, bao hiem va thue</h3>
+                <h3>Cau hinh co dinh theo nhan vien cho cong chuan, OT, bao hiem va thue TNCN luy tien</h3>
             </div>
             <a class="btn btn-primary" th:href="@{/salary-configs/new}">Them cau hinh</a>
         </div>
@@ -25,7 +25,7 @@
                 <th>Cong chuan</th>
                 <th>He so OT</th>
                 <th>Bao hiem</th>
-                <th>Thue</th>
+                <th>Thue TNCN</th>
                 <th>Ngay ap dung</th>
             </tr>
             </thead>
@@ -33,7 +33,7 @@
             <tr th:each="config : ${salaryConfigs}">
                 <td>
                     <div th:text="${config.employee.fullName}"></div>
-                    <small class="muted-text" th:text="${config.employee.department != null ? config.employee.department.name : 'Chua co phong'}"></small>
+                    <small class="muted-text" th:text="|Phong ${config.employee.department != null ? config.employee.department.name : 'Chua co phong'} - NPT ${config.employee.dependentCount}|"></small>
                 </td>
                 <td>
                     <div th:text="|Phu cap: ${#numbers.formatDecimal(config.allowance, 0, 'COMMA', 0, 'POINT')} VND|"></div>
@@ -43,8 +43,8 @@
                 <td th:text="|${config.overtimeWeekdayMultiplier} / ${config.overtimeWeekendMultiplier} / ${config.overtimeHolidayMultiplier}|"></td>
                 <td th:text="|BHXH ${config.socialInsuranceRate}, BHYT ${config.healthInsuranceRate}, BHTN ${config.unemploymentInsuranceRate}|"></td>
                 <td>
-                    <div th:text="|TNCN ${config.personalIncomeTaxRate}|"></div>
-                    <small class="muted-text" th:text="|Giam tru ${#numbers.formatDecimal(config.personalDeduction, 0, 'COMMA', 0, 'POINT')} VND|"></small>
+                    <div>Bieu luy tien 7 bac</div>
+                    <small class="muted-text" th:text="|Giam tru ban than ${#numbers.formatDecimal(config.personalDeduction, 0, 'COMMA', 0, 'POINT')} - NPT ${#numbers.formatDecimal(config.dependentDeductionPerPerson, 0, 'COMMA', 0, 'POINT')} / nguoi|"></small>
                 </td>
                 <td>
                     <div th:text="${config.effectiveDate}"></div>

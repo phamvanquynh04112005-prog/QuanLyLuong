@@ -3,7 +3,6 @@ package com.example.QuanLyLuong.controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.SalaryConfig;
 import com.example.QuanLyLuong.service.EmployeeService;
 import com.example.QuanLyLuong.service.SalaryConfigService;
@@ -62,8 +61,8 @@ public class SalaryConfigController {
                        @RequestParam(required = false) Double socialInsuranceRate,
                        @RequestParam(required = false) Double healthInsuranceRate,
                        @RequestParam(required = false) Double unemploymentInsuranceRate,
-                       @RequestParam(required = false) Double personalIncomeTaxRate,
                        @RequestParam(required = false) Double personalDeduction,
+                       @RequestParam(required = false) Double dependentDeductionPerPerson,
                        @RequestParam(required = false) String description,
                        @RequestParam(required = false) LocalDate effectiveDate,
                        RedirectAttributes redirectAttributes) {
@@ -79,12 +78,12 @@ public class SalaryConfigController {
                 socialInsuranceRate,
                 healthInsuranceRate,
                 unemploymentInsuranceRate,
-                personalIncomeTaxRate,
                 personalDeduction,
+                dependentDeductionPerPerson,
                 description,
                 effectiveDate
         );
-        redirectAttributes.addFlashAttribute("successMsg", "Da luu cau hinh luong nang cao.");
+        redirectAttributes.addFlashAttribute("successMsg", "Da luu cau hinh thue TNCN luy tien va payroll.");
         return "redirect:/salary-configs";
     }
 }

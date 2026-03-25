@@ -3,7 +3,7 @@
         <div class="panel-header compact">
             <div>
                 <p class="panel-kicker">Bang rule tinh luong</p>
-                <h3>Thiet lap ngay cong chuan, he so OT, bao hiem va thue</h3>
+                <h3>Thiet lap cong chuan, he so OT, bao hiem va thue TNCN luy tien</h3>
             </div>
             <a class="btn btn-outline" th:href="@{/salary-configs}">Quay lai</a>
         </div>
@@ -53,6 +53,10 @@
                     <input class="input" type="number" name="personalDeduction" min="0" step="1000" value="11000000">
                 </div>
                 <div>
+                    <label class="field-label">Giam tru / nguoi phu thuoc</label>
+                    <input class="input" type="number" name="dependentDeductionPerPerson" min="0" step="1000" value="4400000">
+                </div>
+                <div>
                     <label class="field-label">Ty le BHXH</label>
                     <input class="input" type="number" name="socialInsuranceRate" min="0" step="0.001" value="0.08">
                 </div>
@@ -64,14 +68,13 @@
                     <label class="field-label">Ty le BHTN</label>
                     <input class="input" type="number" name="unemploymentInsuranceRate" min="0" step="0.001" value="0.01">
                 </div>
-                <div>
-                    <label class="field-label">Ty le thue TNCN</label>
-                    <input class="input" type="number" name="personalIncomeTaxRate" min="0" step="0.001" value="0.05">
-                </div>
+            </div>
+            <div class="summary-box helper-card">
+                He thong se tu dong ap bieu thue TNCN luy tien 7 bac theo thang cua Viet Nam. Muc giam tru nguoi phu thuoc se nhan voi so NPT dang luu trong ho so nhan vien.
             </div>
             <div>
                 <label class="field-label">Mo ta</label>
-                <textarea class="input" name="description" rows="4" placeholder="Vi du: rule payroll cua nhom IT, tinh OT 1.5/2/3, BH theo hop dong..."></textarea>
+                <textarea class="input" name="description" rows="4" placeholder="Vi du: ap dung bieu thue luy tien, giam tru NPT 4.4 trieu/nguoI..."></textarea>
             </div>
             <div class="actions-row"><button class="btn btn-primary" type="submit">Luu cau hinh</button><a class="btn btn-secondary" th:href="@{/salary-configs}">Huy</a></div>
         </form>

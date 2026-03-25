@@ -55,6 +55,9 @@ public class Employee {
 
     private LocalDate joinDate;
 
+    @Column(nullable = false)
+    private Integer dependentCount = 0;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private EmployeeStatus status = EmployeeStatus.ACTIVE;
