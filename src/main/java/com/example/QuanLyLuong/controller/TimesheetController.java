@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import com.example.QuanLyLuong.common.AttendanceSource;
 import com.example.QuanLyLuong.dto.AttendanceImportResult;
-import com.example.QuanLyLuong.dto.TimesheetSummary;
+import com.example.QuanLyLuong.entity.AttendanceLog;
 import com.example.QuanLyLuong.entity.Timesheet;
 import com.example.QuanLyLuong.service.AttendanceLogService;
 import com.example.QuanLyLuong.service.EmployeeService;
@@ -48,17 +48,40 @@ public class TimesheetController {
         String normalizedPeriodType = normalizePeriodType(periodType);
 
         List<Timesheet> timesheets = timesheetService.findAllByPeriod(selectedMonth, selectedYear, normalizedPeriodType);
-        TimesheetSummary summary = timesheetService.getSummaryByPeriod(selectedMonth, selectedYear, normalizedPeriodType);
 
         model.addAttribute("timesheets", timesheets);
-        model.addAttribute("summary", summary);
         model.addAttribute("month", selectedMonth);
         model.addAttribute("year", selectedYear);
         model.addAttribute("periodType", normalizedPeriodType);
         model.addAttribute("periodTitle", buildPeriodTitle(selectedMonth, selectedYear, normalizedPeriodType));
-        model.addAttribute("attendanceSources", AttendanceSource.values());
         model.addAttribute("pageTitle", "Ch\u1ea5m c\u00f4ng");
         model.addAttribute("contentTemplate", "timesheet/list");
+        return "layout/base";
+    }
+
+    @GetMapping("/{id}/details")
+    public String details(@PathVariable Long id,
+                          @RequestParam(required = false) Integer month,
+                          @RequestParam(required = false) Integer year,
+                          Model model) {
+        Timesheet timesheet = timesheetService.findById(id);
+        int selectedMonth = month == null ? timesheet.getMonth() : month;
+        int selectedYear = year == null ? timesheet.getYear() : year;
+        YearMonth yearMonth = YearMonth.of(selectedYear, selectedMonth);
+        List<AttendanceLog> logs = attendanceLogService.findByEmployeeAndMonth(timesheet.getEmployee().getId(), yearMonth);
+        double totalOvertimeHours = logs.stream()
+                .mapToDouble(log -> safeDouble(log.getOvertimeWeekdayHours())
+                        + safeDouble(log.getOvertimeWeekendHours())
+                        + safeDouble(log.getOvertimeHolidayHours()))
+                .sum();
+
+        model.addAttribute("timesheet", timesheet);
+        model.addAttribute("month", selectedMonth);
+        model.addAttribute("year", selectedYear);
+        model.addAttribute("logs", logs);
+        model.addAttribute("totalOvertimeHours", round2(totalOvertimeHours));
+        model.addAttribute("pageTitle", "Chi tiet cham cong");
+        model.addAttribute("contentTemplate", "timesheet/detail");
         return "layout/base";
     }
 
@@ -146,7 +169,7 @@ public class TimesheetController {
                 overtimeWeekendHours,
                 overtimeHolidayHours,
                 lateMinutes,
-                source == null ? AttendanceSource.MANUAL : source,
+                source == null ? AttendanceSource.EXCEL_IMPORT : source,
                 machineCode,
                 note
         );
@@ -172,17 +195,6 @@ public class TimesheetController {
                     result.getMessages().stream().limit(3).collect(Collectors.joining(" | "))
             );
         }
-        String normalizedPeriodType = normalizePeriodType(periodType);
-        return "redirect:/timesheets?month=" + month + "&year=" + year + "&periodType=" + normalizedPeriodType;
-    }
-
-    @PostMapping("/bulk-init")
-    public String bulkInit(@RequestParam Integer month,
-                           @RequestParam Integer year,
-                           @RequestParam(defaultValue = "month") String periodType,
-                           RedirectAttributes redirectAttributes) {
-        int count = timesheetService.initForAllEmployees(month, year);
-        redirectAttributes.addFlashAttribute("successMsg", "\u0110\u00e3 kh\u1edfi t\u1ea1o " + count + " b\u1ea3ng ch\u1ea5m c\u00f4ng.");
         String normalizedPeriodType = normalizePeriodType(periodType);
         return "redirect:/timesheets?month=" + month + "&year=" + year + "&periodType=" + normalizedPeriodType;
     }
@@ -216,5 +228,13 @@ public class TimesheetController {
             case "year" -> "Ch\u1ea5m c\u00f4ng n\u0103m " + year;
             default -> "Ch\u1ea5m c\u00f4ng th\u00e1ng " + month + "/" + year;
         };
+    }
+
+    private double safeDouble(Double value) {
+        return value == null ? 0.0 : value;
+    }
+
+    private double round2(double value) {
+        return Math.round(value * 100.0) / 100.0;
     }
 }

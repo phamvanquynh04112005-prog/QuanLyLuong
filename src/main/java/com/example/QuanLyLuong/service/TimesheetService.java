@@ -4,7 +4,6 @@ import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.QuanLyLuong.common.EmployeeStatus;
 import com.example.QuanLyLuong.dto.TimesheetSummary;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.SalaryConfig;
@@ -59,34 +58,6 @@ public class TimesheetService {
             timesheet.setOvertimeHolidayHours(0.0);
         }
         return timesheetRepository.save(timesheet);
-    }
-
-    public int initForAllEmployees(Integer month, Integer year) {
-        int createdCount = 0;
-        YearMonth yearMonth = YearMonth.of(year, month);
-        for (Employee employee : employeeRepository.findByStatusOrderByFullNameAsc(EmployeeStatus.ACTIVE)) {
-            boolean exists = timesheetRepository
-                    .findByEmployeeIdAndMonthAndYear(employee.getId(), month, year)
-                    .isPresent();
-            if (!exists) {
-                SalaryConfig salaryConfig = salaryConfigService.getEffectiveConfig(employee.getId(), yearMonth);
-                Timesheet timesheet = new Timesheet();
-                timesheet.setEmployee(employee);
-                timesheet.setMonth(month);
-                timesheet.setYear(year);
-                timesheet.setWorkDays(0);
-                timesheet.setLeaveDays(0);
-                timesheet.setAbsentDays(positiveInteger(salaryConfig.getStandardWorkDays(), DEFAULT_STANDARD_WORK_DAYS));
-                timesheet.setRegularHours(0.0);
-                timesheet.setOvertimeWeekdayHours(0.0);
-                timesheet.setOvertimeWeekendHours(0.0);
-                timesheet.setOvertimeHolidayHours(0.0);
-                timesheet.setImportedLogCount(0);
-                timesheetRepository.save(timesheet);
-                createdCount++;
-            }
-        }
-        return createdCount;
     }
 
     @Transactional(readOnly = true)
