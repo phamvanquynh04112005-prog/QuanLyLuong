@@ -21,6 +21,7 @@
                 <th>Email</th>
                 <th>Chuc vu</th>
                 <th>Phong ban</th>
+                <th>NPT</th>
                 <th>Luong co ban</th>
                 <th>Trang thai</th>
                 <th>Thao tac</th>
@@ -33,6 +34,7 @@
                 <td th:text="${employee.email}"></td>
                 <td th:text="${employee.position}"></td>
                 <td th:text="${employee.department != null ? employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${employee.dependentCount}"></td>
                 <td th:text="|${#numbers.formatDecimal(employee.baseSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
                 <td>
                     <span class="badge" th:classappend="${employee.status.name() == 'ACTIVE'} ? ' badge-success' : ' badge-muted'"
@@ -46,7 +48,7 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(employees)}">
-                <td colspan="8" class="empty-cell">Chua co nhan vien nao.</td>
+                <td colspan="9" class="empty-cell">Chua co nhan vien nao.</td>
             </tr>
             </tbody>
         </table>

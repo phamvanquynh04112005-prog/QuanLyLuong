@@ -37,6 +37,7 @@ public class EmployeeService {
         employee.setEmail(normalizeText(employee.getEmail()));
         employee.setFullName(normalizeText(employee.getFullName()));
         employee.setPosition(normalizeText(employee.getPosition()));
+        employee.setDependentCount(Math.max(0, employee.getDependentCount() == null ? 0 : employee.getDependentCount()));
         Employee savedEmployee = employeeRepository.save(employee);
         return ensureGeneratedCode(savedEmployee);
     }
@@ -48,6 +49,7 @@ public class EmployeeService {
         existing.setPosition(normalizeText(updatedEmployee.getPosition()));
         existing.setBaseSalary(updatedEmployee.getBaseSalary());
         existing.setJoinDate(updatedEmployee.getJoinDate());
+        existing.setDependentCount(Math.max(0, updatedEmployee.getDependentCount() == null ? 0 : updatedEmployee.getDependentCount()));
         existing.setStatus(updatedEmployee.getStatus());
         existing.setDepartment(resolveDepartment(updatedEmployee));
         String requestedCode = normalizeCode(updatedEmployee.getEmployeeCode());

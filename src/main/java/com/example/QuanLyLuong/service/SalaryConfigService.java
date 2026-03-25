@@ -36,8 +36,8 @@ public class SalaryConfigService {
                 0.08,
                 0.015,
                 0.01,
-                0.05,
                 11000000.0,
+                4400000.0,
                 description,
                 effectiveDate
         );
@@ -54,8 +54,8 @@ public class SalaryConfigService {
                              Double socialInsuranceRate,
                              Double healthInsuranceRate,
                              Double unemploymentInsuranceRate,
-                             Double personalIncomeTaxRate,
                              Double personalDeduction,
+                             Double dependentDeductionPerPerson,
                              String description,
                              LocalDate effectiveDate) {
         Employee employee = employeeRepository.findById(employeeId)
@@ -73,8 +73,9 @@ public class SalaryConfigService {
         config.setSocialInsuranceRate(socialInsuranceRate == null || socialInsuranceRate < 0 ? 0.08 : socialInsuranceRate);
         config.setHealthInsuranceRate(healthInsuranceRate == null || healthInsuranceRate < 0 ? 0.015 : healthInsuranceRate);
         config.setUnemploymentInsuranceRate(unemploymentInsuranceRate == null || unemploymentInsuranceRate < 0 ? 0.01 : unemploymentInsuranceRate);
-        config.setPersonalIncomeTaxRate(personalIncomeTaxRate == null || personalIncomeTaxRate < 0 ? 0.05 : personalIncomeTaxRate);
+        config.setPersonalIncomeTaxRate(0.0);
         config.setPersonalDeduction(personalDeduction == null || personalDeduction < 0 ? 11000000.0 : personalDeduction);
+        config.setDependentDeductionPerPerson(dependentDeductionPerPerson == null || dependentDeductionPerPerson < 0 ? 4400000.0 : dependentDeductionPerPerson);
         config.setDescription(description == null ? null : description.trim());
         config.setEffectiveDate(effectiveDate == null ? LocalDate.now() : effectiveDate);
         return salaryConfigRepository.save(config);
@@ -123,9 +124,10 @@ public class SalaryConfigService {
         config.setSocialInsuranceRate(0.08);
         config.setHealthInsuranceRate(0.015);
         config.setUnemploymentInsuranceRate(0.01);
-        config.setPersonalIncomeTaxRate(0.05);
+        config.setPersonalIncomeTaxRate(0.0);
         config.setPersonalDeduction(11000000.0);
-        config.setDescription("Mac dinh chua co cau hinh luong nang cao");
+        config.setDependentDeductionPerPerson(4400000.0);
+        config.setDescription("Mac dinh ap dung bieu thue luy tien TNCN Viet Nam");
         config.setEffectiveDate(LocalDate.now());
         return config;
     }

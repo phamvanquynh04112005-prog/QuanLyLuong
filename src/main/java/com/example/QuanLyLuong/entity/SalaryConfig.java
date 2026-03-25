@@ -66,6 +66,9 @@ public class SalaryConfig {
     @Column(nullable = false)
     private Double personalDeduction = 11000000.0;
 
+    @Column(nullable = false)
+    private Double dependentDeductionPerPerson = 4400000.0;
+
     @Column(length = 255)
     private String description;
 

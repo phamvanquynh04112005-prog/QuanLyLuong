@@ -27,13 +27,13 @@
 
         <table class="table">
             <thead>
-            <tr><th>Nhan vien</th><th>Cong / Gio</th><th>Luong co ban tinh</th><th>OT</th><th>Phu cap + Thuong</th><th>BH + Thue + Khau tru</th><th>Thuc nhan</th><th>Trang thai</th><th>Thao tac</th></tr>
+            <tr><th>Nhan vien</th><th>Cong / Gio</th><th>Luong co ban tinh</th><th>OT</th><th>Phu cap + Thuong</th><th>BH + TNCN + Khau tru</th><th>Thuc nhan</th><th>Trang thai</th><th>Thao tac</th></tr>
             </thead>
             <tbody>
             <tr th:each="payroll : ${payrolls}">
                 <td>
                     <div th:text="${payroll.employee.fullName}"></div>
-                    <small class="muted-text" th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'}"></small>
+                    <small class="muted-text" th:text="|${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'} - NPT ${payroll.employee.dependentCount}|"></small>
                 </td>
                 <td>
                     <div th:text="|${payroll.timesheet != null ? payroll.timesheet.workDays : 0} cong|"></div>
@@ -47,7 +47,8 @@
                 </td>
                 <td>
                     <div th:text="|BH: ${#numbers.formatDecimal(payroll.insuranceAmount, 0, 'COMMA', 0, 'POINT')} VND|"></div>
-                    <small class="muted-text" th:text="|Thue: ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - Khau tru: ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text" th:text="|TNTT: ${#numbers.formatDecimal(payroll.taxableIncome, 0, 'COMMA', 0, 'POINT')} - Giam tru NPT: ${#numbers.formatDecimal(payroll.dependentDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text" th:text="|TNCN: ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - Khac: ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
                 </td>
                 <td>
                     <div th:text="|${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div>

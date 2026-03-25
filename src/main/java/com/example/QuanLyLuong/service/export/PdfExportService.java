@@ -128,6 +128,7 @@ public class PdfExportService {
         addInfoRow(infoTable, "Phong ban", employee.getDepartment() != null ? employee.getDepartment().getName() : "", labelFont, bodyFont);
         addInfoRow(infoTable, "Chuc vu", safeValue(employee.getPosition()), labelFont, bodyFont);
         addInfoRow(infoTable, "Ngay vao lam", employee.getJoinDate() != null ? employee.getJoinDate().toString() : "", labelFont, bodyFont);
+        addInfoRow(infoTable, "So nguoi phu thuoc", String.valueOf(employee.getDependentCount() == null ? 0 : employee.getDependentCount()), labelFont, bodyFont);
         document.add(infoTable);
 
         PdfPTable salaryTable = new PdfPTable(2);
@@ -138,10 +139,12 @@ public class PdfExportService {
         addSalaryRow(salaryTable, "Tien OT", money(payroll.getOvertimePay(), numberFormat), bodyFont, false);
         addSalaryRow(salaryTable, "Tong phu cap", money(payroll.getTotalAllowance(), numberFormat), bodyFont, false);
         addSalaryRow(salaryTable, "Tong thuong", money(payroll.getTotalBonus(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Bao hiem", money(payroll.getInsuranceAmount(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Thue TNCN", money(payroll.getTaxAmount(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Khau tru khac", money(payroll.getOtherDeductionAmount(), numberFormat), bodyFont, false);
         addSalaryRow(salaryTable, "Luong gop", money(payroll.getGrossSalary(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Bao hiem bat buoc", money(payroll.getInsuranceAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Giam tru nguoi phu thuoc", money(payroll.getDependentDeductionAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Thu nhap tinh thue", money(payroll.getTaxableIncome(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Thue TNCN luy tien", money(payroll.getTaxAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Khau tru khac", money(payroll.getOtherDeductionAmount(), numberFormat), bodyFont, false);
         addSalaryRow(salaryTable, "Luong thuc nhan", money(payroll.getActualSalary(), numberFormat), totalFont, true);
         document.add(salaryTable);
 
