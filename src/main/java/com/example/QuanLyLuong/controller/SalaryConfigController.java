@@ -25,16 +25,18 @@ public class SalaryConfigController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public String list(@RequestParam(required = false) Long employeeId, Model model) {
+    public String list(@RequestParam(required = false) Long employeeId,
+                       @RequestParam(required = false) String keyword,
+                       Model model) {
         List<SalaryConfig> salaryConfigs = employeeId == null
-                ? salaryConfigService.findLatestForAllEmployees()
+                ? salaryConfigService.findLatestForAllEmployees(keyword)
                 : salaryConfigService.findHistoryByEmployee(employeeId);
 
         model.addAttribute("salaryConfigs", salaryConfigs);
-        model.addAttribute("employees", employeeService.findAll());
+        model.addAttribute("keyword", keyword);
         model.addAttribute("selectedEmployeeId", employeeId);
         model.addAttribute("historyView", employeeId != null);
-        model.addAttribute("pageTitle", "Cau hinh luong");
+        model.addAttribute("pageTitle", "C\u1ea5u h\u00ecnh l\u01b0\u01a1ng");
         model.addAttribute("contentTemplate", "salary-config/list");
         return "layout/base";
     }
@@ -44,7 +46,7 @@ public class SalaryConfigController {
         model.addAttribute("employees", employeeService.findAll());
         model.addAttribute("selectedEmployeeId", employeeId);
         model.addAttribute("defaultDate", LocalDate.now());
-        model.addAttribute("pageTitle", "Them cau hinh luong");
+        model.addAttribute("pageTitle", "Th\u00eam c\u1ea5u h\u00ecnh l\u01b0\u01a1ng");
         model.addAttribute("contentTemplate", "salary-config/form");
         return "layout/base";
     }
@@ -83,7 +85,7 @@ public class SalaryConfigController {
                 description,
                 effectiveDate
         );
-        redirectAttributes.addFlashAttribute("successMsg", "Da luu cau hinh thue TNCN luy tien va payroll.");
+        redirectAttributes.addFlashAttribute("successMsg", "\u0110\u00e3 l\u01b0u c\u1ea5u h\u00ecnh l\u01b0\u01a1ng.");
         return "redirect:/salary-configs";
     }
 }

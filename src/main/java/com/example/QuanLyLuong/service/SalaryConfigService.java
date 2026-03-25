@@ -59,7 +59,7 @@ public class SalaryConfigService {
                              String description,
                              LocalDate effectiveDate) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Kh\u00f4ng t\u00ecm th\u1ea5y nh\u00e2n vi\u00ean c\u00f3 ID: " + employeeId));
 
         SalaryConfig config = new SalaryConfig();
         config.setEmployee(employee);
@@ -88,8 +88,14 @@ public class SalaryConfigService {
 
     @Transactional(readOnly = true)
     public List<SalaryConfig> findLatestForAllEmployees() {
+        return findLatestForAllEmployees(null);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SalaryConfig> findLatestForAllEmployees(String keyword) {
+        List<Employee> employees = resolveEmployeesByKeyword(keyword);
         List<SalaryConfig> latestConfigs = new ArrayList<>();
-        for (Employee employee : employeeRepository.findAllByOrderByFullNameAsc()) {
+        for (Employee employee : employees) {
             latestConfigs.add(getLatestConfigOrDefault(employee.getId()));
         }
         return latestConfigs;
@@ -109,9 +115,20 @@ public class SalaryConfigService {
                 .orElseGet(() -> createEmptyConfig(employeeId));
     }
 
+    private List<Employee> resolveEmployeesByKeyword(String keyword) {
+        String normalizedKeyword = keyword == null ? null : keyword.trim();
+        if (normalizedKeyword == null || normalizedKeyword.isBlank()) {
+            return employeeRepository.findAllByOrderByFullNameAsc();
+        }
+        return employeeRepository.findByFullNameContainingIgnoreCaseOrEmployeeCodeContainingIgnoreCaseOrderByFullNameAsc(
+                normalizedKeyword,
+                normalizedKeyword
+        );
+    }
+
     private SalaryConfig createEmptyConfig(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Kh\u00f4ng t\u00ecm th\u1ea5y nh\u00e2n vi\u00ean c\u00f3 ID: " + employeeId));
         SalaryConfig config = new SalaryConfig();
         config.setEmployee(employee);
         config.setAllowance(0.0);
@@ -127,7 +144,7 @@ public class SalaryConfigService {
         config.setPersonalIncomeTaxRate(0.0);
         config.setPersonalDeduction(11000000.0);
         config.setDependentDeductionPerPerson(4400000.0);
-        config.setDescription("Mac dinh ap dung bieu thue luy tien TNCN Viet Nam");
+        config.setDescription("M\u1eb7c \u0111\u1ecbnh \u00e1p d\u1ee5ng c\u1ea5u h\u00ecnh l\u01b0\u01a1ng v\u00e0 thu\u1ebf TNCN");
         config.setEffectiveDate(LocalDate.now());
         return config;
     }

@@ -26,12 +26,13 @@ public class ReportService {
     private final DepartmentRepository departmentRepository;
     private final PayrollRepository payrollRepository;
 
-    public PayrollReportDashboard buildDepartmentReport(Integer month, Integer year, Integer rangeMonths) {
+    public PayrollReportDashboard buildDepartmentReport(Integer month, Integer year, Integer rangeMonths, String sort) {
         int safeRangeMonths = rangeMonths == null || rangeMonths < 1 ? 6 : Math.min(rangeMonths, 12);
         YearMonth endMonth = YearMonth.of(year, month);
+        boolean sortAsc = "asc".equalsIgnoreCase(sort);
 
         List<MonthlyPayrollTrendItem> monthlyTrend = buildMonthlyTrend(endMonth, safeRangeMonths);
-        List<DepartmentReportItem> departmentItems = buildDepartmentItems(month, year);
+        List<DepartmentReportItem> departmentItems = buildDepartmentItems(month, year, sortAsc);
 
         double selectedMonthTotal = departmentItems.stream().mapToDouble(DepartmentReportItem::getTotalSalary).sum();
         double periodTotal = monthlyTrend.stream().mapToDouble(MonthlyPayrollTrendItem::getTotalSalary).sum();
@@ -57,13 +58,13 @@ public class ReportService {
                 .periodPaidCount(periodPaidCount)
                 .periodPendingCount(periodPendingCount)
                 .maxTrendValue(maxTrendValue)
-                .topDepartmentName(topDepartment == null ? "Chua co du lieu" : topDepartment.getDepartmentName())
+                .topDepartmentName(topDepartment == null ? "Chưa có dữ liệu" : topDepartment.getDepartmentName())
                 .topDepartmentTotal(topDepartment == null ? 0.0 : topDepartment.getTotalSalary())
                 .paidRatio(Math.round(paidRatio * 10.0) / 10.0)
                 .build();
     }
 
-    private List<DepartmentReportItem> buildDepartmentItems(Integer month, Integer year) {
+    private List<DepartmentReportItem> buildDepartmentItems(Integer month, Integer year, boolean sortAsc) {
         List<DepartmentReportItem> items = new ArrayList<>();
         List<Department> departments = departmentRepository.findAll();
         double overallTotal = departments.stream()
@@ -90,9 +91,13 @@ public class ReportService {
                     .build());
         }
 
+        Comparator<DepartmentReportItem> comparator = sortAsc
+                ? Comparator.comparingDouble(DepartmentReportItem::getTotalSalary)
+                .thenComparing(DepartmentReportItem::getDepartmentName)
+                : Comparator.comparingDouble(DepartmentReportItem::getTotalSalary).reversed()
+                .thenComparing(DepartmentReportItem::getDepartmentName);
         return items.stream()
-                .sorted(Comparator.comparingDouble(DepartmentReportItem::getTotalSalary).reversed()
-                        .thenComparing(DepartmentReportItem::getDepartmentName))
+                .sorted(comparator)
                 .toList();
     }
 

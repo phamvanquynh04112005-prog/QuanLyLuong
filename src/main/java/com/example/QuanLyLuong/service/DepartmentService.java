@@ -25,10 +25,11 @@ public class DepartmentService {
     @Transactional(readOnly = true)
     public Department findById(Long id) {
         return departmentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay phong ban co ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phòng ban có ID: " + id));
     }
 
     public Department save(Department department) {
         return departmentRepository.save(department);
     }
 }
+

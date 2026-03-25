@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -10,10 +10,14 @@
 <div class="auth-shell">
     <div class="auth-card error-card">
         <p class="brand-kicker">Application Error</p>
-        <h1 th:text="${errorTitle}">Da xay ra loi</h1>
-        <p class="auth-copy" th:text="${errorMessage}">Vui long thu lai.</p>
-        <a class="btn btn-primary btn-block" th:href="@{/dashboard}">Quay ve dashboard</a>
+        <h1 th:text="${errorTitle} ?: (${error} ?: 'Đã xảy ra lỗi')">Đã xảy ra lỗi</h1>
+        <p class="auth-copy" th:text="${errorMessage} ?: (${message} ?: 'Vui lòng thu lai.')">Vui lòng thu lai.</p>
+        <a class="btn btn-primary btn-block" th:href="@{/dashboard}">Quay về dashboard</a>
     </div>
 </div>
 </body>
 </html>
+
+
+
+

@@ -1,0 +1,12 @@
+<h3>Ph?n
+<th>Nh?n
+<thead><tr><th>Ky</th><th>Nh?n
+<thead><tr><th>Nh?n
+<tr><th>Nh?n
+class="field-label">Nh?n
+class="field-label">Th?ng</label>
+class="field-label">Th?ng</label><input
+class="panel-kicker">B?o
+c?o
+nh?n
+s?ch

@@ -46,7 +46,7 @@ public class PayrollController {
         model.addAttribute("totalSalary", payrollService.getTotalPayrollAmount(selectedMonth, selectedYear));
         model.addAttribute("month", selectedMonth);
         model.addAttribute("year", selectedYear);
-        model.addAttribute("pageTitle", "Bang luong");
+        model.addAttribute("pageTitle", "Bảng lương");
         model.addAttribute("contentTemplate", "payroll/list");
         return "layout/base";
     }
@@ -77,7 +77,7 @@ public class PayrollController {
         model.addAttribute("summary", summary);
         model.addAttribute("departments", departmentService.findAll());
         model.addAttribute("paymentStatuses", PaymentStatus.values());
-        model.addAttribute("pageTitle", "Tra cuu phieu luong");
+        model.addAttribute("pageTitle", "Tra cứu phiếu lương");
         model.addAttribute("contentTemplate", "payroll/search");
         return "layout/base";
     }
@@ -87,7 +87,7 @@ public class PayrollController {
                             @RequestParam Integer year,
                             RedirectAttributes redirectAttributes) {
         int total = payrollService.calculateForAll(month, year).size();
-        redirectAttributes.addFlashAttribute("successMsg", "Da tinh luong cho " + total + " nhan vien.");
+        redirectAttributes.addFlashAttribute("successMsg", "Đã tính lương cho " + total + " nhân viên.");
         return "redirect:/payrolls?month=" + month + "&year=" + year;
     }
 
@@ -97,7 +97,7 @@ public class PayrollController {
                       @RequestParam Integer year,
                       RedirectAttributes redirectAttributes) {
         payrollService.markAsPaid(id);
-        redirectAttributes.addFlashAttribute("successMsg", "Da cap nhat trang thai chi luong.");
+        redirectAttributes.addFlashAttribute("successMsg", "Đã cập nhật trạng thái chi lương.");
         return "redirect:/payrolls?month=" + month + "&year=" + year;
     }
 
@@ -144,7 +144,7 @@ public class PayrollController {
         Employee employee = userService.getEmployeeFromAuthentication(authentication);
         model.addAttribute("payrolls", employee == null ? java.util.List.of() : payrollService.findByEmployee(employee.getId()));
         model.addAttribute("employee", employee);
-        model.addAttribute("pageTitle", "Phieu luong cua toi");
+        model.addAttribute("pageTitle", "Phiếu lương của tôi");
         model.addAttribute("contentTemplate", "payroll/my");
         return "layout/base";
     }

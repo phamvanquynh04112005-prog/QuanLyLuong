@@ -1,33 +1,68 @@
-<div th:fragment="content">
-    <section class="panel report-hero">
-        <div>
-            <p class="panel-kicker">Bao cao chi phi luong</p>
-            <h3>Phan tich theo phong ban va xu huong nhieu thang</h3>
-            <p class="hero-copy">Man hinh nay tong hop 2 lop thong tin: bo tranh tong quan trong giai doan da chon va chi tiet phan bo chi phi luong cua thang hien tai.</p>
+﻿<div th:fragment="content">
+    <section class="panel report-filter">
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">B&#7897; l&#7885;c</p>
+                <h3>T&#249;y ch&#7885;n ng&#224;y, th&#225;ng, qu&#253; ho&#7863;c n&#259;m</h3>
+                <p class="muted-text" th:text="${periodSummary} + ' - ' + ${comparisonSummary}"></p>
+            </div>
         </div>
-        <form class="toolbar report-filter" method="get" th:action="@{/reports/department}">
-            <input class="input" style="max-width: 120px" type="number" min="1" max="12" name="month" th:value="${month}">
-            <input class="input" style="max-width: 120px" type="number" min="2020" max="2099" name="year" th:value="${year}">
-            <select class="input" style="max-width: 160px" name="rangeMonths">
-                <option value="3" th:selected="${rangeMonths == 3}">3 thang</option>
-                <option value="6" th:selected="${rangeMonths == 6}">6 thang</option>
-                <option value="9" th:selected="${rangeMonths == 9}">9 thang</option>
-                <option value="12" th:selected="${rangeMonths == 12}">12 thang</option>
-            </select>
-            <button class="btn btn-primary" type="submit">Cap nhat bao cao</button>
+
+        <form class="actions-row period-switch cost-period-switch" th:action="@{/reports/department}" method="get">
+            <input type="hidden" name="month" th:value="${month}" />
+            <input type="hidden" name="year" th:value="${year}" />
+            <input type="hidden" name="quarter" th:value="${quarter}" />
+            <input type="hidden" name="date" th:value="${date}" />
+            <button class="btn" type="submit" name="periodType" value="day" th:classappend="${periodType == 'day'} ? ' btn-primary' : ' btn-outline'">Ng&#224;y</button>
+            <button class="btn" type="submit" name="periodType" value="month" th:classappend="${periodType == 'month'} ? ' btn-primary' : ' btn-outline'">Th&#225;ng</button>
+            <button class="btn" type="submit" name="periodType" value="quarter" th:classappend="${periodType == 'quarter'} ? ' btn-primary' : ' btn-outline'">Qu&#253;</button>
+            <button class="btn" type="submit" name="periodType" value="year" th:classappend="${periodType == 'year'} ? ' btn-primary' : ' btn-outline'">N&#259;m</button>
+        </form>
+
+        <form class="search-grid cost-filter-grid" th:action="@{/reports/department}" method="get">
+            <input type="hidden" name="periodType" th:value="${periodType}" />
+
+            <div th:if="${periodType == 'day'}">
+                <label class="field-label">Ng&#224;y</label>
+                <input class="input" type="date" name="date" th:value="${date}" required />
+            </div>
+
+            <div th:if="${periodType == 'month'}">
+                <label class="field-label">Th&#225;ng</label>
+                <input class="input" type="number" name="month" min="1" max="12" th:value="${month}" required />
+            </div>
+
+            <div th:if="${periodType == 'quarter'}">
+                <label class="field-label">Qu&#253;</label>
+                <select class="input" name="quarter">
+                    <option value="1" th:selected="${quarter == 1}">Qu&#253; 1</option>
+                    <option value="2" th:selected="${quarter == 2}">Qu&#253; 2</option>
+                    <option value="3" th:selected="${quarter == 3}">Qu&#253; 3</option>
+                    <option value="4" th:selected="${quarter == 4}">Qu&#253; 4</option>
+                </select>
+            </div>
+
+            <div th:if="${periodType == 'month' or periodType == 'quarter' or periodType == 'year'}">
+                <label class="field-label">N&#259;m</label>
+                <input class="input" type="number" name="year" min="2020" max="2099" th:value="${year}" required />
+            </div>
+
+            <div class="search-actions cost-filter-actions">
+                <button class="btn btn-primary" type="submit">&#193;p d&#7909;ng</button>
+            </div>
         </form>
     </section>
 
     <section class="stats-grid">
-        <article class="stat-card"><div class="stat-label">Tong chi luong ky bao cao</div><div class="stat-value" th:text="|${#numbers.formatDecimal(reportDashboard.periodTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
-        <article class="stat-card"><div class="stat-label">Trung binh moi thang</div><div class="stat-value" th:text="|${#numbers.formatDecimal(reportDashboard.averageMonthlyTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
-        <article class="stat-card"><div class="stat-label">Tong bang luong trong ky</div><div class="stat-value" th:text="${reportDashboard.periodPayrollCount}"></div></article>
-        <article class="stat-card"><div class="stat-label">Ty le da chi</div><div class="stat-value" th:text="|${reportDashboard.paidRatio}%|"></div></article>
-        <article class="stat-card accent"><div class="stat-label">Phong ban dan dau thang chon</div><div class="stat-value" th:text="${reportDashboard.topDepartmentName}"></div><div class="stat-label" th:text="|${#numbers.formatDecimal(reportDashboard.topDepartmentTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+        <article class="stat-card"><div class="stat-label">Tổng chi lương kỳ báo cáo</div><div class="stat-value" th:text="|${#numbers.formatDecimal(reportDashboard.periodTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+        <article class="stat-card"><div class="stat-label">Trung bình mỗi tháng</div><div class="stat-value" th:text="|${#numbers.formatDecimal(reportDashboard.averageMonthlyTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
+        <article class="stat-card"><div class="stat-label">Tổng bảng lương trong kỳ</div><div class="stat-value" th:text="${reportDashboard.periodPayrollCount}"></div></article>
+        <article class="stat-card"><div class="stat-label">Tỷ lệ đã chi</div><div class="stat-value" th:text="|${reportDashboard.paidRatio}%|"></div></article>
+        <article class="stat-card accent"><div class="stat-label">Phòng ban dẫn đầu tháng đã chọn</div><div class="stat-value" th:text="${reportDashboard.topDepartmentName}"></div><div class="stat-label" th:text="|${#numbers.formatDecimal(reportDashboard.topDepartmentTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></article>
     </section>
 
     <section class="panel">
-        <div class="panel-header compact"><div><p class="panel-kicker">Xu huong nhieu thang</p><h3 th:text="|Bien dong tong chi luong trong ${rangeMonths} thang gan nhat|"></h3></div></div>
+        <div class="panel-header compact"><div><p class="panel-kicker">Xu hướng nhiều tháng</p><h3 th:text="|Biến động tổng chi lương trong ${rangeMonths} tháng gần nhất|"></h3></div></div>
         <div class="chart-bars" th:if="${not #lists.isEmpty(reportDashboard.monthlyTrend)}">
             <div class="bar-column" th:each="trend : ${reportDashboard.monthlyTrend}">
                 <div class="bar-stack">
@@ -39,7 +74,7 @@
             </div>
         </div>
         <table class="table">
-            <thead><tr><th>Ky</th><th>Tong luong</th><th>Da chi</th><th>Chua chi</th><th>So payroll</th></tr></thead>
+            <thead><tr><th>Kỳ</th><th>Tổng lương</th><th>Đã chi</th><th>Chưa chi</th><th>Số payroll</th></tr></thead>
             <tbody>
             <tr th:each="trend : ${reportDashboard.monthlyTrend}">
                 <td th:text="${trend.label}"></td>
@@ -53,9 +88,9 @@
     </section>
 
     <section class="panel">
-        <div class="panel-header compact"><div><p class="panel-kicker">Chi tiet thang duoc chon</p><h3 th:text="|Phan bo luong theo phong ban trong ${month}/${year}|"></h3></div><div class="summary-pill" th:text="|${#numbers.formatDecimal(reportDashboard.selectedMonthTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></div>
+        <div class="panel-header compact"><div><p class="panel-kicker">Chi tiết tháng được chọn</p><h3 th:text="|Phân bổ lương theo phòng ban trong ${month}/${year}|"></h3></div><div class="summary-pill" th:text="|${#numbers.formatDecimal(reportDashboard.selectedMonthTotal, 0, 'COMMA', 0, 'POINT')} VND|"></div></div>
         <table class="table">
-            <thead><tr><th>Phong ban</th><th>Tong luong</th><th>Ti le</th><th>So payroll</th><th>Trung binh</th><th>Da chi / Chua chi</th><th>Do phu</th></tr></thead>
+            <thead><tr><th>Phòng ban</th><th>Tổng lương</th><th>Tỉ lệ</th><th>Số payroll</th><th>Trung bình</th><th>Đã chi / Chưa chi</th><th>Độ phủ</th></tr></thead>
             <tbody>
             <tr th:each="item : ${reportDashboard.departmentItems}">
                 <td th:text="${item.departmentName}"></td>
@@ -66,8 +101,14 @@
                 <td th:text="|${item.paidCount} / ${item.pendingCount}|"></td>
                 <td><div class="progress-track large"><div class="progress-bar" th:style="'width:' + ${item.percentage} + '%' "></div></div></td>
             </tr>
-            <tr th:if="${#lists.isEmpty(reportDashboard.departmentItems)}"><td colspan="7" class="empty-cell">Chua co du lieu bang luong de tao bao cao.</td></tr>
+            <tr th:if="${#lists.isEmpty(reportDashboard.departmentItems)}"><td colspan="7" class="empty-cell">Chưa có dữ liệu bảng lương để tạo báo cáo.</td></tr>
             </tbody>
         </table>
     </section>
 </div>
+
+
+
+
+
+

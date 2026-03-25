@@ -2,71 +2,69 @@
     <section class="panel">
         <div class="panel-header">
             <div>
-                <p class="panel-kicker">Phu cap, thuong, khau tru dong</p>
-                <h3>Quan ly cac khoan tac dong truc tiep vao bang luong</h3>
+                <p class="panel-kicker">Ph&#7909; c&#7845;p v&#224; th&#432;&#7903;ng</p>
+                <h3>Qu&#7843;n l&#253; c&#225;c kho&#7843;n ph&#7909; c&#7845;p, th&#432;&#7903;ng v&#224; kh&#7845;u tr&#7915; tr&#234;n b&#7843;ng l&#432;&#417;ng</h3>
             </div>
         </div>
 
         <form class="toolbar" method="get" th:action="@{/compensation-items}">
-            <select class="input" name="employeeId">
-                <option value="">Tat ca nhan vien</option>
-                <option th:each="employee : ${employees}"
-                        th:value="${employee.id}"
-                        th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}"
-                        th:text="|${employee.fullName} (${employee.employeeCode != null ? employee.employeeCode : 'NoCode'})|"></option>
-            </select>
-            <button class="btn btn-outline" type="submit">Loc du lieu</button>
+            <input class="input" style="min-width: 320px; max-width: 520px"
+                   type="text"
+                   name="keyword"
+                   th:value="${keyword}"
+                   placeholder="Nh&#7853;p m&#227; nh&#226;n vi&#234;n ho&#7863;c t&#234;n nh&#226;n vi&#234;n...">
+            <button class="btn btn-outline" type="submit">T&#236;m ki&#7871;m</button>
         </form>
 
         <div class="detail-grid">
             <div class="summary-box wide-card">
-                <div class="stat-label">Them cau phan moi</div>
+                <div class="stat-label">Th&#234;m c&#7845;u ph&#7847;n m&#7899;i</div>
                 <form class="stack-form" th:action="@{/compensation-items/save}" method="post">
+                    <input type="hidden" name="keyword" th:value="${keyword}">
                     <div class="grid two-col">
                         <div>
-                            <label class="field-label">Nhan vien</label>
+                            <label class="field-label">Nh&#226;n vi&#234;n</label>
                             <select class="input" name="employeeId" required>
-                                <option value="">Chon nhan vien</option>
+                                <option value="">Ch&#7885;n nh&#226;n vi&#234;n</option>
                                 <option th:each="employee : ${employees}"
                                         th:value="${employee.id}"
-                                        th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}"
-                                        th:text="|${employee.fullName} - ${employee.department != null ? employee.department.name : 'Chua co phong'}|"></option>
+                                        th:text="|${employee.fullName} - ${employee.department != null ? employee.department.name : 'Ch&#432;a c&#243; ph&#242;ng'}|"></option>
                             </select>
                         </div>
                         <div>
-                            <label class="field-label">Loai</label>
+                            <label class="field-label">Lo&#7841;i</label>
                             <select class="input" name="componentType" required>
                                 <option th:each="type : ${types}" th:value="${type}" th:text="${type.label}"></option>
                             </select>
                         </div>
                         <div>
-                            <label class="field-label">Ten khoan</label>
-                            <input class="input" type="text" name="name" required placeholder="Vi du: Thuong KPI, phu cap com trua">
+                            <label class="field-label">T&#234;n kho&#7843;n</label>
+                            <input class="input" type="text" name="name" required placeholder="V&#237; d&#7909;: Th&#432;&#7903;ng KPI, ph&#7909; c&#7845;p c&#417;m tr&#432;a">
                         </div>
                         <div>
-                            <label class="field-label">So tien</label>
+                            <label class="field-label">S&#7889; ti&#7873;n</label>
                             <input class="input" type="number" name="amount" min="0" step="1000" value="0" required>
                         </div>
                         <div>
-                            <label class="field-label">Ngay bat dau</label>
+                            <label class="field-label">Ng&#224;y b&#7855;t &#273;&#7847;u</label>
                             <input class="input" type="date" name="effectiveDate" th:value="${defaultDate}">
                         </div>
                         <div>
-                            <label class="field-label">Ngay ket thuc</label>
+                            <label class="field-label">Ng&#224;y k&#7871;t th&#250;c</label>
                             <input class="input" type="date" name="endDate">
                         </div>
                     </div>
                     <div class="checkbox-row">
-                        <label><input type="checkbox" name="taxable" value="true"> Tinh vao thu nhap chiu thue</label>
-                        <label><input type="checkbox" name="recurring" value="true" checked> Lap lai hang thang</label>
-                        <label><input type="checkbox" name="active" value="true" checked> Dang hoat dong</label>
+                        <label><input type="checkbox" name="taxable" value="true"> T&#237;nh v&#224;o thu nh&#7853;p ch&#7883;u thu&#7871;</label>
+                        <label><input type="checkbox" name="recurring" value="true" checked> L&#7863;p l&#7841;i h&#7857;ng th&#225;ng</label>
+                        <label><input type="checkbox" name="active" value="true" checked> &#272;ang ho&#7841;t &#273;&#7897;ng</label>
                     </div>
                     <div>
-                        <label class="field-label">Ghi chu</label>
-                        <textarea class="input" rows="3" name="note" placeholder="Thong tin bo sung ve khoan muc"></textarea>
+                        <label class="field-label">Ghi ch&#250;</label>
+                        <textarea class="input" rows="3" name="note" placeholder="Th&#244;ng tin b&#7893; sung v&#7873; kho&#7843;n m&#7909;c"></textarea>
                     </div>
                     <div class="actions-row">
-                        <button class="btn btn-primary" type="submit">Luu cau phan</button>
+                        <button class="btn btn-primary" type="submit">L&#432;u c&#7845;u ph&#7847;n</button>
                     </div>
                 </form>
             </div>
@@ -74,44 +72,46 @@
             <div class="panel nested-panel">
                 <div class="panel-header compact">
                     <div>
-                        <p class="panel-kicker">Danh sach hien co</p>
-                        <h3 th:text="${selectedEmployeeId != null ? 'Theo nhan vien da chon' : 'Tat ca cau phan dong'}"></h3>
+                        <p class="panel-kicker">Danh s&#225;ch hi&#7879;n c&#243;</p>
+                        <h3 th:text="${keyword != null and !keyword.isBlank() ? 'K&#7871;t qu&#7843; t&#236;m ki&#7871;m' : 'T&#7845;t c&#7843; c&#7845;u ph&#7847;n &#273;&#7897;ng'}"></h3>
                     </div>
                 </div>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Nhan vien</th>
-                        <th>Loai</th>
-                        <th>Ten khoan</th>
-                        <th>So tien</th>
-                        <th>Thue</th>
-                        <th>Lap lai</th>
-                        <th>Hieu luc</th>
-                        <th>Thao tac</th>
+                        <th>M&#227; NV</th>
+                        <th>Nh&#226;n vi&#234;n</th>
+                        <th>Lo&#7841;i</th>
+                        <th>T&#234;n kho&#7843;n</th>
+                        <th>S&#7889; ti&#7873;n</th>
+                        <th>Thu&#7871;</th>
+                        <th>L&#7863;p l&#7841;i</th>
+                        <th>Hi&#7879;u l&#7921;c</th>
+                        <th>Thao t&#225;c</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="item : ${items}">
+                        <td th:text="${item.employee.employeeCode != null ? item.employee.employeeCode : 'Ch&#432;a c&#7845;p'}"></td>
                         <td th:text="${item.employee.fullName}"></td>
                         <td th:text="${item.componentType.label}"></td>
                         <td>
                             <div th:text="${item.name}"></div>
-                            <small class="muted-text" th:text="${item.note != null and !item.note.isBlank() ? item.note : 'Khong co ghi chu'}"></small>
+                            <small class="muted-text" th:text="${item.note != null and !item.note.isBlank() ? item.note : 'Kh&#244;ng c&#243; ghi ch&#250;'}"></small>
                         </td>
                         <td th:text="|${#numbers.formatDecimal(item.amount, 0, 'COMMA', 0, 'POINT')} VND|"></td>
-                        <td th:text="${item.taxable ? 'Co' : 'Khong'}"></td>
-                        <td th:text="${item.recurring ? 'Hang thang' : 'Mot lan'}"></td>
+                        <td th:text="${item.taxable ? 'C&#243;' : 'Kh&#244;ng'}"></td>
+                        <td th:text="${item.recurring ? 'H&#7857;ng th&#225;ng' : 'M&#7897;t l&#7847;n'}"></td>
                         <td th:text="|${item.effectiveDate} ${item.endDate != null ? '-> ' + item.endDate : ''}|"></td>
                         <td class="actions">
                             <form th:action="@{/compensation-items/{id}/delete(id=${item.id})}" method="post">
-                                <input type="hidden" name="employeeId" th:value="${selectedEmployeeId}">
-                                <button class="btn btn-danger btn-sm" type="submit">Xoa</button>
+                                <input type="hidden" name="keyword" th:value="${keyword}">
+                                <button class="btn btn-danger btn-sm" type="submit">X&#243;a</button>
                             </form>
                         </td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(items)}">
-                        <td colspan="8" class="empty-cell">Chua co cau phan dong nao. Hay tao phu cap, thuong hoac khau tru de payroll tinh them.</td>
+                        <td colspan="9" class="empty-cell">Ch&#432;a c&#243; c&#7845;u ph&#7847;n &#273;&#7897;ng n&#224;o. H&#227;y t&#7841;o ph&#7909; c&#7845;p, th&#432;&#7903;ng ho&#7863;c kh&#7845;u tr&#7915; &#273;&#7875; payroll t&#237;nh th&#234;m.</td>
                     </tr>
                     </tbody>
                 </table>

@@ -51,7 +51,7 @@ public class PdfExportService {
         table.setWidthPercentage(100);
         table.setWidths(new float[] {1f, 3f, 2.5f, 2.5f, 2.5f, 1.6f, 2.8f, 1.8f});
 
-        String[] headers = {"STT", "Nhan vien", "Phong ban", "Chuc vu", "Luong co ban", "Ngay cong", "Luong thuc nhan", "Trang thai"};
+        String[] headers = {"STT", "Nh\u00e2n vi\u00ean", "Ph\u00f2ng ban", "Ch\u1ee9c v\u1ee5", "L\u01b0\u01a1ng c\u01a1 b\u1ea3n", "Ng\u00e0y c\u00f4ng", "L\u01b0\u01a1ng th\u1ef1c nh\u1eadn", "Tr\u1ea1ng th\u00e1i"};
         BaseColor headerBg = new BaseColor(21, 74, 145);
         for (String header : headers) {
             PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
@@ -73,7 +73,7 @@ public class PdfExportService {
             addCell(table, numberFormat.format(payroll.getEmployee().getBaseSalary() == null ? 0.0 : payroll.getEmployee().getBaseSalary()) + " d", bodyFont, rowBg, Element.ALIGN_RIGHT);
             addCell(table, String.valueOf(payroll.getTimesheet() != null ? payroll.getTimesheet().getWorkDays() : 0), bodyFont, rowBg, Element.ALIGN_CENTER);
             addCell(table, numberFormat.format(payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary()) + " d", bodyFont, rowBg, Element.ALIGN_RIGHT);
-            addCell(table, payroll.getPaymentStatus() == PaymentStatus.PAID ? "Da chi" : "Chua chi", bodyFont, rowBg, Element.ALIGN_CENTER);
+            addCell(table, payroll.getPaymentStatus() == PaymentStatus.PAID ? "\u0110\u00e3 chi" : "Ch\u01b0a chi", bodyFont, rowBg, Element.ALIGN_CENTER);
             totalSalary += payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary();
         }
 

@@ -17,6 +17,16 @@ public interface PayrollRepository extends JpaRepository<Payroll, Long>, JpaSpec
 
     List<Payroll> findByMonthAndYearOrderByEmployeeFullNameAsc(Integer month, Integer year);
 
+    @Query("""
+            select p
+            from Payroll p
+            join fetch p.employee e
+            left join fetch e.department d
+            where p.month = :month and p.year = :year
+            order by e.fullName asc
+            """)
+    List<Payroll> findByMonthAndYearWithEmployeeAndDepartment(@Param("month") Integer month, @Param("year") Integer year);
+
     List<Payroll> findByEmployeeIdOrderByYearDescMonthDesc(Long employeeId);
 
     long countByPaymentStatus(PaymentStatus paymentStatus);

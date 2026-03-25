@@ -13,5 +13,9 @@ public interface TimesheetRepository extends JpaRepository<Timesheet, Long> {
 
     List<Timesheet> findByMonthAndYearOrderByEmployeeFullNameAsc(Integer month, Integer year);
 
+    List<Timesheet> findByYearAndMonthBetweenOrderByMonthAscEmployeeFullNameAsc(Integer year, Integer startMonth, Integer endMonth);
+
+    List<Timesheet> findByYearOrderByMonthAscEmployeeFullNameAsc(Integer year);
+
     List<Timesheet> findByEmployeeIdOrderByYearDescMonthDesc(Long employeeId);
 }

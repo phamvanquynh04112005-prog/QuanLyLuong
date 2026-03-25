@@ -1,11 +1,11 @@
-<div th:fragment="content">
+﻿<div th:fragment="content">
     <section class="panel">
         <div class="panel-header">
             <div>
-                <p class="panel-kicker">Quan tri truy cap</p>
-                <h3>Danh sach tai khoan dang nhap</h3>
+                <p class="panel-kicker">Quản trị truy cập</p>
+                <h3>Danh s&#225;ch t&#224;i kho&#7843;n &#273;&#259;ng nh&#7853;p</h3>
             </div>
-            <a class="btn btn-primary" th:href="@{/admin/users/new}">Them tai khoan</a>
+            <a class="btn btn-primary" th:href="@{/admin/users/new}">Thêm tài khoản</a>
         </div>
 
         <table class="table">
@@ -13,8 +13,9 @@
             <tr>
                 <th>Username</th>
                 <th>Role</th>
-                <th>Nhan vien lien ket</th>
-                <th>Trang thai</th>
+                <th>M&#227; nh&#226;n vi&#234;n</th>
+                <th>Nh&#226;n vi&#234;n li&#234;n k&#7871;t</th>
+                <th>Trạng thái</th>
                 <th>Thao tac</th>
             </tr>
             </thead>
@@ -22,14 +23,15 @@
             <tr th:each="user : ${users}">
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.role.label}"></td>
-                <td th:text="${user.employee != null ? user.employee.fullName : 'Khong lien ket'}"></td>
+                <td th:text="${user.employee != null and user.employee.employeeCode != null ? user.employee.employeeCode : '--'}"></td>
+                <td th:text="${user.employee != null ? user.employee.fullName : 'Không liên kết'}"></td>
                 <td>
-                    <span class="badge" th:classappend="${user.enabled} ? ' badge-success' : ' badge-muted'" th:text="${user.enabled ? 'Dang hoat dong' : 'Da khoa'}"></span>
+                    <span class="badge" th:classappend="${user.enabled} ? ' badge-success' : ' badge-muted'" th:text="${user.enabled ? 'Đang hoạt động' : 'Đã khóa'}"></span>
                 </td>
                 <td class="actions">
-                    <a class="btn btn-secondary btn-sm" th:href="@{/admin/users/edit/{id}(id=${user.id})}">Sua</a>
+                    <a class="btn btn-secondary btn-sm" th:href="@{/admin/users/edit/{id}(id=${user.id})}">Sửa</a>
                     <form th:action="@{/admin/users/{id}/delete(id=${user.id})}" method="post">
-                        <button class="btn btn-danger btn-sm" type="submit">Xoa</button>
+                        <button class="btn btn-danger btn-sm" type="submit">Xóa</button>
                     </form>
                 </td>
             </tr>
@@ -37,3 +39,9 @@
         </table>
     </section>
 </div>
+
+
+
+
+
+

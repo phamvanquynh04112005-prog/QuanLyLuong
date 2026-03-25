@@ -1,7 +1,7 @@
 package com.example.QuanLyLuong.common;
 
 public enum CompensationItemType {
-    ALLOWANCE("Phu cap"),
+    ALLOWANCE("Phụ cấp"),
     BONUS("Thuong"),
     DEDUCTION("Khau tru");
 
