@@ -3,7 +3,6 @@ package com.example.QuanLyLuong.controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.SalaryConfig;
 import com.example.QuanLyLuong.service.EmployeeService;
 import com.example.QuanLyLuong.service.SalaryConfigService;
@@ -26,16 +25,18 @@ public class SalaryConfigController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public String list(@RequestParam(required = false) Long employeeId, Model model) {
+    public String list(@RequestParam(required = false) Long employeeId,
+                       @RequestParam(required = false) String keyword,
+                       Model model) {
         List<SalaryConfig> salaryConfigs = employeeId == null
-                ? salaryConfigService.findLatestForAllEmployees()
+                ? salaryConfigService.findLatestForAllEmployees(keyword)
                 : salaryConfigService.findHistoryByEmployee(employeeId);
 
         model.addAttribute("salaryConfigs", salaryConfigs);
-        model.addAttribute("employees", employeeService.findAll());
+        model.addAttribute("keyword", keyword);
         model.addAttribute("selectedEmployeeId", employeeId);
         model.addAttribute("historyView", employeeId != null);
-        model.addAttribute("pageTitle", "Cau hinh luong");
+        model.addAttribute("pageTitle", "Cấu hình lương");
         model.addAttribute("contentTemplate", "salary-config/list");
         return "layout/base";
     }
@@ -45,7 +46,7 @@ public class SalaryConfigController {
         model.addAttribute("employees", employeeService.findAll());
         model.addAttribute("selectedEmployeeId", employeeId);
         model.addAttribute("defaultDate", LocalDate.now());
-        model.addAttribute("pageTitle", "Them cau hinh luong");
+        model.addAttribute("pageTitle", "Thêm cấu hình lương");
         model.addAttribute("contentTemplate", "salary-config/form");
         return "layout/base";
     }
@@ -84,7 +85,7 @@ public class SalaryConfigController {
                 description,
                 effectiveDate
         );
-        redirectAttributes.addFlashAttribute("successMsg", "Da luu cau hinh luong nang cao.");
+        redirectAttributes.addFlashAttribute("successMsg", "Đã lưu cấu hình lương nâng cao.");
         return "redirect:/salary-configs";
     }
 }

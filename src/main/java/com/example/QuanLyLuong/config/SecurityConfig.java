@@ -30,11 +30,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/images/**", "/login", "/h2-console/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/employees/**", "/salary-configs/**", "/timesheets/**", "/reports/**", "/compensation-items/**")
+                        .requestMatchers("/employees/**", "/salary-configs/**", "/timesheets/**", "/compensation-items/**")
                         .hasAnyAuthority("ROLE_ADMIN", "ROLE_HR")
-                        .requestMatchers("/payrolls/my", "/export/pdf/payslip/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_HR", "ROLE_EMPLOYEE")
-                        .requestMatchers("/payrolls/**", "/export/excel/**", "/export/pdf/payroll/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_HR")
+                        .requestMatchers("/payrolls/my", "/export/pdf/payslip/**")
+                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_HR", "ROLE_ACCOUNTANT", "ROLE_EMPLOYEE")
+                        .requestMatchers("/employee-cost-dashboard", "/employee-cost-dashboard/**")
+                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNTANT")
+                        .requestMatchers("/reports/**", "/payrolls/**", "/export/excel/**", "/export/pdf/payroll/**")
+                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNTANT")
                         .anyRequest().authenticated()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/access-denied")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

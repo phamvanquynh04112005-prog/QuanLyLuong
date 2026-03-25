@@ -3,6 +3,7 @@ package com.example.QuanLyLuong.controller;
 import java.util.List;
 
 import com.example.QuanLyLuong.common.EmployeeStatus;
+import com.example.QuanLyLuong.dto.EmployeeImportResult;
 import com.example.QuanLyLuong.entity.Department;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.service.DepartmentService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -35,7 +37,7 @@ public class EmployeeController {
 
         model.addAttribute("employees", employees);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("pageTitle", "Nhan vien");
+        model.addAttribute("pageTitle", "Nhân viên");
         model.addAttribute("contentTemplate", "employee/list");
         return "layout/base";
     }
@@ -44,7 +46,7 @@ public class EmployeeController {
     public String newForm(Model model) {
         Employee employee = new Employee();
         employee.setDepartment(new Department());
-        prepareForm(model, employee, "Them nhan vien");
+        prepareForm(model, employee, "Thêm nhân viên");
         return "layout/base";
     }
 
@@ -54,18 +56,50 @@ public class EmployeeController {
         if (employee.getDepartment() == null) {
             employee.setDepartment(new Department());
         }
-        prepareForm(model, employee, "Cap nhat nhan vien");
+        prepareForm(model, employee, "Cập nhật nhân viên");
         return "layout/base";
+    }
+
+    @GetMapping("/import")
+    public String importForm(Model model) {
+        model.addAttribute("pageTitle", "Import nhân viên");
+        model.addAttribute("contentTemplate", "employee/import");
+        return "layout/base";
+    }
+
+    @PostMapping("/import")
+    public String importExcel(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+        EmployeeImportResult result = employeeService.importFromExcel(file);
+        String summary = "Import nhân viên: thêm mới " + result.getImportedCount()
+                + ", cập nhật " + result.getUpdatedCount()
+                + ", bỏ qua " + result.getSkippedCount() + ".";
+
+        if (result.getImportedCount() > 0 || result.getUpdatedCount() > 0) {
+            redirectAttributes.addFlashAttribute("successMsg", summary);
+        } else {
+            redirectAttributes.addFlashAttribute("errorMsg", summary);
+        }
+
+        if (result.getMessages() != null && !result.getMessages().isEmpty()) {
+            String details = result.getMessages().stream()
+                    .limit(5)
+                    .reduce((left, right) -> left + " | " + right)
+                    .orElse(null);
+            if (details != null && !details.isBlank()) {
+                redirectAttributes.addFlashAttribute("errorMsg", details);
+            }
+        }
+        return "redirect:/employees";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Employee employee, RedirectAttributes redirectAttributes) {
         if (employee.getId() == null) {
             employeeService.save(employee);
-            redirectAttributes.addFlashAttribute("successMsg", "Da them nhan vien moi.");
+            redirectAttributes.addFlashAttribute("successMsg", "Đã thêm nhân viên mới.");
         } else {
             employeeService.update(employee.getId(), employee);
-            redirectAttributes.addFlashAttribute("successMsg", "Da cap nhat thong tin nhan vien.");
+            redirectAttributes.addFlashAttribute("successMsg", "Đã cập nhật thông tin nhân viên.");
         }
         return "redirect:/employees";
     }
@@ -73,7 +107,7 @@ public class EmployeeController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         employeeService.delete(id);
-        redirectAttributes.addFlashAttribute("successMsg", "Da xoa nhan vien.");
+        redirectAttributes.addFlashAttribute("successMsg", "Đã xóa nhân viên.");
         return "redirect:/employees";
     }
 

@@ -33,7 +33,7 @@ public class AdminUserController {
 
     @GetMapping("/new")
     public String newForm(Model model) {
-        prepareForm(model, new User(), null, "Tao tai khoan");
+        prepareForm(model, new User(), null, "Tạo tài khoản");
         return "layout/base";
     }
 
@@ -41,7 +41,7 @@ public class AdminUserController {
     public String editForm(@PathVariable Long id, Model model) {
         User user = userService.findById(id);
         Long employeeId = user.getEmployee() != null ? user.getEmployee().getId() : null;
-        prepareForm(model, user, employeeId, "Cap nhat tai khoan");
+        prepareForm(model, user, employeeId, "Cập nhật tài khoản");
         return "layout/base";
     }
 
@@ -55,13 +55,13 @@ public class AdminUserController {
                        RedirectAttributes redirectAttributes) {
         if (id == null) {
             if (password == null || password.isBlank()) {
-                throw new IllegalArgumentException("Mat khau khong duoc de trong khi tao moi.");
+                throw new IllegalArgumentException("Mật khẩu không được để trống khi tạo mới.");
             }
             userService.createUser(employeeId, username, password, role, enabled);
-            redirectAttributes.addFlashAttribute("successMsg", "Da tao tai khoan moi.");
+            redirectAttributes.addFlashAttribute("successMsg", "Đã tạo tài khoản mới.");
         } else {
             userService.updateUser(id, employeeId, username, password, role, enabled);
-            redirectAttributes.addFlashAttribute("successMsg", "Da cap nhat tai khoan.");
+            redirectAttributes.addFlashAttribute("successMsg", "Đã cập nhật tài khoản.");
         }
         return "redirect:/admin/users";
     }
@@ -69,7 +69,7 @@ public class AdminUserController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         userService.delete(id);
-        redirectAttributes.addFlashAttribute("successMsg", "Da xoa tai khoan.");
+        redirectAttributes.addFlashAttribute("successMsg", "Đã xóa tài khoản.");
         return "redirect:/admin/users";
     }
 
@@ -82,3 +82,4 @@ public class AdminUserController {
         model.addAttribute("contentTemplate", "admin/user-form");
     }
 }
+

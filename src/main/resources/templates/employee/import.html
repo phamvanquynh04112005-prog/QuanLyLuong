@@ -1,0 +1,28 @@
+<div th:fragment="content">
+    <section class="panel form-panel">
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">Import dữ liệu</p>
+                <h3>Import danh sách nhân viên từ Excel</h3>
+            </div>
+            <a class="btn btn-outline" th:href="@{/employees}">Quay lại danh sách</a>
+        </div>
+
+        <div class="helper-card">
+            <p>File Excel cần có dòng tiêu đề. Cột bắt buộc: <strong>Họ tên</strong>, <strong>Email</strong>.</p>
+            <p>Các cột hỗ trợ: <code>Mã NV</code>, <code>Chức vụ</code>, <code>Phòng ban</code>, <code>Lương cơ bản</code>, <code>Ngày vào làm</code>, <code>Trạng thái</code>.</p>
+        </div>
+
+        <form class="stack-form" method="post" th:action="@{/employees/import}" enctype="multipart/form-data">
+            <div>
+                <label class="field-label">Chọn file Excel (.xlsx, .xls)</label>
+                <input class="input" type="file" name="file" accept=".xlsx,.xls" required>
+            </div>
+            <div class="actions-row">
+                <button class="btn btn-primary" type="submit">Import Excel</button>
+                <a class="btn btn-secondary" th:href="@{/employees/new}">Thêm thủ công</a>
+            </div>
+        </form>
+    </section>
+</div>
+

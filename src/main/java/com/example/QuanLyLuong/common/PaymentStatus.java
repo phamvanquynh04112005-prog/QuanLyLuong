@@ -1,8 +1,8 @@
 package com.example.QuanLyLuong.common;
 
 public enum PaymentStatus {
-    PENDING("Chua chi"),
-    PAID("Da chi");
+    PENDING("Chưa chi"),
+    PAID("Đã chi");
 
     private final String label;
 
@@ -14,3 +14,4 @@ public enum PaymentStatus {
         return label;
     }
 }
+

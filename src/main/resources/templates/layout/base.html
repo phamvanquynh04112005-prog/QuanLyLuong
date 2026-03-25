@@ -1,58 +1,128 @@
-<!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${pageTitle} + ' | Quan Ly Luong'">Quan Ly Luong</title>
-    <link rel="stylesheet" th:href="@{/css/app.css}">
-</head>
-<body>
-<div class="app-shell">
-    <aside class="sidebar">
+﻿<!doctype html>
+<html
+  lang="vi"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${pageTitle} + ' | Quản Lý Lương'">Quản Lý Lương</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
         <div class="brand-block">
-            <div class="brand-kicker">Payroll Web</div>
-            <a class="brand-title" th:href="@{/dashboard}">Quan Ly Luong</a>
-            <p class="brand-subtitle">Spring Boot, Thymeleaf, JPA, Security</p>
+          <div class="brand-kicker">Payroll Web</div>
+          <a class="brand-title" th:href="@{/dashboard}">Quản Lý Lương</a>
+          <p class="brand-subtitle">Spring Boot, Thymeleaf, JPA, Security</p>
         </div>
 
         <nav class="nav-menu">
-            <a class="nav-link" th:href="@{/dashboard}">Tong quan</a>
-            <a class="nav-link" th:href="@{/employees}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Nhan vien</a>
-            <a class="nav-link" th:href="@{/salary-configs}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Rule luong</a>
-            <a class="nav-link" th:href="@{/compensation-items}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Phu cap dong</a>
-            <a class="nav-link" th:href="@{/timesheets}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Cham cong</a>
-            <a class="nav-link" th:href="@{/payrolls}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Bang luong</a>
-            <a class="nav-link" th:href="@{/payrolls/search}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Tra cuu payroll</a>
-            <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Bao cao</a>
-            <a class="nav-link" th:href="@{/payrolls/my}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR','ROLE_EMPLOYEE')">Phieu luong</a>
-            <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_ADMIN')">Tai khoan</a>
-            <a class="nav-link" th:href="@{/h2-console}" target="_blank">H2 Console</a>
+          <a class="nav-link" th:href="@{/dashboard}">T&#7893;ng quan</a>
+          <a
+            class="nav-link"
+            th:href="@{/employees}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
+            >Nhân viên</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/salary-configs}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
+            >Cấu hình lương</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/compensation-items}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
+            >Ph&#7909; c&#7845;p v&#224; th&#432;&#7903;ng</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/timesheets}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
+            >Chấm công</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/payrolls}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
+            >Bảng lương</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/payrolls/search}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
+            >Tra cứu payroll</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/reports/department}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
+            >Báo cáo</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/employee-cost-dashboard}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
+            >Chi phí nhân sự</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/payrolls/my}"
+            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR','ROLE_ACCOUNTANT','ROLE_EMPLOYEE')"
+            >Phiếu lương</a
+          >
+          <a
+            class="nav-link"
+            th:href="@{/admin/users}"
+            sec:authorize="hasAuthority('ROLE_ADMIN')"
+            >Tài khoản</a
+          >
+          <a class="nav-link" th:href="@{/h2-console}" target="_blank"
+            >H2 Console</a
+          >
         </nav>
-    </aside>
+      </aside>
 
-    <main class="main-panel">
+      <main class="main-panel">
         <header class="topbar">
+          <div>
+            <p class="page-kicker">H&#7879; th&#7889;ng web qu&#7843;n l&#253; l&#432;&#417;ng</p>
+            <h1 class="page-title" th:text="${pageTitle}">Trang</h1>
+          </div>
+          <div class="account-box">
             <div>
-                <p class="page-kicker">He thong web quan ly luong</p>
-                <h1 class="page-title" th:text="${pageTitle}">Trang</h1>
+              <div class="account-name" sec:authentication="name">username</div>
+              <div class="account-role" sec:authentication="principal.role">
+                ROLE_ADMIN
+              </div>
             </div>
-            <div class="account-box">
-                <div>
-                    <div class="account-name" sec:authentication="name">username</div>
-                    <div class="account-role" sec:authentication="principal.role">ROLE_ADMIN</div>
-                </div>
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn btn-outline">Dang xuat</button>
-                </form>
-            </div>
+            <form th:action="@{/logout}" method="post">
+              <button type="submit" class="btn btn-outline">&#272;&#259;ng xu&#7845;t</button>
+            </form>
+          </div>
         </header>
 
         <section class="content-area">
-            <div class="alert success" th:if="${successMsg}" th:text="${successMsg}"></div>
-            <div class="alert danger" th:if="${errorMsg}" th:text="${errorMsg}"></div>
-            <div th:replace="~{${contentTemplate} :: content}"></div>
+          <div
+            class="alert success"
+            th:if="${successMsg}"
+            th:text="${successMsg}"
+          ></div>
+          <div
+            class="alert danger"
+            th:if="${errorMsg}"
+            th:text="${errorMsg}"
+          ></div>
+          <div th:replace="~{${contentTemplate} :: content}"></div>
         </section>
-    </main>
-</div>
-</body>
+      </main>
+    </div>
+  </body>
 </html>
+
+
+

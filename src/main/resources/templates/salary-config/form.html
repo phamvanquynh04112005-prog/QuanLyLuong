@@ -1,55 +1,55 @@
-<div th:fragment="content">
+﻿<div th:fragment="content">
     <section class="panel form-panel">
         <div class="panel-header compact">
             <div>
-                <p class="panel-kicker">Bang rule tinh luong</p>
-                <h3>Thiet lap ngay cong chuan, he so OT, bao hiem va thue</h3>
+                <p class="panel-kicker">Cấu hình lương</p>
+                <h3>Thiết lập ngày công chuẩn, hệ số OT, bảo hiểm và thuế</h3>
             </div>
-            <a class="btn btn-outline" th:href="@{/salary-configs}">Quay lai</a>
+            <a class="btn btn-outline" th:href="@{/salary-configs}">Quay lại</a>
         </div>
         <form class="stack-form" th:action="@{/salary-configs/save}" method="post">
             <div class="grid two-col">
                 <div>
-                    <label class="field-label">Nhan vien</label>
+                    <label class="field-label">Nh&#226;n vi&#234;n</label>
                     <select class="input" name="employeeId" required>
-                        <option value="">Chon nhan vien</option>
-                        <option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}" th:text="|${employee.fullName} - ${employee.department != null ? employee.department.name : 'Chua co phong'}|"></option>
+                        <option value="">Ch&#7885;n nh&#226;n vi&#234;n</option>
+                        <option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}" th:text="|${employee.fullName} - ${employee.department != null ? employee.department.name : 'Chưa có phòng'}|"></option>
                     </select>
                 </div>
                 <div>
-                    <label class="field-label">Ngay ap dung</label>
+                    <label class="field-label">Ngày áp dụng</label>
                     <input class="input" type="date" name="effectiveDate" th:value="${defaultDate}">
                 </div>
                 <div>
-                    <label class="field-label">Phu cap co dinh</label>
+                    <label class="field-label">Phụ cấp co dinh</label>
                     <input class="input" type="number" step="1000" min="0" name="allowance" value="0">
                 </div>
                 <div>
-                    <label class="field-label">Khau tru co dinh</label>
+                    <label class="field-label">Khấu trừ co dinh</label>
                     <input class="input" type="number" step="1000" min="0" name="deduction" value="0">
                 </div>
                 <div>
-                    <label class="field-label">Ngay cong chuan</label>
+                    <label class="field-label">Ngày công chưan</label>
                     <input class="input" type="number" name="standardWorkDays" min="1" max="31" value="26">
                 </div>
                 <div>
-                    <label class="field-label">Gio lam viec / ngay</label>
+                    <label class="field-label">Giờ làm việc / ngày</label>
                     <input class="input" type="number" name="standardWorkHoursPerDay" min="1" max="24" step="0.5" value="8">
                 </div>
                 <div>
-                    <label class="field-label">He so OT ngay thuong</label>
+                    <label class="field-label">Hệ số OT ngày thường</label>
                     <input class="input" type="number" name="overtimeWeekdayMultiplier" min="1" step="0.1" value="1.5">
                 </div>
                 <div>
-                    <label class="field-label">He so OT cuoi tuan</label>
+                    <label class="field-label">Hệ số OT cuối tuần</label>
                     <input class="input" type="number" name="overtimeWeekendMultiplier" min="1" step="0.1" value="2.0">
                 </div>
                 <div>
-                    <label class="field-label">He so OT ngay le</label>
+                    <label class="field-label">Hệ số OT ngày lễ</label>
                     <input class="input" type="number" name="overtimeHolidayMultiplier" min="1" step="0.1" value="3.0">
                 </div>
                 <div>
-                    <label class="field-label">Giam tru ban than</label>
+                    <label class="field-label">Giảm trừ bản thân</label>
                     <input class="input" type="number" name="personalDeduction" min="0" step="1000" value="11000000">
                 </div>
                 <div>
@@ -65,15 +65,22 @@
                     <input class="input" type="number" name="unemploymentInsuranceRate" min="0" step="0.001" value="0.01">
                 </div>
                 <div>
-                    <label class="field-label">Ty le thue TNCN</label>
+                    <label class="field-label">Ty le thuế TNCN</label>
                     <input class="input" type="number" name="personalIncomeTaxRate" min="0" step="0.001" value="0.05">
                 </div>
             </div>
             <div>
-                <label class="field-label">Mo ta</label>
-                <textarea class="input" name="description" rows="4" placeholder="Vi du: rule payroll cua nhom IT, tinh OT 1.5/2/3, BH theo hop dong..."></textarea>
+                <label class="field-label">Mô tả</label>
+                <textarea class="input" name="description" rows="4" placeholder="Ví dụ: rule payroll của nhóm IT, tính OT 1.5/2/3, BH theo hợp đồng..."></textarea>
             </div>
-            <div class="actions-row"><button class="btn btn-primary" type="submit">Luu cau hinh</button><a class="btn btn-secondary" th:href="@{/salary-configs}">Huy</a></div>
+            <div class="actions-row"><button class="btn btn-primary" type="submit">Lưu cấu hình</button><a class="btn btn-secondary" th:href="@{/salary-configs}">Hủy</a></div>
         </form>
     </section>
 </div>
+
+
+
+
+
+
+

@@ -33,18 +33,18 @@ public class UserService {
     @Transactional(readOnly = true)
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay tai khoan co ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản có ID: " + id));
     }
 
     @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Khong tim thay tai khoan: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + username));
     }
 
     public User createUser(Long employeeId, String username, String rawPassword, Role role, Boolean enabled) {
         if (userRepository.findByUsername(username).isPresent()) {
-            throw new IllegalArgumentException("Ten dang nhap da ton tai: " + username);
+            throw new IllegalArgumentException("Tên đăng nhập đã tồn tại: " + username);
         }
         validateEmployeeBinding(null, employeeId);
 
@@ -60,7 +60,7 @@ public class UserService {
     public User updateUser(Long id, Long employeeId, String username, String rawPassword, Role role, Boolean enabled) {
         User user = findById(id);
         if (!user.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
-            throw new IllegalArgumentException("Ten dang nhap da ton tai: " + username);
+            throw new IllegalArgumentException("Tên đăng nhập đã tồn tại: " + username);
         }
         validateEmployeeBinding(id, employeeId);
 
@@ -99,7 +99,7 @@ public class UserService {
             return null;
         }
         return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
     }
 
     private void validateEmployeeBinding(Long userId, Long employeeId) {
@@ -109,7 +109,8 @@ public class UserService {
         userRepository.findByEmployeeId(employeeId)
                 .filter(existingUser -> !existingUser.getId().equals(userId))
                 .ifPresent(existingUser -> {
-                    throw new IllegalArgumentException("Nhan vien nay da duoc gan voi tai khoan khac.");
+                    throw new IllegalArgumentException("Nhân viên này đã được gán với tài khoản khác.");
                 });
     }
 }
+

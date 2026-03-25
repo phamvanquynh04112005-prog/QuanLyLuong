@@ -31,7 +31,7 @@ public class TimesheetService {
 
     public Timesheet saveOrUpdate(Long employeeId, Integer month, Integer year, Integer workDays, Integer leaveDays, String note) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
         YearMonth yearMonth = YearMonth.of(year, month);
         SalaryConfig salaryConfig = salaryConfigService.getEffectiveConfig(employeeId, yearMonth);
         Timesheet timesheet = timesheetRepository
@@ -100,6 +100,20 @@ public class TimesheetService {
     }
 
     @Transactional(readOnly = true)
+    public List<Timesheet> findAllByPeriod(Integer month, Integer year, String periodType) {
+        String normalizedPeriod = normalizePeriodType(periodType);
+        if ("quarter".equals(normalizedPeriod)) {
+            int startMonth = quarterStartMonth(month);
+            int endMonth = startMonth + 2;
+            return timesheetRepository.findByYearAndMonthBetweenOrderByMonthAscEmployeeFullNameAsc(year, startMonth, endMonth);
+        }
+        if ("year".equals(normalizedPeriod)) {
+            return timesheetRepository.findByYearOrderByMonthAscEmployeeFullNameAsc(year);
+        }
+        return findAllByMonth(month, year);
+    }
+
+    @Transactional(readOnly = true)
     public List<Timesheet> findByEmployee(Long employeeId) {
         return timesheetRepository.findByEmployeeIdOrderByYearDescMonthDesc(employeeId);
     }
@@ -110,7 +124,15 @@ public class TimesheetService {
 
     @Transactional(readOnly = true)
     public TimesheetSummary getMonthSummary(Integer month, Integer year) {
-        List<Timesheet> timesheets = findAllByMonth(month, year);
+        return buildSummary(findAllByMonth(month, year), month, year);
+    }
+
+    @Transactional(readOnly = true)
+    public TimesheetSummary getSummaryByPeriod(Integer month, Integer year, String periodType) {
+        return buildSummary(findAllByPeriod(month, year, periodType), month, year);
+    }
+
+    private TimesheetSummary buildSummary(List<Timesheet> timesheets, Integer month, Integer year) {
         double averageWorkDays = timesheets.stream()
                 .map(Timesheet::getWorkDays)
                 .filter(workDays -> workDays != null)
@@ -135,6 +157,22 @@ public class TimesheetService {
                 .totalRegularHours(round2(totalRegularHours))
                 .totalOvertimeHours(round2(totalOvertimeHours))
                 .build();
+    }
+
+    private String normalizePeriodType(String periodType) {
+        if (periodType == null || periodType.isBlank()) {
+            return "month";
+        }
+        String normalized = periodType.trim().toLowerCase();
+        return switch (normalized) {
+            case "quarter", "year" -> normalized;
+            default -> "month";
+        };
+    }
+
+    private int quarterStartMonth(Integer month) {
+        int safeMonth = month == null || month < 1 || month > 12 ? 1 : month;
+        return ((safeMonth - 1) / 3) * 3 + 1;
     }
 
     private int positiveInteger(Integer value, int fallback) {

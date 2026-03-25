@@ -1,8 +1,8 @@
 package com.example.QuanLyLuong.common;
 
 public enum EmployeeStatus {
-    ACTIVE("Dang lam viec"),
-    INACTIVE("Da nghi");
+    ACTIVE("Đang làm việc"),
+    INACTIVE("Đã nghỉ");
 
     private final String label;
 
@@ -14,3 +14,4 @@ public enum EmployeeStatus {
         return label;
     }
 }
+

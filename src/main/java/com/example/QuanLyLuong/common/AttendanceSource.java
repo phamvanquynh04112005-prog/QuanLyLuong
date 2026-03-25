@@ -1,9 +1,9 @@
 package com.example.QuanLyLuong.common;
 
 public enum AttendanceSource {
-    MANUAL("Nhap tay"),
+    MANUAL("Nhập tay"),
     EXCEL_IMPORT("Import Excel"),
-    MACHINE_IMPORT("Log may cham cong");
+    MACHINE_IMPORT("Log máy chấm công");
 
     private final String label;
 

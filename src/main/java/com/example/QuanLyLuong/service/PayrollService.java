@@ -41,14 +41,14 @@ public class PayrollService {
     private final SalaryConfigService salaryConfigService;
     private final CompensationItemService compensationItemService;
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_HR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ACCOUNTANT')")
     public Payroll calculateForOne(Long employeeId, Integer month, Integer year) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
 
         Timesheet timesheet = timesheetRepository.findByEmployeeIdAndMonthAndYear(employeeId, month, year)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Chua co du lieu cham cong cho nhan vien ID " + employeeId + " thang " + month + "/" + year));
+                        "Chưa có dữ liệu chấm công cho nhân viên ID " + employeeId + " tháng " + month + "/" + year));
 
         YearMonth yearMonth = YearMonth.of(year, month);
         SalaryConfig config = salaryConfigService.getEffectiveConfig(employeeId, yearMonth);
@@ -123,7 +123,7 @@ public class PayrollService {
         return payrollRepository.save(payroll);
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_HR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ACCOUNTANT')")
     public List<Payroll> calculateForAll(Integer month, Integer year) {
         return timesheetRepository.findByMonthAndYearOrderByEmployeeFullNameAsc(month, year)
                 .stream()
@@ -131,7 +131,7 @@ public class PayrollService {
                 .toList();
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_HR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ACCOUNTANT')")
     public Payroll markAsPaid(Long payrollId) {
         Payroll payroll = findById(payrollId);
         payroll.setPaymentStatus(PaymentStatus.PAID);
@@ -142,12 +142,17 @@ public class PayrollService {
     @Transactional(readOnly = true)
     public Payroll findById(Long id) {
         return payrollRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay bang luong co ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy bảng lương có ID: " + id));
     }
 
     @Transactional(readOnly = true)
     public List<Payroll> findByMonth(Integer month, Integer year) {
         return payrollRepository.findByMonthAndYearOrderByEmployeeFullNameAsc(month, year);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Payroll> findByMonthWithEmployeeAndDepartment(Integer month, Integer year) {
+        return payrollRepository.findByMonthAndYearWithEmployeeAndDepartment(month, year);
     }
 
     @Transactional(readOnly = true)
@@ -250,3 +255,4 @@ public class PayrollService {
         return Math.round(value * 100.0) / 100.0;
     }
 }
+

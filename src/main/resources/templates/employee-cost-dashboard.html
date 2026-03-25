@@ -1,0 +1,192 @@
+﻿<div th:fragment="content" xmlns:th="http://www.thymeleaf.org">
+  <section class="panel report-filter">
+    <div class="panel-header compact">
+      <div>
+        <p class="panel-kicker">B&#7897; l&#7885;c</p>
+        <h3>T&#249;y ch&#7885;n ng&#224;y, th&#225;ng, qu&#253; ho&#7863;c n&#259;m</h3>
+        <p class="muted-text" th:text="${periodSummary} + ' - ' + ${comparisonSummary}"></p>
+      </div>
+    </div>
+
+    <form class="actions-row period-switch cost-period-switch" th:action="@{/employee-cost-dashboard}" method="get">
+      <input type="hidden" name="month" th:value="${currentMonth}" />
+      <input type="hidden" name="year" th:value="${currentYear}" />
+      <input type="hidden" name="quarter" th:value="${quarter}" />
+      <input type="hidden" name="date" th:value="${selectedDate}" />
+      <button class="btn" type="submit" name="periodType" value="day" th:classappend="${periodType == 'day'} ? ' btn-primary' : ' btn-outline'">Ng&#224;y</button>
+      <button class="btn" type="submit" name="periodType" value="month" th:classappend="${periodType == 'month'} ? ' btn-primary' : ' btn-outline'">Th&#225;ng</button>
+      <button class="btn" type="submit" name="periodType" value="quarter" th:classappend="${periodType == 'quarter'} ? ' btn-primary' : ' btn-outline'">Qu&#253;</button>
+      <button class="btn" type="submit" name="periodType" value="year" th:classappend="${periodType == 'year'} ? ' btn-primary' : ' btn-outline'">N&#259;m</button>
+    </form>
+
+    <form class="search-grid cost-filter-grid" th:if="${periodType != 'day'}" th:action="@{/employee-cost-dashboard}" method="get">
+      <input type="hidden" name="periodType" th:value="${periodType}" />
+
+      <div th:if="${periodType == 'month'}">
+        <label class="field-label">Th&#225;ng</label>
+        <input class="input" type="number" name="month" min="1" max="12" th:value="${currentMonth}" required />
+      </div>
+
+      <div th:if="${periodType == 'quarter'}">
+        <label class="field-label">Qu&#253;</label>
+        <select class="input" name="quarter">
+          <option value="1" th:selected="${quarter == 1}">Qu&#253; 1</option>
+          <option value="2" th:selected="${quarter == 2}">Qu&#253; 2</option>
+          <option value="3" th:selected="${quarter == 3}">Qu&#253; 3</option>
+          <option value="4" th:selected="${quarter == 4}">Qu&#253; 4</option>
+        </select>
+      </div>
+
+      <div th:if="${periodType == 'month' or periodType == 'quarter' or periodType == 'year'}">
+        <label class="field-label">N&#259;m</label>
+        <input class="input" type="number" name="year" min="2020" max="2099" th:value="${currentYear}" required />
+      </div>
+
+      <div class="search-actions cost-filter-actions">
+        <button class="btn btn-primary" type="submit">&#193;p d&#7909;ng</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="stats-grid">
+    <article class="stat-card">
+      <div class="stat-label">T&#7893;ng chi l&#432;&#417;ng</div>
+      <div class="stat-value" th:text="|${#numbers.formatDecimal(totalSalaryCost, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+    </article>
+    <article class="stat-card">
+      <div class="stat-label">T&#7893;ng ph&#7909; c&#7845;p + th&#432;&#7903;ng</div>
+      <div class="stat-value" th:text="|${#numbers.formatDecimal(totalCompensation, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+    </article>
+    <article class="stat-card accent">
+      <div class="stat-label">T&#7893;ng chi ph&#237; nh&#226;n s&#7921;</div>
+      <div class="stat-value" th:text="|${#numbers.formatDecimal(totalEmployeeCost, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+    </article>
+    <article class="stat-card">
+      <div class="stat-label">Trung b&#236;nh m&#7895;i nh&#226;n vi&#234;n</div>
+      <div class="stat-value" th:text="|${#numbers.formatDecimal(averageCostPerEmployee, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="panel-kicker">Ph&#226;n t&#237;ch theo lo&#7841;i</p>
+        <h3>Chi ph&#237; theo t&#7915;ng nh&#243;m</h3>
+      </div>
+    </div>
+
+    <div class="type-analysis-grid">
+      <div class="type-analysis-list">
+        <div class="type-analysis-row" th:each="item : ${costByType}">
+          <div class="type-name-wrap">
+            <span class="legend-dot" th:style="'background:' + ${item.color}"></span>
+            <div class="type-name" th:text="${item.typeName}"></div>
+          </div>
+          <div class="type-value" th:text="|${#numbers.formatDecimal(item.currentCost, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+          <div class="type-ratio" th:text="|${item.percentOfTotal}%|"></div>
+          <div class="type-change">
+            <span th:text="|${item.changePercent}%|"></span>
+            <span class="badge badge-warning" th:if="${item.strongIncrease}">T&#259;ng m&#7841;nh</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar" th:style="'background:' + ${item.color} + '; width:' + ${maxTypeCost == 0 ? 0 : (item.currentCost / maxTypeCost) * 100} + '%'"></div>
+          </div>
+        </div>
+        <div class="empty-cell" th:if="${#lists.isEmpty(costByType)}">Ch&#432;a c&#243; d&#7919; li&#7879;u chi ph&#237; theo lo&#7841;i.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="panel-kicker">Bi&#7875;u &#273;&#7891;</p>
+        <h3>T&#7927; tr&#7885;ng v&#224; c&#417; c&#7845;u chi ph&#237; theo ph&#242;ng ban</h3>
+      </div>
+    </div>
+
+    <div class="cost-visual-grid">
+      <div class="cost-donut-card">
+        <div class="cost-donut" th:style="'background:' + ${pieChartGradient}"></div>
+        <div class="cost-donut-center">100%</div>
+        <p class="muted-text">Bi&#7875;u &#273;&#7891; tr&#242;n th&#7875; hi&#7879;n t&#7927; l&#7879; chi ph&#237; theo ph&#242;ng ban.</p>
+      </div>
+
+      <div class="cost-legend">
+        <div class="legend-row" th:each="dept : ${costByDepartment}">
+          <span class="legend-dot" th:style="'background:' + ${dept.color}"></span>
+          <div class="legend-label" th:text="${dept.departmentName}"></div>
+          <div class="legend-value" th:text="|${dept.percentOfTotal}%|"></div>
+          <span class="badge badge-danger-lite" th:if="${dept.dominantDepartment}">> 50%</span>
+          <span class="badge badge-warning" th:if="${dept.strongIncrease}">T&#259;ng m&#7841;nh</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cost-bar-grid">
+      <div class="cost-bar-row" th:each="dept : ${costByDepartment}">
+        <div class="cost-bar-title" th:text="${dept.departmentName}"></div>
+        <div class="cost-bar-pair">
+          <div class="cost-bar-label">L&#432;&#417;ng</div>
+          <div class="progress-track">
+            <div class="progress-bar cost-salary" th:style="'width:' + ${maxChartValue == 0 ? 0 : (dept.salaryCost / maxChartValue) * 100} + '%'"></div>
+          </div>
+          <div class="cost-bar-number" th:text="|${#numbers.formatDecimal(dept.salaryCost, 0, 'COMMA', 0, 'POINT')}|"></div>
+        </div>
+        <div class="cost-bar-pair">
+          <div class="cost-bar-label">Ph&#7909; c&#7845;p + th&#432;&#7903;ng</div>
+          <div class="progress-track">
+            <div class="progress-bar cost-compensation" th:style="'width:' + ${maxChartValue == 0 ? 0 : (dept.compensationCost / maxChartValue) * 100} + '%'"></div>
+          </div>
+          <div class="cost-bar-number" th:text="|${#numbers.formatDecimal(dept.compensationCost, 0, 'COMMA', 0, 'POINT')}|"></div>
+        </div>
+      </div>
+      <div class="empty-cell" th:if="${#lists.isEmpty(costByDepartment)}">Kh&#244;ng c&#243; d&#7919; li&#7879;u &#273;&#7875; v&#7869; bi&#7875;u &#273;&#7891;.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <div>
+        <p class="panel-kicker">B&#7843;ng chi ti&#7871;t</p>
+        <h3>Danh s&#225;ch ph&#242;ng ban theo t&#7893;ng chi ph&#237;</h3>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Ph&#242;ng ban</th>
+          <th>Nh&#226;n vi&#234;n</th>
+          <th>L&#432;&#417;ng</th>
+          <th>Ph&#7909; c&#7845;p + th&#432;&#7903;ng</th>
+          <th>T&#7893;ng</th>
+          <th>% chi ph&#237;</th>
+          <th>Xu h&#432;&#7899;ng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="dept : ${costByDepartment}" th:classappend="${dept.dominantDepartment} ? ' row-dominant' : (${dept.strongIncrease} ? ' row-strong' : '')">
+          <td><div class="cell-title" th:text="${dept.departmentName}"></div></td>
+          <td th:text="${dept.employeeCount}"></td>
+          <td th:text="|${#numbers.formatDecimal(dept.salaryCost, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+          <td th:text="|${#numbers.formatDecimal(dept.compensationCost, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+          <td th:text="|${#numbers.formatDecimal(dept.totalCost, 0, 'COMMA', 0, 'POINT')} VND|"></td>
+          <td>
+            <span th:text="|${dept.percentOfTotal}%|"></span>
+            <span class="badge badge-danger-lite" th:if="${dept.dominantDepartment}">> 50%</span>
+          </td>
+          <td>
+            <span th:if="${dept.previousTotalCost > 0}" th:text="|${dept.changePercent}%|"></span>
+            <span class="muted-text" th:if="${dept.previousTotalCost <= 0 and dept.totalCost > 0}">M&#7899;i ph&#225;t sinh</span>
+            <span class="muted-text" th:if="${dept.previousTotalCost <= 0 and dept.totalCost <= 0}">Kh&#244;ng &#273;&#7893;i</span>
+            <span class="badge badge-warning" th:if="${dept.strongIncrease}">T&#259;ng m&#7841;nh</span>
+          </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(costByDepartment)}">
+          <td colspan="7" class="empty-cell">Ch&#432;a c&#243; d&#7919; li&#7879;u chi ph&#237; cho k&#7923; &#273;&#227; ch&#7885;n.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

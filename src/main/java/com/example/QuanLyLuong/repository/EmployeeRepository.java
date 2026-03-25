@@ -22,5 +22,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     List<Employee> findByFullNameContainingIgnoreCaseOrderByFullNameAsc(String keyword);
 
+    List<Employee> findByFullNameContainingIgnoreCaseOrEmployeeCodeContainingIgnoreCaseOrderByFullNameAsc(
+            String fullNameKeyword,
+            String employeeCodeKeyword
+    );
+
     long countByStatus(EmployeeStatus status);
 }

@@ -52,9 +52,11 @@ public class ExportController {
     public ResponseEntity<byte[]> exportPayslip(@PathVariable Long payrollId, Authentication authentication) throws Exception {
         Payroll payroll = payrollService.findById(payrollId);
         User currentUser = userService.getAuthenticatedUser(authentication);
-        if (currentUser.getRole() == Role.ROLE_EMPLOYEE
+        boolean hasPayrollAdminScope = currentUser.getRole() == Role.ROLE_ADMIN
+                || currentUser.getRole() == Role.ROLE_ACCOUNTANT;
+        if (!hasPayrollAdminScope
                 && (currentUser.getEmployee() == null || !currentUser.getEmployee().getId().equals(payroll.getEmployee().getId()))) {
-            throw new AccessDeniedException("Ban khong du quyen tai phieu luong nay.");
+            throw new AccessDeniedException("Bạn không đủ quyền tải phiếu lương này.");
         }
 
         byte[] data = pdfExportService.exportPayslipToPdf(payroll);
@@ -64,3 +66,4 @@ public class ExportController {
                 .body(data);
     }
 }
+

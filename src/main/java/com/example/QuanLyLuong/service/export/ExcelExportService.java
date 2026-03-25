@@ -27,7 +27,7 @@ public class ExcelExportService {
 
     public byte[] exportPayrollToExcel(List<Payroll> payrolls, int month, int year) throws IOException {
         try (Workbook workbook = new XSSFWorkbook()) {
-            Sheet sheet = workbook.createSheet("Bang luong " + month + "-" + year);
+            Sheet sheet = workbook.createSheet("Bảng lương " + month + "-" + year);
 
             CellStyle titleStyle = workbook.createCellStyle();
             Font titleFont = workbook.createFont();
@@ -64,7 +64,7 @@ public class ExcelExportService {
             titleCell.setCellStyle(titleStyle);
             sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 7));
 
-            String[] headers = {"STT", "Nhan vien", "Phong ban", "Chuc vu", "Luong co ban", "Ngay cong", "Luong thuc nhan", "Trang thai"};
+            String[] headers = {"STT", "Nhân viên", "Phòng ban", "Chức vụ", "Lương cơ bản", "Ngày công", "Lương thực nhận", "Trạng thái"};
             Row headerRow = sheet.createRow(2);
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
@@ -92,7 +92,7 @@ public class ExcelExportService {
                 actualSalaryCell.setCellValue(payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary());
                 actualSalaryCell.setCellStyle(moneyStyle);
 
-                row.createCell(7).setCellValue(payroll.getPaymentStatus() == PaymentStatus.PAID ? "Da chi" : "Chua chi");
+                row.createCell(7).setCellValue(payroll.getPaymentStatus() == PaymentStatus.PAID ? "Đã chi" : "Chưa chi");
                 totalSalary += payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary();
             }
 
@@ -112,3 +112,4 @@ public class ExcelExportService {
         }
     }
 }
+

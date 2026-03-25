@@ -1,36 +1,31 @@
-<div th:fragment="content">
-    <section class="hero-panel">
-        <div>
-            <p class="eyebrow">Tong quan van hanh</p>
-            <h2>Dieu phoi nhan su, cham cong va luong tren mot giao dien duy nhat.</h2>
-            <p class="hero-copy">MVP nay da noi thong toan bo luong cong viec: tao nhan vien, cau hinh luong, nhap cham cong, tinh luong, theo doi chi tra va xuat file.</p>
-        </div>
-        <div class="hero-tag">Thang <span th:text="${currentMonth}">1</span>/<span th:text="${currentYear}">2026</span></div>
-    </section>
+﻿<div th:fragment="content">
+    <div class="dashboard-period-row">
+        <div class="hero-tag">Th&#225;ng <span th:text="${currentMonth}">1</span>/<span th:text="${currentYear}">2026</span></div>
+    </div>
 
     <section class="stats-grid">
         <article class="stat-card">
-            <div class="stat-label">Tong nhan vien</div>
+            <div class="stat-label">T&#7893;ng nh&#226;n vi&#234;n</div>
             <div class="stat-value" th:text="${stats.totalEmployees}">0</div>
         </article>
         <article class="stat-card">
-            <div class="stat-label">Nhan vien dang hoat dong</div>
+            <div class="stat-label">Nh&#226;n vi&#234;n &#273;ang ho&#7841;t &#273;&#7897;ng</div>
             <div class="stat-value" th:text="${stats.activeEmployees}">0</div>
         </article>
         <article class="stat-card">
-            <div class="stat-label">Phong ban</div>
+            <div class="stat-label">Ph&#242;ng ban</div>
             <div class="stat-value" th:text="${stats.totalDepartments}">0</div>
         </article>
         <article class="stat-card">
-            <div class="stat-label">Tai khoan he thong</div>
+            <div class="stat-label">T&#224;i kho&#7843;n h&#7879; th&#7889;ng</div>
             <div class="stat-value" th:text="${stats.totalUsers}">0</div>
         </article>
         <article class="stat-card">
-            <div class="stat-label">Bang luong trong thang</div>
+            <div class="stat-label">B&#7843;ng l&#432;&#417;ng trong th&#225;ng</div>
             <div class="stat-value" th:text="${stats.payrollCount}">0</div>
         </article>
         <article class="stat-card accent">
-            <div class="stat-label">Tong chi luong</div>
+            <div class="stat-label">T&#7893;ng chi l&#432;&#417;ng</div>
             <div class="stat-value" th:text="${#numbers.formatDecimal(stats.payrollTotal, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</div>
         </article>
     </section>
@@ -38,25 +33,27 @@
     <section class="panel">
         <div class="panel-header">
             <div>
-                <p class="panel-kicker">Bang luong gan day</p>
-                <h3>Du lieu thang hien tai</h3>
+                <p class="panel-kicker">B&#7843;ng l&#432;&#417;ng g&#7847;n &#273;&#226;y</p>
+                <h3>D&#7919; li&#7879;u th&#225;ng hi&#7879;n t&#7841;i</h3>
             </div>
-            <a class="btn btn-primary" th:href="@{/payrolls}">Mo bang luong</a>
+            <a class="btn btn-primary" th:href="@{/payrolls}">M&#7903; b&#7843;ng l&#432;&#417;ng</a>
         </div>
         <table class="table">
             <thead>
             <tr>
-                <th>Nhân viên</th>
-                <th>Phong ban</th>
-                <th>Ngay cong</th>
-                <th>Luong thuc nhan</th>
-                <th>Trang thai</th>
+                <th>M&#227; NV</th>
+                <th>Nh&#226;n vi&#234;n</th>
+                <th>Ph&#242;ng ban</th>
+                <th>Ng&#224;y c&#244;ng</th>
+                <th>L&#432;&#417;ng th&#7921;c nh&#7853;n</th>
+                <th>Tr&#7841;ng th&#225;i</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="payroll : ${recentPayrolls}">
+                <td th:text="${payroll.employee.employeeCode != null ? payroll.employee.employeeCode : 'Ch&#432;a c&#7845;p'}"></td>
                 <td th:text="${payroll.employee.fullName}"></td>
-                <td th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Chua co phong'}"></td>
+                <td th:text="${payroll.employee.department != null ? payroll.employee.department.name : 'Ch&#432;a c&#243; ph&#242;ng'}"></td>
                 <td th:text="${payroll.timesheet != null ? payroll.timesheet.workDays : 0}"></td>
                 <td th:text="${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
                 <td>
@@ -65,9 +62,11 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(recentPayrolls)}">
-                <td colspan="5" class="empty-cell">Chua co bang luong thang nay. Hay nhap cham cong va tinh luong.</td>
+                <td colspan="6" class="empty-cell">Ch&#432;a c&#243; b&#7843;ng l&#432;&#417;ng th&#225;ng n&#224;y. H&#227;y nh&#7853;p ch&#7845;m c&#244;ng v&#224; t&#237;nh l&#432;&#417;ng.</td>
             </tr>
             </tbody>
         </table>
     </section>
 </div>
+
+

@@ -2,10 +2,13 @@
     <section class="panel form-panel">
         <div class="panel-header compact">
             <div>
-                <p class="panel-kicker">Ho so nhan vien</p>
-                <h3 th:text="${employee.id == null ? 'Them nhan vien moi' : 'Cap nhat nhan vien'}"></h3>
+                <p class="panel-kicker">Hồ sơ nhân viên</p>
+                <h3 th:text="${employee.id == null ? 'Thêm nhân viên mới' : 'Cập nhật nhân viên'}"></h3>
             </div>
-            <a class="btn btn-outline" th:href="@{/employees}">Quay lai</a>
+            <div class="actions-row">
+                <a class="btn btn-secondary" th:if="${employee.id == null}" th:href="@{/employees/import}">Import Excel</a>
+                <a class="btn btn-outline" th:href="@{/employees}">Quay lại</a>
+            </div>
         </div>
 
         <form class="stack-form" th:action="@{/employees/save}" th:object="${employee}" method="post">
@@ -13,11 +16,11 @@
 
             <div class="grid two-col">
                 <div>
-                    <label class="field-label">Ma nhan vien</label>
-                    <input class="input" type="text" th:field="*{employeeCode}" placeholder="Vi du: EMP0101">
+                    <label class="field-label">Mã nhân viên</label>
+                    <input class="input" type="text" th:field="*{employeeCode}" placeholder="Ví dụ: EMP0101">
                 </div>
                 <div>
-                    <label class="field-label">Ho va ten</label>
+                    <label class="field-label">Họ và tên</label>
                     <input class="input" type="text" th:field="*{fullName}" required>
                 </div>
                 <div>
@@ -25,26 +28,26 @@
                     <input class="input" type="email" th:field="*{email}" required>
                 </div>
                 <div>
-                    <label class="field-label">Chuc vu</label>
+                    <label class="field-label">Chức vụ</label>
                     <input class="input" type="text" th:field="*{position}">
                 </div>
                 <div>
-                    <label class="field-label">Phong ban</label>
+                    <label class="field-label">Phòng ban</label>
                     <select class="input" th:field="*{department.id}">
-                        <option value="">Chon phong ban</option>
+                        <option value="">Chọn phòng ban</option>
                         <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
                     </select>
                 </div>
                 <div>
-                    <label class="field-label">Luong co ban</label>
+                    <label class="field-label">Lương cơ bản</label>
                     <input class="input" type="number" min="0" step="1000" th:field="*{baseSalary}">
                 </div>
                 <div>
-                    <label class="field-label">Ngay vao lam</label>
+                    <label class="field-label">Ngày vào làm</label>
                     <input class="input" type="date" th:field="*{joinDate}">
                 </div>
                 <div>
-                    <label class="field-label">Trang thai</label>
+                    <label class="field-label">Trạng thái</label>
                     <select class="input" th:field="*{status}">
                         <option th:each="status : ${statuses}" th:value="${status}" th:text="${status.label}"></option>
                     </select>
@@ -52,8 +55,8 @@
             </div>
 
             <div class="actions-row">
-                <button class="btn btn-primary" type="submit">Luu thong tin</button>
-                <a class="btn btn-secondary" th:href="@{/employees}">Huy</a>
+                <button class="btn btn-primary" type="submit">Lưu thông tin</button>
+                <a class="btn btn-secondary" th:href="@{/employees}">Hủy</a>
             </div>
         </form>
     </section>

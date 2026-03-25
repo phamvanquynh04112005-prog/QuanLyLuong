@@ -27,16 +27,28 @@ public class CompensationItemService {
     private final EmployeeRepository employeeRepository;
 
     @Transactional(readOnly = true)
-    public List<CompensationItem> findAll(Long employeeId) {
-        if (employeeId == null) {
-            return compensationItemRepository.findAll().stream()
-                    .sorted(Comparator
-                            .comparing((CompensationItem item) -> item.getEmployee().getFullName(), String.CASE_INSENSITIVE_ORDER)
-                            .thenComparing(CompensationItem::getEffectiveDate, Comparator.nullsLast(Comparator.reverseOrder()))
-                            .thenComparing(CompensationItem::getName, String.CASE_INSENSITIVE_ORDER))
-                    .toList();
+    public List<CompensationItem> findAll(String keyword) {
+        String normalizedKeyword = keyword == null ? "" : keyword.trim().toLowerCase();
+        return compensationItemRepository.findAll().stream()
+                .filter(item -> normalizedKeyword.isBlank() || matchesKeyword(item, normalizedKeyword))
+                .sorted(Comparator
+                        .comparing((CompensationItem item) -> safeText(item.getEmployee().getFullName()), String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(CompensationItem::getEffectiveDate, Comparator.nullsLast(Comparator.reverseOrder()))
+                        .thenComparing(item -> safeText(item.getName()), String.CASE_INSENSITIVE_ORDER))
+                .toList();
+    }
+
+    private boolean matchesKeyword(CompensationItem item, String keyword) {
+        if (item == null || item.getEmployee() == null) {
+            return false;
         }
-        return compensationItemRepository.findByEmployeeIdOrderByEffectiveDateDescNameAsc(employeeId);
+        String fullName = safeText(item.getEmployee().getFullName()).toLowerCase();
+        String employeeCode = safeText(item.getEmployee().getEmployeeCode()).toLowerCase();
+        return fullName.contains(keyword) || employeeCode.contains(keyword);
+    }
+
+    private String safeText(String value) {
+        return value == null ? "" : value;
     }
 
     public CompensationItem save(Long employeeId,
@@ -50,7 +62,7 @@ public class CompensationItemService {
                                  LocalDate endDate,
                                  String note) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
 
         CompensationItem item = new CompensationItem();
         item.setEmployee(employee);

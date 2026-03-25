@@ -59,7 +59,7 @@ public class SalaryConfigService {
                              String description,
                              LocalDate effectiveDate) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
 
         SalaryConfig config = new SalaryConfig();
         config.setEmployee(employee);
@@ -87,8 +87,14 @@ public class SalaryConfigService {
 
     @Transactional(readOnly = true)
     public List<SalaryConfig> findLatestForAllEmployees() {
+        return findLatestForAllEmployees(null);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SalaryConfig> findLatestForAllEmployees(String keyword) {
+        List<Employee> employees = resolveEmployeesByKeyword(keyword);
         List<SalaryConfig> latestConfigs = new ArrayList<>();
-        for (Employee employee : employeeRepository.findAllByOrderByFullNameAsc()) {
+        for (Employee employee : employees) {
             latestConfigs.add(getLatestConfigOrDefault(employee.getId()));
         }
         return latestConfigs;
@@ -108,9 +114,20 @@ public class SalaryConfigService {
                 .orElseGet(() -> createEmptyConfig(employeeId));
     }
 
+    private List<Employee> resolveEmployeesByKeyword(String keyword) {
+        String normalizedKeyword = keyword == null ? null : keyword.trim();
+        if (normalizedKeyword == null || normalizedKeyword.isBlank()) {
+            return employeeRepository.findAllByOrderByFullNameAsc();
+        }
+        return employeeRepository.findByFullNameContainingIgnoreCaseOrEmployeeCodeContainingIgnoreCaseOrderByFullNameAsc(
+                normalizedKeyword,
+                normalizedKeyword
+        );
+    }
+
     private SalaryConfig createEmptyConfig(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
         SalaryConfig config = new SalaryConfig();
         config.setEmployee(employee);
         config.setAllowance(0.0);
@@ -125,7 +142,7 @@ public class SalaryConfigService {
         config.setUnemploymentInsuranceRate(0.01);
         config.setPersonalIncomeTaxRate(0.05);
         config.setPersonalDeduction(11000000.0);
-        config.setDescription("Mac dinh chua co cau hinh luong nang cao");
+        config.setDescription("Mặc định chưa có cấu hình lương nâng cao");
         config.setEffectiveDate(LocalDate.now());
         return config;
     }

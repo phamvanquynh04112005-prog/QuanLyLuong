@@ -94,7 +94,7 @@ public class AttendanceLogService {
                                  String machineCode,
                                  String note) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
 
         SaveOutcome saveOutcome = upsertLog(
                 employee,
@@ -120,7 +120,7 @@ public class AttendanceLogService {
                     .importedCount(0)
                     .updatedCount(0)
                     .skippedCount(1)
-                    .messages(List.of("File import dang rong."))
+                    .messages(List.of("File import đang rỗng."))
                     .build();
         }
 
@@ -153,7 +153,7 @@ public class AttendanceLogService {
         try (InputStream inputStream = file.getInputStream(); Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0);
             if (sheet == null || sheet.getPhysicalNumberOfRows() == 0) {
-                messages.add("File Excel khong co du lieu.");
+                messages.add("File Excel không có dữ liệu.");
                 return AttendanceImportResult.builder()
                         .importedCount(0)
                         .updatedCount(0)
@@ -177,17 +177,17 @@ public class AttendanceLogService {
                 LocalDate attendanceDate = readDate(row, headers, formatter);
                 if (employee == null) {
                     skippedCount++;
-                    messages.add("Dong " + (rowIndex + 1) + ": khong tim thay nhan vien theo ma/email/ten.");
+                    messages.add("Dòng " + (rowIndex + 1) + ": không tìm thấy nhân viên theo mã/email/tên.");
                     continue;
                 }
                 if (attendanceDate == null) {
                     skippedCount++;
-                    messages.add("Dong " + (rowIndex + 1) + ": khong doc duoc ngay cham cong.");
+                    messages.add("Dòng " + (rowIndex + 1) + ": không đọc được ngày chấm công.");
                     continue;
                 }
                 if (!YearMonth.from(attendanceDate).equals(targetMonth)) {
                     skippedCount++;
-                    messages.add("Dong " + (rowIndex + 1) + ": ngay " + attendanceDate + " nam ngoai thang duoc chon.");
+                    messages.add("Dòng " + (rowIndex + 1) + ": ngày " + attendanceDate + " nằm ngoài tháng được chọn.");
                     continue;
                 }
 
@@ -224,7 +224,7 @@ public class AttendanceLogService {
                 }
             }
         } catch (IOException exception) {
-            throw new IllegalStateException("Khong the doc file Excel import cham cong.", exception);
+            throw new IllegalStateException("Không thể đọc file Excel import chấm công.", exception);
         }
 
         if (messages.isEmpty()) {
@@ -241,7 +241,7 @@ public class AttendanceLogService {
 
     public Timesheet syncTimesheetFromLogs(Long employeeId, YearMonth yearMonth) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien co ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
         Timesheet timesheet = timesheetRepository.findByEmployeeIdAndMonthAndYear(employeeId, yearMonth.getMonthValue(), yearMonth.getYear())
                 .orElseGet(Timesheet::new);
         List<AttendanceLog> attendanceLogs = findByEmployeeAndMonth(employeeId, yearMonth);
@@ -286,7 +286,7 @@ public class AttendanceLogService {
                                   String machineCode,
                                   String note) {
         if (attendanceDate == null) {
-            throw new IllegalArgumentException("Ngay cham cong khong duoc de trong.");
+            throw new IllegalArgumentException("Ngày chấm công không được để trống.");
         }
 
         YearMonth yearMonth = YearMonth.from(attendanceDate);
