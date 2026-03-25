@@ -36,7 +36,7 @@ public class SalaryConfigController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("selectedEmployeeId", employeeId);
         model.addAttribute("historyView", employeeId != null);
-        model.addAttribute("pageTitle", "Cấu hình lương");
+        model.addAttribute("pageTitle", "C\u1ea5u h\u00ecnh l\u01b0\u01a1ng");
         model.addAttribute("contentTemplate", "salary-config/list");
         return "layout/base";
     }
@@ -46,7 +46,7 @@ public class SalaryConfigController {
         model.addAttribute("employees", employeeService.findAll());
         model.addAttribute("selectedEmployeeId", employeeId);
         model.addAttribute("defaultDate", LocalDate.now());
-        model.addAttribute("pageTitle", "Thêm cấu hình lương");
+        model.addAttribute("pageTitle", "Th\u00eam c\u1ea5u h\u00ecnh l\u01b0\u01a1ng");
         model.addAttribute("contentTemplate", "salary-config/form");
         return "layout/base";
     }
@@ -63,8 +63,8 @@ public class SalaryConfigController {
                        @RequestParam(required = false) Double socialInsuranceRate,
                        @RequestParam(required = false) Double healthInsuranceRate,
                        @RequestParam(required = false) Double unemploymentInsuranceRate,
-                       @RequestParam(required = false) Double personalIncomeTaxRate,
                        @RequestParam(required = false) Double personalDeduction,
+                       @RequestParam(required = false) Double dependentDeductionPerPerson,
                        @RequestParam(required = false) String description,
                        @RequestParam(required = false) LocalDate effectiveDate,
                        RedirectAttributes redirectAttributes) {
@@ -80,12 +80,12 @@ public class SalaryConfigController {
                 socialInsuranceRate,
                 healthInsuranceRate,
                 unemploymentInsuranceRate,
-                personalIncomeTaxRate,
                 personalDeduction,
+                dependentDeductionPerPerson,
                 description,
                 effectiveDate
         );
-        redirectAttributes.addFlashAttribute("successMsg", "Đã lưu cấu hình lương nâng cao.");
+        redirectAttributes.addFlashAttribute("successMsg", "\u0110\u00e3 l\u01b0u c\u1ea5u h\u00ecnh l\u01b0\u01a1ng.");
         return "redirect:/salary-configs";
     }
 }

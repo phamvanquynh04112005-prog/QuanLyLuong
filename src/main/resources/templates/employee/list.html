@@ -32,7 +32,10 @@
             <tbody>
             <tr th:each="employee : ${employees}">
                 <td th:text="${employee.employeeCode != null ? employee.employeeCode : 'Ch&#432;a c&#7845;p'}"></td>
-                <td th:text="${employee.fullName}"></td>
+                <td>
+                    <div th:text="${employee.fullName}"></div>
+                    <small class="muted-text" th:text="|NPT: ${employee.dependentCount != null ? employee.dependentCount : 0}|"></small>
+                </td>
                 <td th:text="${employee.email}"></td>
                 <td th:text="${employee.position}"></td>
                 <td th:text="${employee.department != null ? employee.department.name : 'Ch&#432;a c&#243; ph&#242;ng'}"></td>

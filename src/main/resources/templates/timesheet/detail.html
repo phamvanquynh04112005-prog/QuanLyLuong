@@ -1,0 +1,71 @@
+<div th:fragment="content">
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Chi tiet cong theo nhan vien</p>
+                <h3 th:text="|${timesheet.employee.fullName} - thang ${month}/${year}|"></h3>
+                <p class="muted-text" th:text="${timesheet.employee.employeeCode != null ? timesheet.employee.employeeCode : 'Chua co ma nhan vien'}"></p>
+            </div>
+            <div class="actions-row">
+                <a class="btn btn-outline" th:href="@{/timesheets(month=${month},year=${year})}">Quay lai bang cong</a>
+            </div>
+        </div>
+
+        <div class="summary-row">
+            <div class="summary-box">
+                <div class="stat-label">Ngay cong</div>
+                <div class="stat-value" th:text="${timesheet.workDays}"></div>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">Gio thuong</div>
+                <div class="stat-value" th:text="|${timesheet.regularHours}h|"></div>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">Gio tang ca</div>
+                <div class="stat-value" th:text="|${totalOvertimeHours}h|"></div>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">So log</div>
+                <div class="stat-value" th:text="${timesheet.importedLogCount}"></div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Ngay</th>
+                <th>Checkin</th>
+                <th>Checkout</th>
+                <th>Gio thuong</th>
+                <th>OT ngay thuong</th>
+                <th>OT cuoi tuan</th>
+                <th>OT ngay le</th>
+                <th>OT tong</th>
+                <th>Di tre (phut)</th>
+                <th>Nguon</th>
+                <th>Ma may</th>
+                <th>Noi dung log</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log : ${logs}">
+                <td th:text="${log.attendanceDate}"></td>
+                <td th:text="${log.checkInTime != null ? log.checkInTime : '-'}"></td>
+                <td th:text="${log.checkOutTime != null ? log.checkOutTime : '-'}"></td>
+                <td th:text="|${log.regularHours}h|"></td>
+                <td th:text="|${log.overtimeWeekdayHours}h|"></td>
+                <td th:text="|${log.overtimeWeekendHours}h|"></td>
+                <td th:text="|${log.overtimeHolidayHours}h|"></td>
+                <td th:text="|${log.overtimeWeekdayHours + log.overtimeWeekendHours + log.overtimeHolidayHours}h|"></td>
+                <td th:text="${log.lateMinutes}"></td>
+                <td th:text="${log.source != null ? log.source.label : '-'}"></td>
+                <td th:text="${log.machineCode != null and !log.machineCode.isBlank() ? log.machineCode : '-'}"></td>
+                <td th:text="${log.note != null and !log.note.isBlank() ? log.note : '-'}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(logs)}">
+                <td colspan="12" class="empty-cell">Khong co log cong cua nhan vien trong thang nay.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

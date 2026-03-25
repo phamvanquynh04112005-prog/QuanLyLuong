@@ -1,9 +1,9 @@
-﻿<div th:fragment="content">
+<div th:fragment="content">
     <section class="panel form-panel">
         <div class="panel-header compact">
             <div>
                 <p class="panel-kicker">Chấm công theo ngày / giờ</p>
-                <h3>Ch&#7885;n nh&#226;n vi&#234;n &#273;&#7875; qu&#7843;n l&#253; t&#7893;ng h&#7907;p th&#225;ng v&#224; log chi ti&#7871;t</h3>
+                <h3>Ch&#7885;n nh&#226;n vi&#234n &#273;&#7875; qu&#7843;n l&#253; t&#7893;ng h&#7907;p th&#225;ng v&#224; log chi ti&#7871;t</h3>
             </div>
             <a class="btn btn-outline" th:href="@{/timesheets(month=${month},year=${year})}">Quay lại</a>
         </div>
@@ -12,10 +12,10 @@
             <input class="input" style="max-width: 120px" type="number" min="1" max="12" name="month" th:value="${month}">
             <input class="input" style="max-width: 120px" type="number" min="2020" max="2099" name="year" th:value="${year}">
             <select class="input" name="employeeId" style="min-width: 280px">
-                <option value="">Ch&#7885;n nh&#226;n vi&#234;n</option>
+                <option value="">Ch&#7885;n nh&#226;n vi&#234n</option>
                 <option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${selectedEmployeeId != null and selectedEmployeeId == employee.id}" th:text="|${employee.fullName} - ${employee.employeeCode != null ? employee.employeeCode : 'Không mã'}|"></option>
             </select>
-            <button class="btn btn-secondary" type="submit">Tai dữ liệu</button>
+            <button class="btn btn-secondary" type="submit">Tải dữ liệu</button>
         </form>
 
         <div th:if="${selectedEmployeeId != null}" class="detail-grid">
@@ -35,8 +35,7 @@
                 <div class="summary-box helper-card" th:if="${salaryConfig != null}">
                     Rule hiện tại: <strong th:text="|${salaryConfig.standardWorkDays} ngày công / ${salaryConfig.standardWorkHoursPerDay} giờ|"></strong>, OT
                     <strong th:text="|${salaryConfig.overtimeWeekdayMultiplier}/${salaryConfig.overtimeWeekendMultiplier}/${salaryConfig.overtimeHolidayMultiplier}|"></strong>,
-                    BH tổng <strong th:text="|${salaryConfig.socialInsuranceRate + salaryConfig.healthInsuranceRate + salaryConfig.unemploymentInsuranceRate}|"></strong>,
-                    thuế <strong th:text="${salaryConfig.personalIncomeTaxRate}"></strong>.
+                    BH tổng <strong th:text="|${salaryConfig.socialInsuranceRate + salaryConfig.healthInsuranceRate + salaryConfig.unemploymentInsuranceRate}|"></strong>.
                 </div>
                 <form class="stack-form" th:action="@{/timesheets/save}" method="post">
                     <input type="hidden" name="employeeId" th:value="${selectedEmployeeId}">
@@ -68,7 +67,7 @@
                         <div><label class="field-label">Check-in</label><input class="input" type="time" name="checkInTime"></div>
                         <div><label class="field-label">Check-out</label><input class="input" type="time" name="checkOutTime"></div>
                         <div><label class="field-label">Giờ thường</label><input class="input" type="number" min="0" step="0.25" name="regularHours"></div>
-                        <div><label class="field-label">Đi trễ (phut)</label><input class="input" type="number" min="0" step="1" name="lateMinutes"></div>
+                        <div><label class="field-label">Đi trễ (phút)</label><input class="input" type="number" min="0" step="1" name="lateMinutes"></div>
                         <div><label class="field-label">OT ngày thường</label><input class="input" type="number" min="0" step="0.25" name="overtimeWeekdayHours"></div>
                         <div><label class="field-label">OT cuối tuần</label><input class="input" type="number" min="0" step="0.25" name="overtimeWeekendHours"></div>
                         <div><label class="field-label">OT ngày lễ</label><input class="input" type="number" min="0" step="0.25" name="overtimeHolidayHours"></div>
@@ -84,7 +83,7 @@
             <div class="panel-header compact">
                 <div>
                     <p class="panel-kicker">Log trong tháng</p>
-                    <h3>Danh s&#225;ch log theo ng&#224;y c&#7911;a nh&#226;n vi&#234;n &#273;&#227; ch&#7885;n</h3>
+                    <h3>Danh s&#225;ch log theo ng&#224;y c&#7911;a nh&#226;n vi&#234n &#273;&#227; ch&#7885;n</h3>
                 </div>
             </div>
             <table class="table">
@@ -97,7 +96,7 @@
                     <td th:text="|${log.overtimeWeekdayHours}h|"></td>
                     <td th:text="|${log.overtimeWeekendHours}h|"></td>
                     <td th:text="|${log.overtimeHolidayHours}h|"></td>
-                    <td th:text="|${log.lateMinutes} phut|"></td>
+                    <td th:text="|${log.lateMinutes} phút|"></td>
                     <td th:text="${log.source.label}"></td>
                     <td>
                         <div th:text="${log.note != null and !log.note.isBlank() ? log.note : 'Không có ghi chú'}"></div>
@@ -110,11 +109,3 @@
         </div>
     </section>
 </div>
-
-
-
-
-
-
-
-

@@ -44,8 +44,8 @@
                 <td th:text="|${config.overtimeWeekdayMultiplier} / ${config.overtimeWeekendMultiplier} / ${config.overtimeHolidayMultiplier}|"></td>
                 <td th:text="|BHXH ${config.socialInsuranceRate}, BHYT ${config.healthInsuranceRate}, BHTN ${config.unemploymentInsuranceRate}|"></td>
                 <td>
-                    <div th:text="|TNCN ${config.personalIncomeTaxRate}|"></div>
-                    <small class="muted-text" th:text="|Gi&#7843;m tr&#7915; ${#numbers.formatDecimal(config.personalDeduction, 0, 'COMMA', 0, 'POINT')} VND|"></small>
+                    <div>Biểu thuế lũy tiến</div>
+                    <small class="muted-text" th:text="|Giảm trừ ${#numbers.formatDecimal(config.personalDeduction, 0, 'COMMA', 0, 'POINT')} - NPT ${#numbers.formatDecimal(config.dependentDeductionPerPerson, 0, 'COMMA', 0, 'POINT')} / người|"></small>
                 </td>
                 <td>
                     <div th:text="${config.effectiveDate}"></div>

@@ -57,10 +57,10 @@ public class DataInitializer implements ApplicationRunner {
         Department finance = ensureDepartment("K\u1ebf to\u00e1n", "Nguy\u1ec5n V\u0103n B\u00ecnh", "Ke toan");
         Department it = ensureDepartment("Công nghệ thông tin", "Lê Hoàng Minh", "Cong nghe thong tin");
 
-        Employee adminEmployee = ensureEmployee("EMP0001", "admin@quanlyluong.local", "Nguy\u1ec5n V\u0103n Admin", "Gi\u00e1m s\u00e1t h\u1ec7 th\u1ed1ng", hr, 25000000d, LocalDate.of(2023, 1, 10));
-        Employee hrEmployee = ensureEmployee("EMP0002", "hr01@quanlyluong.local", "Tr\u1ea7n Th\u1ecb HR", "Chuy\u00ean vi\u00ean nh\u00e2n s\u1ef1", hr, 18000000d, LocalDate.of(2023, 4, 5));
-        Employee employee = ensureEmployee("EMP0003", "nv001@quanlyluong.local", "L\u00ea V\u0103n Nh\u00e2n Vi\u00ean", "L\u1eadp tr\u00ecnh vi\u00ean", it, 15000000d, LocalDate.of(2024, 2, 1));
-        Employee financeEmployee = ensureEmployee("EMP0004", "kt01@quanlyluong.local", "Ph\u1ea1m Th\u1ecb K\u1ebf To\u00e1n", "K\u1ebf to\u00e1n t\u1ed5ng h\u1ee3p", finance, 17000000d, LocalDate.of(2023, 8, 12));
+        Employee adminEmployee = ensureEmployee("EMP0001", "admin@quanlyluong.local", "Nguy\u1ec5n V\u0103n Admin", "Gi\u00e1m s\u00e1t h\u1ec7 th\u1ed1ng", hr, 25000000d, LocalDate.of(2023, 1, 10), 1);
+        Employee hrEmployee = ensureEmployee("EMP0002", "hr01@quanlyluong.local", "Tr\u1ea7n Th\u1ecb HR", "Chuy\u00ean vi\u00ean nh\u00e2n s\u1ef1", hr, 18000000d, LocalDate.of(2023, 4, 5), 0);
+        Employee employee = ensureEmployee("EMP0003", "nv001@quanlyluong.local", "L\u00ea V\u0103n Nh\u00e2n Vi\u00ean", "L\u1eadp tr\u00ecnh vi\u00ean", it, 15000000d, LocalDate.of(2024, 2, 1), 2);
+        Employee financeEmployee = ensureEmployee("EMP0004", "kt01@quanlyluong.local", "Ph\u1ea1m Th\u1ecb K\u1ebf To\u00e1n", "K\u1ebf to\u00e1n t\u1ed5ng h\u1ee3p", finance, 17000000d, LocalDate.of(2023, 8, 12), 1);
 
         ensureSalaryConfig(adminEmployee.getId(), 2500000d, 800000d, "Phụ cấp quản trị");
         ensureSalaryConfig(hrEmployee.getId(), 1500000d, 500000d, "Ph\u1ee5 c\u1ea5p nh\u00e2n s\u1ef1");
@@ -100,7 +100,8 @@ public class DataInitializer implements ApplicationRunner {
                                     String position,
                                     Department department,
                                     Double baseSalary,
-                                    LocalDate joinDate) {
+                                    LocalDate joinDate,
+                                    Integer dependentCount) {
         return employeeRepository.findByEmailIgnoreCase(email)
                 .map(existing -> {
                     existing.setEmployeeCode(employeeCode);
@@ -109,6 +110,7 @@ public class DataInitializer implements ApplicationRunner {
                     existing.setDepartment(department);
                     existing.setBaseSalary(baseSalary);
                     existing.setJoinDate(joinDate);
+                    existing.setDependentCount(dependentCount == null ? 0 : dependentCount);
                     existing.setStatus(EmployeeStatus.ACTIVE);
                     return employeeRepository.save(existing);
                 })
@@ -121,6 +123,7 @@ public class DataInitializer implements ApplicationRunner {
                     employee.setDepartment(department);
                     employee.setBaseSalary(baseSalary);
                     employee.setJoinDate(joinDate);
+                    employee.setDependentCount(dependentCount == null ? 0 : dependentCount);
                     employee.setStatus(EmployeeStatus.ACTIVE);
                     return employeeRepository.save(employee);
                 });

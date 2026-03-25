@@ -67,6 +67,12 @@ public class Payroll {
     private Double insuranceAmount = 0.0;
 
     @Column(nullable = false)
+    private Double dependentDeductionAmount = 0.0;
+
+    @Column(nullable = false)
+    private Double taxableIncome = 0.0;
+
+    @Column(nullable = false)
     private Double taxAmount = 0.0;
 
     @Column(nullable = false)

@@ -1,4 +1,4 @@
-﻿<div th:fragment="content">
+<div th:fragment="content">
     <section class="panel form-panel">
         <div class="panel-header compact">
             <div>
@@ -21,15 +21,15 @@
                     <input class="input" type="date" name="effectiveDate" th:value="${defaultDate}">
                 </div>
                 <div>
-                    <label class="field-label">Phụ cấp co dinh</label>
+                    <label class="field-label">Phụ cấp cố định</label>
                     <input class="input" type="number" step="1000" min="0" name="allowance" value="0">
                 </div>
                 <div>
-                    <label class="field-label">Khấu trừ co dinh</label>
+                    <label class="field-label">Khấu trừ cố định</label>
                     <input class="input" type="number" step="1000" min="0" name="deduction" value="0">
                 </div>
                 <div>
-                    <label class="field-label">Ngày công chưan</label>
+                    <label class="field-label">Ngày công chuẩn</label>
                     <input class="input" type="number" name="standardWorkDays" min="1" max="31" value="26">
                 </div>
                 <div>
@@ -53,34 +53,30 @@
                     <input class="input" type="number" name="personalDeduction" min="0" step="1000" value="11000000">
                 </div>
                 <div>
-                    <label class="field-label">Ty le BHXH</label>
+                    <label class="field-label">Giảm trừ / người phụ thuộc</label>
+                    <input class="input" type="number" name="dependentDeductionPerPerson" min="0" step="1000" value="4400000">
+                </div>
+                <div>
+                    <label class="field-label">Tỷ lệ BHXH</label>
                     <input class="input" type="number" name="socialInsuranceRate" min="0" step="0.001" value="0.08">
                 </div>
                 <div>
-                    <label class="field-label">Ty le BHYT</label>
+                    <label class="field-label">Tỷ lệ BHYT</label>
                     <input class="input" type="number" name="healthInsuranceRate" min="0" step="0.001" value="0.015">
                 </div>
                 <div>
-                    <label class="field-label">Ty le BHTN</label>
+                    <label class="field-label">Tỷ lệ BHTN</label>
                     <input class="input" type="number" name="unemploymentInsuranceRate" min="0" step="0.001" value="0.01">
                 </div>
-                <div>
-                    <label class="field-label">Ty le thuế TNCN</label>
-                    <input class="input" type="number" name="personalIncomeTaxRate" min="0" step="0.001" value="0.05">
-                </div>
+            </div>
+            <div class="summary-box helper-card">
+                Hệ thống sẽ tự động áp dụng biểu thuế TNCN lũy tiến theo tháng. Mức giảm trừ người phụ thuộc sẽ nhân với số người phụ thuộc trong hồ sơ nhân viên.
             </div>
             <div>
                 <label class="field-label">Mô tả</label>
-                <textarea class="input" name="description" rows="4" placeholder="Ví dụ: rule payroll của nhóm IT, tính OT 1.5/2/3, BH theo hợp đồng..."></textarea>
+                <textarea class="input" name="description" rows="4" placeholder="Ví dụ: áp dụng biểu thuế lũy tiến, giảm trừ người phụ thuộc 4.4 triệu/người..."></textarea>
             </div>
             <div class="actions-row"><button class="btn btn-primary" type="submit">Lưu cấu hình</button><a class="btn btn-secondary" th:href="@{/salary-configs}">Hủy</a></div>
         </form>
     </section>
 </div>
-
-
-
-
-
-
-

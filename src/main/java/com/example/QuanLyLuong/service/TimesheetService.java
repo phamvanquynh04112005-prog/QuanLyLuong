@@ -31,7 +31,7 @@ public class TimesheetService {
 
     public Timesheet saveOrUpdate(Long employeeId, Integer month, Integer year, Integer workDays, Integer leaveDays, String note) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Kh\u00f4ng t\u00ecm th\u1ea5y nh\u00e2n vi\u00ean c\u00f3 ID: " + employeeId));
         YearMonth yearMonth = YearMonth.of(year, month);
         SalaryConfig salaryConfig = salaryConfigService.getEffectiveConfig(employeeId, yearMonth);
         Timesheet timesheet = timesheetRepository
@@ -116,6 +116,12 @@ public class TimesheetService {
     @Transactional(readOnly = true)
     public List<Timesheet> findByEmployee(Long employeeId) {
         return timesheetRepository.findByEmployeeIdOrderByYearDescMonthDesc(employeeId);
+    }
+
+    @Transactional(readOnly = true)
+    public Timesheet findById(Long id) {
+        return timesheetRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Kh\u00f4ng t\u00ecm th\u1ea5y b\u1ea3ng c\u00f4ng c\u00f3 ID: " + id));
     }
 
     public void delete(Long id) {

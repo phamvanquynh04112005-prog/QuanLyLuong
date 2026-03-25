@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html
   lang="vi"
   xmlns:th="http://www.thymeleaf.org"
@@ -21,69 +21,17 @@
 
         <nav class="nav-menu">
           <a class="nav-link" th:href="@{/dashboard}">T&#7893;ng quan</a>
-          <a
-            class="nav-link"
-            th:href="@{/employees}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
-            >Nhân viên</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/salary-configs}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
-            >Cấu hình lương</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/compensation-items}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
-            >Ph&#7909; c&#7845;p v&#224; th&#432;&#7903;ng</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/timesheets}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')"
-            >Chấm công</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/payrolls}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
-            >Bảng lương</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/payrolls/search}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
-            >Tra cứu payroll</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/reports/department}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
-            >Báo cáo</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/employee-cost-dashboard}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')"
-            >Chi phí nhân sự</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/payrolls/my}"
-            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR','ROLE_ACCOUNTANT','ROLE_EMPLOYEE')"
-            >Phiếu lương</a
-          >
-          <a
-            class="nav-link"
-            th:href="@{/admin/users}"
-            sec:authorize="hasAuthority('ROLE_ADMIN')"
-            >Tài khoản</a
-          >
-          <a class="nav-link" th:href="@{/h2-console}" target="_blank"
-            >H2 Console</a
-          >
+          <a class="nav-link" th:href="@{/employees}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Nhân viên</a>
+          <a class="nav-link" th:href="@{/salary-configs}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Cấu hình lương</a>
+          <a class="nav-link" th:href="@{/compensation-items}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Ph&#7909; c&#7845;p v&#224; th&#432;&#7903;ng</a>
+          <a class="nav-link" th:href="@{/timesheets}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Chấm công</a>
+          <a class="nav-link" th:href="@{/payrolls}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Bảng lương</a>
+          <a class="nav-link" th:href="@{/payrolls/search}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Tra cứu payroll</a>
+          <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Báo cáo</a>
+          <a class="nav-link" th:href="@{/employee-cost-dashboard}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Chi phí nhân sự</a>
+          <a class="nav-link" th:href="@{/payrolls/my}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR','ROLE_ACCOUNTANT','ROLE_EMPLOYEE')">Phiếu lương</a>
+          <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_ADMIN')">Tài khoản</a>
+          <a class="nav-link" th:href="@{/h2-console}" target="_blank">H2 Console</a>
         </nav>
       </aside>
 
@@ -96,9 +44,7 @@
           <div class="account-box">
             <div>
               <div class="account-name" sec:authentication="name">username</div>
-              <div class="account-role" sec:authentication="principal.role">
-                ROLE_ADMIN
-              </div>
+              <div class="account-role" sec:authentication="principal.role">ROLE_ADMIN</div>
             </div>
             <form th:action="@{/logout}" method="post">
               <button type="submit" class="btn btn-outline">&#272;&#259;ng xu&#7845;t</button>
@@ -107,22 +53,11 @@
         </header>
 
         <section class="content-area">
-          <div
-            class="alert success"
-            th:if="${successMsg}"
-            th:text="${successMsg}"
-          ></div>
-          <div
-            class="alert danger"
-            th:if="${errorMsg}"
-            th:text="${errorMsg}"
-          ></div>
+          <div class="alert success" th:if="${successMsg}" th:text="${successMsg}"></div>
+          <div class="alert danger" th:if="${errorMsg}" th:text="${errorMsg}"></div>
           <div th:replace="~{${contentTemplate} :: content}"></div>
         </section>
       </main>
     </div>
   </body>
 </html>
-
-
-

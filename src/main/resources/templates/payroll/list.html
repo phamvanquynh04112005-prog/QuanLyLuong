@@ -1,4 +1,4 @@
-﻿<div th:fragment="content">
+<div th:fragment="content">
     <section class="panel">
         <div class="panel-header">
             <div>
@@ -48,7 +48,8 @@
                 </td>
                 <td>
                     <div th:text="|BH: ${#numbers.formatDecimal(payroll.insuranceAmount, 0, 'COMMA', 0, 'POINT')} VND|"></div>
-                    <small class="muted-text" th:text="|Thuế: ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - Khấu trừ: ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text" th:text="|Thuế: ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - NPT: ${#numbers.formatDecimal(payroll.dependentDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text" th:text="|Khấu trừ khác: ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
                 </td>
                 <td>
                     <div th:text="|${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div>
@@ -66,9 +67,3 @@
         </div>
     </section>
 </div>
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-﻿package com.example.QuanLyLuong.controller;
+package com.example.QuanLyLuong.controller;
 
 import java.time.LocalDate;
 import java.time.YearMonth;

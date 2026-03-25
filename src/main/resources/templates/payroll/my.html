@@ -1,4 +1,4 @@
-﻿<div th:fragment="content">
+<div th:fragment="content">
     <section class="panel">
         <div class="panel-header"><div><p class="panel-kicker">Tra cứu thu nhập cá nhân</p><h3>Phiếu lương của tôi</h3></div></div>
         <div class="alert danger" th:if="${employee == null}">T&#224;i kho&#7843;n n&#224;y ch&#432;a &#273;&#432;&#7907;c li&#234;n k&#7871;t v&#7899;i nh&#226;n vi&#234;n, vui l&#242;ng nh&#7901; admin c&#7845;p quy&#7873;n.</div>
@@ -14,7 +14,8 @@
                 <td th:text="|${#numbers.formatDecimal(payroll.grossSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
                 <td>
                     <div th:text="|BH ${#numbers.formatDecimal(payroll.insuranceAmount, 0, 'COMMA', 0, 'POINT')}|"></div>
-                    <small class="muted-text" th:text="|TNCN ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - Khac ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text" th:text="|TNCN ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - NPT ${#numbers.formatDecimal(payroll.dependentDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text" th:text="|Khác ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
                 </td>
                 <td th:text="|${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
                 <td><span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'" th:text="${payroll.paymentStatus.label}"></span></td>
@@ -24,9 +25,3 @@
         </table>
     </section>
 </div>
-
-
-
-
-
-

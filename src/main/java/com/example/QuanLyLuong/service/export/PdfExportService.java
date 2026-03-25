@@ -51,7 +51,7 @@ public class PdfExportService {
         table.setWidthPercentage(100);
         table.setWidths(new float[] {1f, 3f, 2.5f, 2.5f, 2.5f, 1.6f, 2.8f, 1.8f});
 
-        String[] headers = {"STT", "Nhân viên", "Phòng ban", "Chức vụ", "Lương cơ bản", "Ngày công", "Lương thực nhận", "Trạng thái"};
+        String[] headers = {"STT", "Nh\u00e2n vi\u00ean", "Ph\u00f2ng ban", "Ch\u1ee9c v\u1ee5", "L\u01b0\u01a1ng c\u01a1 b\u1ea3n", "Ng\u00e0y c\u00f4ng", "L\u01b0\u01a1ng th\u1ef1c nh\u1eadn", "Tr\u1ea1ng th\u00e1i"};
         BaseColor headerBg = new BaseColor(21, 74, 145);
         for (String header : headers) {
             PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
@@ -73,7 +73,7 @@ public class PdfExportService {
             addCell(table, numberFormat.format(payroll.getEmployee().getBaseSalary() == null ? 0.0 : payroll.getEmployee().getBaseSalary()) + " d", bodyFont, rowBg, Element.ALIGN_RIGHT);
             addCell(table, String.valueOf(payroll.getTimesheet() != null ? payroll.getTimesheet().getWorkDays() : 0), bodyFont, rowBg, Element.ALIGN_CENTER);
             addCell(table, numberFormat.format(payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary()) + " d", bodyFont, rowBg, Element.ALIGN_RIGHT);
-            addCell(table, payroll.getPaymentStatus() == PaymentStatus.PAID ? "Đã chi" : "Chưa chi", bodyFont, rowBg, Element.ALIGN_CENTER);
+            addCell(table, payroll.getPaymentStatus() == PaymentStatus.PAID ? "\u0110\u00e3 chi" : "Ch\u01b0a chi", bodyFont, rowBg, Element.ALIGN_CENTER);
             totalSalary += payroll.getActualSalary() == null ? 0.0 : payroll.getActualSalary();
         }
 
@@ -125,30 +125,33 @@ public class PdfExportService {
         infoTable.setWidthPercentage(100);
         infoTable.setSpacingAfter(16);
         addInfoRow(infoTable, "Ho va ten", employee.getFullName(), labelFont, bodyFont);
-        addInfoRow(infoTable, "Phòng ban", employee.getDepartment() != null ? employee.getDepartment().getName() : "", labelFont, bodyFont);
-        addInfoRow(infoTable, "Chức vụ", safeValue(employee.getPosition()), labelFont, bodyFont);
+        addInfoRow(infoTable, "Phong ban", employee.getDepartment() != null ? employee.getDepartment().getName() : "", labelFont, bodyFont);
+        addInfoRow(infoTable, "Chuc vu", safeValue(employee.getPosition()), labelFont, bodyFont);
         addInfoRow(infoTable, "Ngay vao lam", employee.getJoinDate() != null ? employee.getJoinDate().toString() : "", labelFont, bodyFont);
+        addInfoRow(infoTable, "So nguoi phu thuoc", String.valueOf(employee.getDependentCount() == null ? 0 : employee.getDependentCount()), labelFont, bodyFont);
         document.add(infoTable);
 
         PdfPTable salaryTable = new PdfPTable(2);
         salaryTable.setWidthPercentage(100);
         salaryTable.setWidths(new float[] {3.2f, 1.8f});
-        addSalaryRow(salaryTable, "Lương cơ bản hop dong", money(employee.getBaseSalary(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Lương cơ bản theo gio cong", money(payroll.getBaseSalaryAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Luong co ban hop dong", money(employee.getBaseSalary(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Luong co ban theo gio cong", money(payroll.getBaseSalaryAmount(), numberFormat), bodyFont, false);
         addSalaryRow(salaryTable, "Tien OT", money(payroll.getOvertimePay(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Tổng phụ cấp", money(payroll.getTotalAllowance(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Tong phu cap", money(payroll.getTotalAllowance(), numberFormat), bodyFont, false);
         addSalaryRow(salaryTable, "Tong thuong", money(payroll.getTotalBonus(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Bao hiem", money(payroll.getInsuranceAmount(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Thue TNCN", money(payroll.getTaxAmount(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Khau tru khac", money(payroll.getOtherDeductionAmount(), numberFormat), bodyFont, false);
         addSalaryRow(salaryTable, "Luong gop", money(payroll.getGrossSalary(), numberFormat), bodyFont, false);
-        addSalaryRow(salaryTable, "Lương thực nhận", money(payroll.getActualSalary(), numberFormat), totalFont, true);
+        addSalaryRow(salaryTable, "Bao hiem bat buoc", money(payroll.getInsuranceAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Giam tru nguoi phu thuoc", money(payroll.getDependentDeductionAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Thu nhap tinh thue", money(payroll.getTaxableIncome(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Thue TNCN luy tien", money(payroll.getTaxAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Khau tru khac", money(payroll.getOtherDeductionAmount(), numberFormat), bodyFont, false);
+        addSalaryRow(salaryTable, "Luong thuc nhan", money(payroll.getActualSalary(), numberFormat), totalFont, true);
         document.add(salaryTable);
 
         Paragraph status = new Paragraph(
                 payroll.getPaymentStatus() == PaymentStatus.PAID
-                        ? "Trạng thái: Đã chi ngày " + payroll.getPaymentDate()
-                        : "Trạng thái: Chưa chi",
+                        ? "Trang thai: Da chi ngay " + payroll.getPaymentDate()
+                        : "Trang thai: Chua chi",
                 bodyFont
         );
         status.setSpacingBefore(14);
