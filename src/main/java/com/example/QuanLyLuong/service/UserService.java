@@ -24,25 +24,30 @@ public class UserService {
     private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AccountLifecycleService accountLifecycleService;
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
+        accountLifecycleService.purgeExpiredInactiveAccounts();
         return userRepository.findAllByOrderByUsernameAsc();
     }
 
     @Transactional(readOnly = true)
     public User findById(Long id) {
+        accountLifecycleService.purgeExpiredInactiveAccounts();
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tài khoản có ID: " + id));
     }
 
     @Transactional(readOnly = true)
     public User findByUsername(String username) {
+        accountLifecycleService.purgeExpiredInactiveAccounts();
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + username));
     }
 
     public User createUser(Long employeeId, String username, String rawPassword, Role role, Boolean enabled) {
+        accountLifecycleService.purgeExpiredInactiveAccounts();
         if (userRepository.findByUsername(username).isPresent()) {
             throw new IllegalArgumentException("Tên đăng nhập đã tồn tại: " + username);
         }
@@ -58,11 +63,13 @@ public class UserService {
     }
 
     public User updateUser(Long id, Long employeeId, String username, String rawPassword, Role role, Boolean enabled) {
+        accountLifecycleService.purgeExpiredInactiveAccounts();
         User user = findById(id);
         if (!user.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
             throw new IllegalArgumentException("Tên đăng nhập đã tồn tại: " + username);
         }
         validateEmployeeBinding(id, employeeId);
+        validateSystemAdminRetention(user, role, enabled == null ? Boolean.TRUE : enabled);
 
         user.setEmployee(resolveEmployee(employeeId));
         user.setUsername(username);
@@ -74,8 +81,20 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User toggleEnabled(Long id) {
+        accountLifecycleService.purgeExpiredInactiveAccounts();
+        User user = findById(id);
+        boolean nextEnabled = !Boolean.TRUE.equals(user.getEnabled());
+        validateSystemAdminRetention(user, user.getRole(), nextEnabled);
+        user.setEnabled(nextEnabled);
+        return userRepository.save(user);
+    }
+
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        accountLifecycleService.purgeExpiredInactiveAccounts();
+        User user = findById(id);
+        validateSystemAdminRemoval(user);
+        userRepository.delete(user);
     }
 
     public void changePassword(String username, String newPassword) {
@@ -112,5 +131,20 @@ public class UserService {
                     throw new IllegalArgumentException("Nhân viên này đã được gán với tài khoản khác.");
                 });
     }
-}
 
+    private void validateSystemAdminRetention(User existingUser, Role targetRole, boolean targetEnabled) {
+        boolean currentlyEnabledSystemAdmin = existingUser.getRole() == Role.ROLE_SYSTEM_ADMIN && Boolean.TRUE.equals(existingUser.getEnabled());
+        boolean remainsEnabledSystemAdmin = targetRole == Role.ROLE_SYSTEM_ADMIN && targetEnabled;
+        if (currentlyEnabledSystemAdmin && !remainsEnabledSystemAdmin
+                && userRepository.countByRoleAndEnabledTrue(Role.ROLE_SYSTEM_ADMIN) <= 1) {
+            throw new IllegalArgumentException("Hệ thống phải còn ít nhất một System Admin đang hoạt động.");
+        }
+    }
+
+    private void validateSystemAdminRemoval(User user) {
+        if (user.getRole() == Role.ROLE_SYSTEM_ADMIN && Boolean.TRUE.equals(user.getEnabled())
+                && userRepository.countByRoleAndEnabledTrue(Role.ROLE_SYSTEM_ADMIN) <= 1) {
+            throw new IllegalArgumentException("Không thể xóa System Admin cuối cùng đang hoạt động.");
+        }
+    }
+}

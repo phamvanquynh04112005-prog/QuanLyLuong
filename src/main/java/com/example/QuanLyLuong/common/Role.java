@@ -1,7 +1,7 @@
 package com.example.QuanLyLuong.common;
 
 public enum Role {
-    ROLE_ADMIN("Admin"),
+    ROLE_SYSTEM_ADMIN("System Admin"),
     ROLE_HR("Nhân sự"),
     ROLE_ACCOUNTANT("Kế toán"),
     ROLE_EMPLOYEE("Nhân viên");
@@ -16,4 +16,3 @@ public enum Role {
         return label;
     }
 }
-

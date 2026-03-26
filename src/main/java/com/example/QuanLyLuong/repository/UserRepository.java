@@ -1,8 +1,10 @@
 package com.example.QuanLyLuong.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.QuanLyLuong.common.EmployeeStatus;
 import com.example.QuanLyLuong.common.Role;
 import com.example.QuanLyLuong.entity.User;
 
@@ -16,5 +18,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByOrderByUsernameAsc();
 
+    List<User> findAllByEmployeeStatusAndEmployeeInactiveSinceBefore(EmployeeStatus status, LocalDate cutoffDate);
+
     long countByRole(Role role);
+
+    long countByRoleAndEnabledTrue(Role role);
 }

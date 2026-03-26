@@ -26,7 +26,7 @@ public class AdminUserController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("pageTitle", "Tai khoan he thong");
+        model.addAttribute("pageTitle", "Quản lý tài khoản");
         model.addAttribute("contentTemplate", "admin/user-list");
         return "layout/base";
     }
@@ -66,6 +66,18 @@ public class AdminUserController {
         return "redirect:/admin/users";
     }
 
+    @PostMapping("/{id}/toggle-status")
+    public String toggleStatus(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        User updatedUser = userService.toggleEnabled(id);
+        redirectAttributes.addFlashAttribute(
+                "successMsg",
+                Boolean.TRUE.equals(updatedUser.getEnabled())
+                        ? "Đã mở khóa tài khoản."
+                        : "Đã khóa tài khoản."
+        );
+        return "redirect:/admin/users";
+    }
+
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         userService.delete(id);
@@ -82,4 +94,3 @@ public class AdminUserController {
         model.addAttribute("contentTemplate", "admin/user-form");
     }
 }
-

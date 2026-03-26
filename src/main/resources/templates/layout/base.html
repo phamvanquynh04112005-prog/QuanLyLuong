@@ -20,33 +20,33 @@
         </div>
 
         <nav class="nav-menu">
-          <a class="nav-link" th:href="@{/dashboard}">T&#7893;ng quan</a>
-          <a class="nav-link" th:href="@{/employees}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Nhân viên</a>
-          <a class="nav-link" th:href="@{/salary-configs}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Cấu hình lương</a>
-          <a class="nav-link" th:href="@{/compensation-items}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Ph&#7909; c&#7845;p v&#224; th&#432;&#7903;ng</a>
-          <a class="nav-link" th:href="@{/timesheets}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_HR')">Chấm công</a>
-          <a class="nav-link" th:href="@{/payrolls}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Bảng lương</a>
-          <a class="nav-link" th:href="@{/payrolls/search}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Tra cứu payroll</a>
-          <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Báo cáo</a>
-          <a class="nav-link" th:href="@{/employee-cost-dashboard}" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCOUNTANT')">Chi phí nhân sự</a>
-          <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_ADMIN')">Tài khoản</a>
-          <a class="nav-link" th:href="@{/h2-console}" target="_blank">H2 Console</a>
+          <a class="nav-link" th:href="@{/dashboard}">Tổng quan</a>
+          <a class="nav-link" th:href="@{/employees}" sec:authorize="hasAuthority('ROLE_HR')">Nhân viên</a>
+          <a class="nav-link" th:href="@{/salary-configs}" sec:authorize="hasAuthority('ROLE_HR')">Cấu hình lương</a>
+          <a class="nav-link" th:href="@{/compensation-items}" sec:authorize="hasAuthority('ROLE_HR')">Phụ cấp và thưởng</a>
+          <a class="nav-link" th:href="@{/timesheets}" sec:authorize="hasAuthority('ROLE_HR')">Chấm công</a>
+          <a class="nav-link" th:href="@{/payrolls}" sec:authorize="hasAuthority('ROLE_ACCOUNTANT')">Bảng lương</a>
+          <a class="nav-link" th:href="@{/payrolls/search}" sec:authorize="hasAuthority('ROLE_ACCOUNTANT')">Tra cứu payroll</a>
+          <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAuthority('ROLE_ACCOUNTANT')">Báo cáo</a>
+          <a class="nav-link" th:href="@{/employee-cost-dashboard}" sec:authorize="hasAuthority('ROLE_ACCOUNTANT')">Chi phí nhân sự</a>
+          <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_SYSTEM_ADMIN')">Tài khoản</a>
+          <a class="nav-link" th:href="@{/h2-console/}" target="_blank">H2 Console</a>
         </nav>
       </aside>
 
       <main class="main-panel">
         <header class="topbar">
           <div>
-            <p class="page-kicker">H&#7879; th&#7889;ng web qu&#7843;n l&#253; l&#432;&#417;ng</p>
+            <p class="page-kicker">Hệ thống web quản lý lương</p>
             <h1 class="page-title" th:text="${pageTitle}">Trang</h1>
           </div>
           <div class="account-box">
             <div>
               <div class="account-name" sec:authentication="name">username</div>
-              <div class="account-role" sec:authentication="principal.role">ROLE_ADMIN</div>
+              <div class="account-role" sec:authentication="principal.role">ROLE_SYSTEM_ADMIN</div>
             </div>
             <form th:action="@{/logout}" method="post">
-              <button type="submit" class="btn btn-outline">&#272;&#259;ng xu&#7845;t</button>
+              <button type="submit" class="btn btn-outline">Đăng xuất</button>
             </form>
           </div>
         </header>
