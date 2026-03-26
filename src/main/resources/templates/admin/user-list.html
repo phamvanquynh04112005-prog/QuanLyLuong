@@ -3,10 +3,104 @@
         <div class="panel-header">
             <div>
                 <p class="panel-kicker">Quản trị truy cập</p>
-                <h3>Danh sách tài khoản đăng nhập</h3>
-                <p class="stat-label">System Admin chỉ quản lý tài khoản, role và trạng thái đăng nhập.</p>
+                <h3>Danh sách tài khoản nhân viên</h3>
+                <p class="stat-label">Admin có thể cấp nhanh tài khoản cho nhân viên và vẫn giữ nguyên các thao tác sửa, khóa, xóa như trước.</p>
             </div>
-            <a class="btn btn-primary" th:href="@{/admin/users/new}">Thêm tài khoản</a>
+            <div class="actions-row">
+                <form th:action="@{/admin/users/provision-all}" method="post">
+                    <button class="btn btn-primary" type="submit">Cấp tài khoản cho tất cả nhân viên</button>
+                </form>
+                <a class="btn"
+                   th:classappend="${missingOnly} ? ' btn-primary' : ' btn-secondary'"
+                   th:href="@{/admin/users(missingOnly=true)}">
+                    Nhân viên chưa có tài khoản
+                </a>
+                <a class="btn btn-outline" th:if="${missingOnly}" th:href="@{/admin/users}">Tất cả nhân viên</a>
+                <a class="btn btn-secondary" th:href="@{/admin/users/new}">Thêm tài khoản thủ công</a>
+            </div>
+        </div>
+
+        <div class="summary-row">
+            <div class="summary-box">
+                <div class="stat-label">Nhân viên chưa có tài khoản</div>
+                <div class="stat-value" th:text="${missingAccountCount}">0</div>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">Chế độ hiển thị</div>
+                <div class="stat-value" th:text="${missingOnly ? 'Chưa có tài khoản' : 'Tất cả nhân viên'}">Tất cả nhân viên</div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Mã NV</th>
+                <th>Nhân viên</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.employeeCode != null ? employee.employeeCode : '--'}"></td>
+                <td>
+                    <div class="cell-title" th:text="${employee.fullName}"></div>
+                    <div class="cell-subtitle" th:text="${employee.department != null ? employee.department.name : 'Chưa có phòng ban'}"></div>
+                </td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.user != null ? employee.user.username : 'Chưa có tài khoản'}"></td>
+                <td th:text="${employee.user != null ? employee.user.role.label : '--'}"></td>
+                <td>
+                    <span class="badge"
+                          th:if="${employee.user != null}"
+                          th:classappend="${employee.user.enabled} ? ' badge-success' : ' badge-muted'"
+                          th:text="${employee.user.enabled ? 'Đang hoạt động' : 'Đã khóa'}"></span>
+                    <span class="badge badge-muted" th:if="${employee.user == null}">Chưa cấp tài khoản</span>
+                </td>
+                <td class="actions">
+                    <form th:if="${employee.user == null}"
+                          th:action="@{/admin/users/provision/{employeeId}(employeeId=${employee.id})}"
+                          method="post">
+                        <button class="btn btn-primary btn-sm" type="submit">Cấp tài khoản</button>
+                    </form>
+
+                    <a class="btn btn-secondary btn-sm"
+                       th:if="${employee.user != null}"
+                       th:href="@{/admin/users/edit/{id}(id=${employee.user.id})}">Sửa</a>
+
+                    <form th:if="${employee.user != null}"
+                          th:action="@{/admin/users/{id}/toggle-status(id=${employee.user.id})}"
+                          method="post">
+                        <button class="btn btn-outline btn-sm"
+                                type="submit"
+                                th:text="${employee.user.enabled ? 'Khóa' : 'Mở khóa'}"></button>
+                    </form>
+
+                    <form th:if="${employee.user != null}"
+                          th:action="@{/admin/users/{id}/delete(id=${employee.user.id})}"
+                          method="post">
+                        <button class="btn btn-danger btn-sm" type="submit">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(employees)}">
+                <td colspan="7" class="empty-cell">Không có nhân viên nào phù hợp với bộ lọc hiện tại.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p class="stat-label">Quy tắc cấp nhanh: hệ thống tự sinh username theo vai trò như `hr01`, `kt01`, `nv01`; mật khẩu mặc định là username + `@` và sẽ gửi qua email cho nhân viên.</p>
+    </section>
+
+    <section class="panel" th:if="${not #lists.isEmpty(standaloneUsers)}">
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">Tài khoản thủ công</p>
+                <h3>Tài khoản không liên kết nhân viên</h3>
+            </div>
         </div>
 
         <table class="table">
@@ -14,18 +108,14 @@
             <tr>
                 <th>Username</th>
                 <th>Role</th>
-                <th>Mã nhân viên</th>
-                <th>Nhân viên liên kết</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
+            <tr th:each="user : ${standaloneUsers}">
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.role.label}"></td>
-                <td th:text="${user.employee != null and user.employee.employeeCode != null ? user.employee.employeeCode : '--'}"></td>
-                <td th:text="${user.employee != null ? user.employee.fullName : 'Không liên kết'}"></td>
                 <td>
                     <span class="badge"
                           th:classappend="${user.enabled} ? ' badge-success' : ' badge-muted'"
@@ -43,7 +133,5 @@
             </tr>
             </tbody>
         </table>
-
-        <p class="stat-label">Quy tắc hệ thống: tài khoản gắn với nhân viên nghỉ việc trên 6 tháng sẽ tự động bị xóa khỏi hệ thống.</p>
     </section>
 </div>

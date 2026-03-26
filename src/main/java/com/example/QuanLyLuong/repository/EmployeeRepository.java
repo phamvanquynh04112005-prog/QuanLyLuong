@@ -7,14 +7,19 @@ import com.example.QuanLyLuong.common.EmployeeStatus;
 import com.example.QuanLyLuong.entity.Employee;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+    @EntityGraph(attributePaths = {"department", "user"})
     List<Employee> findAllByOrderByFullNameAsc();
 
     List<Employee> findByDepartmentIdOrderByFullNameAsc(Long departmentId);
 
     List<Employee> findByStatusOrderByFullNameAsc(EmployeeStatus status);
+
+    @EntityGraph(attributePaths = {"department", "user"})
+    List<Employee> findByUserIsNullOrderByFullNameAsc();
 
     Optional<Employee> findByEmailIgnoreCase(String email);
 
@@ -28,4 +33,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     );
 
     long countByStatus(EmployeeStatus status);
+
+    long countByUserIsNull();
 }

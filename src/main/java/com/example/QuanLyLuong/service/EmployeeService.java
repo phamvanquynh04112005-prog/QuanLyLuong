@@ -12,6 +12,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import com.example.QuanLyLuong.common.EmployeeStatus;
@@ -40,6 +42,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional
 public class EmployeeService {
 
+    private static final Pattern EMPLOYEE_CODE_PATTERN = Pattern.compile("^EMP(\\d+)$", Pattern.CASE_INSENSITIVE);
+
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
 
@@ -54,15 +58,38 @@ public class EmployeeService {
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + id));
     }
 
+    @Transactional(readOnly = true)
+    public String generateNextEmployeeCode() {
+        List<Integer> usedSequences = employeeRepository.findAll().stream()
+                .map(Employee::getEmployeeCode)
+                .map(this::extractEmployeeCodeNumber)
+                .filter(Objects::nonNull)
+                .sorted()
+                .toList();
+
+        int nextSequence = 1;
+        for (Integer usedSequence : usedSequences) {
+            if (usedSequence == null || usedSequence < nextSequence) {
+                continue;
+            }
+            if (usedSequence > nextSequence) {
+                break;
+            }
+            nextSequence++;
+        }
+        return formatEmployeeCode(nextSequence);
+    }
+
     public Employee save(Employee employee) {
         employee.setDepartment(resolveDepartment(employee));
-        employee.setEmployeeCode(normalizeCode(employee.getEmployeeCode()));
+        employee.setEmployeeCode(generateNextEmployeeCode());
         employee.setEmail(normalizeEmail(employee.getEmail()));
         employee.setFullName(normalizeText(employee.getFullName()));
         employee.setPosition(normalizeText(employee.getPosition()));
-        employee.setDependentCount(Math.max(0, employee.getDependentCount() == null ? 0 : employee.getDependentCount()));
-        Employee savedEmployee = employeeRepository.save(employee);
-        return ensureGeneratedCode(savedEmployee);
+        employee.setJoinDate(employee.getJoinDate() == null ? LocalDate.now() : employee.getJoinDate());
+        employee.setDependentCount(0);
+        employee.setStatus(employee.getStatus() == null ? EmployeeStatus.ACTIVE : employee.getStatus());
+        return employeeRepository.save(employee);
     }
 
     public Employee update(Long id, Employee updatedEmployee) {
@@ -71,16 +98,16 @@ public class EmployeeService {
         existing.setEmail(normalizeEmail(updatedEmployee.getEmail()));
         existing.setPosition(normalizeText(updatedEmployee.getPosition()));
         existing.setBaseSalary(updatedEmployee.getBaseSalary());
-        existing.setJoinDate(updatedEmployee.getJoinDate());
-        existing.setDependentCount(Math.max(0, updatedEmployee.getDependentCount() == null ? 0 : updatedEmployee.getDependentCount()));
+        existing.setJoinDate(updatedEmployee.getJoinDate() == null
+                ? (existing.getJoinDate() == null ? LocalDate.now() : existing.getJoinDate())
+                : updatedEmployee.getJoinDate());
+        if (updatedEmployee.getDependentCount() != null) {
+            existing.setDependentCount(Math.max(0, updatedEmployee.getDependentCount()));
+        }
         existing.setStatus(updatedEmployee.getStatus());
         existing.setDepartment(resolveDepartment(updatedEmployee));
-        String requestedCode = normalizeCode(updatedEmployee.getEmployeeCode());
-        if (requestedCode != null) {
-            existing.setEmployeeCode(requestedCode);
-        }
-        Employee savedEmployee = employeeRepository.save(existing);
-        return ensureGeneratedCode(savedEmployee);
+        existing.setEmployeeCode(normalizeCode(existing.getEmployeeCode()));
+        return employeeRepository.save(existing);
     }
 
     public void delete(Long id) {
@@ -191,6 +218,8 @@ public class EmployeeService {
 
                     if (employeeCode != null) {
                         employee.setEmployeeCode(employeeCode);
+                    } else if (employee.getEmployeeCode() == null || employee.getEmployeeCode().isBlank()) {
+                        employee.setEmployeeCode(generateNextEmployeeCode());
                     }
                     employee.setFullName(fullName);
                     employee.setEmail(email);
@@ -203,11 +232,15 @@ public class EmployeeService {
                     }
                     if (joinDate != null) {
                         employee.setJoinDate(joinDate);
+                    } else if (employee.getJoinDate() == null) {
+                        employee.setJoinDate(LocalDate.now());
                     }
                     employee.setStatus(status != null ? status : EmployeeStatus.ACTIVE);
+                    if (employee.getDependentCount() == null) {
+                        employee.setDependentCount(0);
+                    }
 
-                    Employee saved = employeeRepository.save(employee);
-                    ensureGeneratedCode(saved);
+                    employeeRepository.save(employee);
 
                     if (isNew) {
                         imported++;
@@ -243,12 +276,19 @@ public class EmployeeService {
                         "Không tìm thấy phòng ban có ID: " + employee.getDepartment().getId()));
     }
 
-    private Employee ensureGeneratedCode(Employee employee) {
-        if (employee.getEmployeeCode() == null || employee.getEmployeeCode().isBlank()) {
-            employee.setEmployeeCode(String.format("EMP%04d", employee.getId()));
-            return employeeRepository.save(employee);
+    private Integer extractEmployeeCodeNumber(String employeeCode) {
+        if (employeeCode == null || employeeCode.isBlank()) {
+            return null;
         }
-        return employee;
+        Matcher matcher = EMPLOYEE_CODE_PATTERN.matcher(employeeCode.trim());
+        if (!matcher.matches()) {
+            return null;
+        }
+        return Integer.parseInt(matcher.group(1));
+    }
+
+    private String formatEmployeeCode(int sequence) {
+        return String.format("EMP%04d", Math.max(sequence, 1));
     }
 
     private String normalizeCode(String value) {

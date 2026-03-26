@@ -1,6 +1,10 @@
 package com.example.QuanLyLuong.controller;
 
+import java.util.List;
+
 import com.example.QuanLyLuong.common.Role;
+import com.example.QuanLyLuong.dto.AccountProvisionResult;
+import com.example.QuanLyLuong.dto.BulkAccountProvisionResult;
 import com.example.QuanLyLuong.entity.User;
 import com.example.QuanLyLuong.service.EmployeeService;
 import com.example.QuanLyLuong.service.UserService;
@@ -24,8 +28,11 @@ public class AdminUserController {
     private final EmployeeService employeeService;
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String list(@RequestParam(defaultValue = "false") boolean missingOnly, Model model) {
+        model.addAttribute("employees", userService.findEmployeesForAccountManagement(missingOnly));
+        model.addAttribute("standaloneUsers", userService.findStandaloneUsers());
+        model.addAttribute("missingOnly", missingOnly);
+        model.addAttribute("missingAccountCount", userService.countEmployeesWithoutAccount());
         model.addAttribute("pageTitle", "Quản lý tài khoản");
         model.addAttribute("contentTemplate", "admin/user-list");
         return "layout/base";
@@ -66,6 +73,43 @@ public class AdminUserController {
         return "redirect:/admin/users";
     }
 
+    @PostMapping("/provision-all")
+    public String provisionAllMissingAccounts(RedirectAttributes redirectAttributes) {
+        BulkAccountProvisionResult result = userService.provisionAccountsForEmployeesWithoutAccount();
+        if (result.getCreatedCount() == 0) {
+            redirectAttributes.addFlashAttribute("successMsg", "Tất cả nhân viên đã có tài khoản.");
+            return "redirect:/admin/users";
+        }
+
+        redirectAttributes.addFlashAttribute(
+                "successMsg",
+                "Đã cấp " + result.getCreatedCount() + " tài khoản mới. Gửi email thành công "
+                        + result.getEmailedCount() + "/" + result.getCreatedCount() + " nhân viên."
+        );
+        if (result.getWarnings() != null && !result.getWarnings().isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMsg", summarizeWarnings(result.getWarnings()));
+        }
+        return "redirect:/admin/users";
+    }
+
+    @PostMapping("/provision/{employeeId}")
+    public String provisionSingleAccount(@PathVariable Long employeeId, RedirectAttributes redirectAttributes) {
+        AccountProvisionResult result = userService.provisionAccountForEmployee(employeeId);
+        String username = result.getUser() != null ? result.getUser().getUsername() : "";
+        String employeeName = result.getEmployee() != null ? result.getEmployee().getFullName() : "nhân viên";
+
+        redirectAttributes.addFlashAttribute(
+                "successMsg",
+                result.isEmailSent()
+                        ? "Đã cấp tài khoản " + username + " và gửi email cho " + employeeName + "."
+                        : "Đã cấp tài khoản " + username + " cho " + employeeName + "."
+        );
+        if (!result.isEmailSent()) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Không gửi được email tài khoản: " + result.getEmailError());
+        }
+        return "redirect:/admin/users";
+    }
+
     @PostMapping("/{id}/toggle-status")
     public String toggleStatus(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         User updatedUser = userService.toggleEnabled(id);
@@ -92,5 +136,12 @@ public class AdminUserController {
         model.addAttribute("roles", Role.values());
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("contentTemplate", "admin/user-form");
+    }
+
+    private String summarizeWarnings(List<String> warnings) {
+        return warnings.stream()
+                .limit(5)
+                .reduce((left, right) -> left + " | " + right)
+                .orElse(null);
     }
 }
