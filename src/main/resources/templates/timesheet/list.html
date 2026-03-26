@@ -8,21 +8,22 @@
             <div class="timesheet-filter-block">
                 <div class="period-switch timesheet-period-switch">
                     <a class="btn btn-sm" th:classappend="${periodType == 'month'} ? ' btn-primary' : ' btn-outline'"
-                       th:href="@{/timesheets(month=${month},year=${year},periodType='month')}">Thang</a>
+                       th:href="@{/timesheets(month=${month},year=${year},periodType='month')}">Tháng</a>
                     <a class="btn btn-sm" th:classappend="${periodType == 'quarter'} ? ' btn-primary' : ' btn-outline'"
-                       th:href="@{/timesheets(month=${month},year=${year},periodType='quarter')}">Quy</a>
+                       th:href="@{/timesheets(month=${month},year=${year},periodType='quarter')}">Quý</a>
                     <a class="btn btn-sm" th:classappend="${periodType == 'year'} ? ' btn-primary' : ' btn-outline'"
-                       th:href="@{/timesheets(month=${month},year=${year},periodType='year')}">Nam</a>
+                       th:href="@{/timesheets(month=${month},year=${year},periodType='year')}">Năm</a>
                 </div>
                 <div class="actions-row">
                     <form class="timesheet-month-filter" method="get" th:action="@{/timesheets}">
                         <input type="hidden" name="periodType" th:value="${periodType}">
                         <input class="input" type="number" min="1" max="12" name="month" th:value="${month}" aria-label="Thang">
                         <input class="input" type="number" min="2020" max="2099" name="year" th:value="${year}" aria-label="Nam">
-                        <button class="btn btn-outline" type="submit">Xem thang</button>
+                        <button class="btn btn-outline" type="submit">Xem tháng</button>
                     </form>
-                    <button class="btn btn-secondary" id="toggleTimesheetImportBtn" type="button">Import bang cong Excel</button>
-                    <a class="btn btn-outline" th:href="@{/export/excel/timesheet(month=${month},year=${year})}">Export bang cong Excel</a>
+                    <a class="btn btn-outline" th:href="@{/timesheets/new(month=${month},year=${year})}">Nhập thủ công</a>
+                    <button class="btn btn-secondary" id="toggleTimesheetImportBtn" type="button">Import bảng công Excel</button>
+                    <a class="btn btn-outline" th:href="@{/export/excel/timesheet(month=${month},year=${year})}">Export bảng công Excel</a>
                 </div>
             </div>
         </div>
@@ -31,8 +32,8 @@
             <div class="summary-box wide-card timesheet-import-card">
                 <div class="panel-header compact timesheet-import-header">
                     <div>
-                        <p class="panel-kicker">Import Excel / May cham cong</p>
-                        <h3>Nap file log theo ngay va gio</h3>
+                        <p class="panel-kicker">Import Excel / Máy chấm công</p>
+                        <h3>Upload file log theo ngày và giờ</h3>
                     </div>
                 </div>
                 <form class="stack-form" th:action="@{/timesheets/import}" method="post" enctype="multipart/form-data">
@@ -67,16 +68,16 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Ma NV</th>
-                <th>Nhan vien</th>
-                <th>Phong ban</th>
-                <th>Ngay cong</th>
-                <th>Nghi phep</th>
-                <th>Gio thuong</th>
-                <th>Gio tang ca</th>
-                <th>So log</th>
-                <th>Ghi chu</th>
-                <th>Thao tac</th>
+                <th>Mã NV</th>
+                <th>Họ và tên</th>
+                <th>Phòng ban</th>
+                <th>Ngày công</th>
+                <th>Nghỉ phép</th>
+                <th>Giờ thường</th>
+                <th>Giờ tăng ca</th>
+                <th>Số log</th>
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
             </tr>
             </thead>
             <tbody>

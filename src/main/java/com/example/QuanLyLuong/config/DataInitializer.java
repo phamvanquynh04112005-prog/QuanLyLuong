@@ -14,6 +14,7 @@ import com.example.QuanLyLuong.repository.DepartmentRepository;
 import com.example.QuanLyLuong.repository.EmployeeRepository;
 import com.example.QuanLyLuong.repository.PayrollRepository;
 import com.example.QuanLyLuong.repository.SalaryConfigRepository;
+import com.example.QuanLyLuong.repository.TimesheetRepository;
 import com.example.QuanLyLuong.repository.UserRepository;
 import com.example.QuanLyLuong.service.PayrollService;
 import com.example.QuanLyLuong.service.SalaryConfigService;
@@ -37,6 +38,7 @@ public class DataInitializer implements ApplicationRunner {
     private final DepartmentRepository departmentRepository;
     private final EmployeeRepository employeeRepository;
     private final PayrollRepository payrollRepository;
+    private final TimesheetRepository timesheetRepository;
     private final SalaryConfigRepository salaryConfigRepository;
     private final UserRepository userRepository;
     private final PayrollService payrollService;
@@ -145,6 +147,9 @@ public class DataInitializer implements ApplicationRunner {
     }
 
     private void seedDemoTimesheetsAndPayrolls() {
+        if (timesheetRepository.count() > 0 || payrollRepository.count() > 0) {
+            return;
+        }
         List<Employee> activeEmployees = employeeRepository.findByStatusOrderByFullNameAsc(EmployeeStatus.ACTIVE);
         if (activeEmployees.isEmpty()) {
             return;
@@ -163,6 +168,12 @@ public class DataInitializer implements ApplicationRunner {
 
             if (existingPayrolls.size() < activeEmployees.size()) {
                 for (Employee employee : activeEmployees) {
+                    boolean hasExistingTimesheet = timesheetService
+                            .findByEmployeeAndMonth(employee.getId(), month, year)
+                            .isPresent();
+                    if (hasExistingTimesheet) {
+                        continue;
+                    }
                     int workDays = 20 + Math.floorMod((int) (employee.getId() + offset), 7);
                     int leaveDays = Math.floorMod((int) (employee.getId() + offset), 3);
                     if (workDays + leaveDays > 26) {
