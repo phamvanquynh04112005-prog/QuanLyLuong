@@ -4,16 +4,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.example.QuanLyLuong.common.PaymentStatus;
+import com.example.QuanLyLuong.common.Role;
 import com.example.QuanLyLuong.dto.PayrollSearchCriteria;
 import com.example.QuanLyLuong.dto.PayrollSearchSummary;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.Payroll;
+import com.example.QuanLyLuong.entity.User;
 import com.example.QuanLyLuong.service.DepartmentService;
 import com.example.QuanLyLuong.service.PayrollMailService;
 import com.example.QuanLyLuong.service.PayrollService;
 import com.example.QuanLyLuong.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -107,7 +110,7 @@ public class PayrollController {
                            @RequestParam Integer year,
                            RedirectAttributes redirectAttributes) {
         Payroll payroll = payrollService.findById(id);
-        return sendMailInternal(payroll, month, year, redirectAttributes);
+        return sendMailInternal(payroll, month, year, redirectAttributes, "/payrolls?month=" + month + "&year=" + year);
     }
 
     @GetMapping("/send-mail/{id}")
@@ -118,25 +121,8 @@ public class PayrollController {
         Payroll payroll = payrollService.findById(id);
         int resolvedMonth = month != null ? month : payroll.getMonth();
         int resolvedYear = year != null ? year : payroll.getYear();
-        return sendMailInternal(payroll, resolvedMonth, resolvedYear, redirectAttributes);
-    }
-
-    private String sendMailInternal(Payroll payroll,
-                                    Integer month,
-                                    Integer year,
-                                    RedirectAttributes redirectAttributes) {
-        if (payroll.getPaymentStatus() != PaymentStatus.PAID) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Chi gui mail sau khi bang luong da o trang thai Da chi.");
-            return "redirect:/payrolls?month=" + month + "&year=" + year;
-        }
-        try {
-            payrollMailService.sendPayslipEmail(payroll);
-            String recipient = payroll.getEmployee() != null ? payroll.getEmployee().getEmail() : "";
-            redirectAttributes.addFlashAttribute("successMsg", "Da gui phieu luong qua email: " + recipient);
-        } catch (Exception exception) {
-            redirectAttributes.addFlashAttribute("errorMsg", "Gui mail that bai: " + exception.getMessage());
-        }
-        return "redirect:/payrolls?month=" + month + "&year=" + year;
+        return sendMailInternal(payroll, resolvedMonth, resolvedYear, redirectAttributes,
+                "/payrolls?month=" + resolvedMonth + "&year=" + resolvedYear);
     }
 
     @GetMapping("/my")
@@ -147,5 +133,56 @@ public class PayrollController {
         model.addAttribute("pageTitle", "Phiếu lương của tôi");
         model.addAttribute("contentTemplate", "payroll/my");
         return "layout/base";
+    }
+
+    @GetMapping("/my/{id}")
+    public String myPayrollDetail(@PathVariable Long id,
+                                  Authentication authentication,
+                                  Model model) {
+        Payroll payroll = requireAccessiblePayroll(authentication, id);
+        model.addAttribute("payroll", payroll);
+        model.addAttribute("employee", payroll.getEmployee());
+        model.addAttribute("pageTitle", "Chi tiết phiếu lương");
+        model.addAttribute("contentTemplate", "payroll/detail");
+        return "layout/base";
+    }
+
+    @PostMapping("/my/send-mail/{id}")
+    public String sendMyPayrollMail(@PathVariable Long id,
+                                    Authentication authentication,
+                                    RedirectAttributes redirectAttributes) {
+        Payroll payroll = requireAccessiblePayroll(authentication, id);
+        return sendMailInternal(payroll, payroll.getMonth(), payroll.getYear(), redirectAttributes, "/payrolls/my");
+    }
+
+    private String sendMailInternal(Payroll payroll,
+                                    Integer month,
+                                    Integer year,
+                                    RedirectAttributes redirectAttributes,
+                                    String redirectUrl) {
+        if (payroll.getPaymentStatus() != PaymentStatus.PAID) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Chỉ gửi mail sau khi bảng lương đã ở trạng thái Đã chi.");
+            return "redirect:" + redirectUrl;
+        }
+        try {
+            payrollMailService.sendPayslipEmail(payroll);
+            String recipient = payroll.getEmployee() != null ? payroll.getEmployee().getEmail() : "";
+            redirectAttributes.addFlashAttribute("successMsg", "Đã gửi phiếu lương qua email: " + recipient);
+        } catch (Exception exception) {
+            redirectAttributes.addFlashAttribute("errorMsg", "Gửi mail thất bại: " + exception.getMessage());
+        }
+        return "redirect:" + redirectUrl;
+    }
+
+    private Payroll requireAccessiblePayroll(Authentication authentication, Long payrollId) {
+        Payroll payroll = payrollService.findById(payrollId);
+        User currentUser = userService.getAuthenticatedUser(authentication);
+        boolean hasPayrollAdminScope = currentUser.getRole() == Role.ROLE_ACCOUNTANT;
+        if (!hasPayrollAdminScope
+                && (currentUser.getEmployee() == null || payroll.getEmployee() == null
+                || !currentUser.getEmployee().getId().equals(payroll.getEmployee().getId()))) {
+            throw new AccessDeniedException("Bạn không đủ quyền truy cập phiếu lương này.");
+        }
+        return payroll;
     }
 }

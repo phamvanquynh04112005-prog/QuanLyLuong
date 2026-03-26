@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasAuthority("ROLE_SYSTEM_ADMIN")
                         .requestMatchers("/employees/**", "/salary-configs/**", "/timesheets/**", "/compensation-items/**")
                         .hasAuthority("ROLE_HR")
-                        .requestMatchers("/payrolls/my", "/export/pdf/payslip/**")
+                        .requestMatchers("/payrolls/my", "/payrolls/my/**", "/export/pdf/payslip/**")
                         .hasAnyAuthority("ROLE_HR", "ROLE_ACCOUNTANT", "ROLE_EMPLOYEE")
                         .requestMatchers("/employee-cost-dashboard", "/employee-cost-dashboard/**")
                         .hasAuthority("ROLE_ACCOUNTANT")

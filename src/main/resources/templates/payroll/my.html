@@ -1,26 +1,58 @@
 <div th:fragment="content">
     <section class="panel">
-        <div class="panel-header"><div><p class="panel-kicker">Tra cứu thu nhập cá nhân</p><h3>Phiếu lương của tôi</h3></div></div>
-        <div class="alert danger" th:if="${employee == null}">T&#224;i kho&#7843;n n&#224;y ch&#432;a &#273;&#432;&#7907;c li&#234;n k&#7871;t v&#7899;i nh&#226;n vi&#234;n, vui l&#242;ng nh&#7901; admin c&#7845;p quy&#7873;n.</div>
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Tra cứu thu nhập cá nhân</p>
+                <h3>Phiếu lương của tôi</h3>
+            </div>
+        </div>
+
+        <div class="alert danger" th:if="${employee == null}">
+            Tài khoản này chưa được liên kết với nhân viên, vui lòng nhờ quản trị viên kiểm tra lại.
+        </div>
+
         <table class="table" th:if="${employee != null}">
-            <thead><tr><th>Tháng/Năm</th><th>Công / Giờ</th><th>Gross</th><th>Khấu trừ tổng</th><th>Lương thực nhận</th><th>Trạng thái</th></tr></thead>
+            <thead>
+            <tr>
+                <th>Tháng/Năm</th>
+                <th>Công / Giờ</th>
+                <th>Gross</th>
+                <th>Khấu trừ tổng</th>
+                <th>Lương thực nhận</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
             <tbody>
             <tr th:each="payroll : ${payrolls}">
                 <td th:text="|${payroll.month}/${payroll.year}|"></td>
                 <td>
                     <div th:text="|${payroll.timesheet != null ? payroll.timesheet.workDays : 0} công|"></div>
-                    <small class="muted-text" th:text="|${payroll.timesheet != null ? payroll.timesheet.regularHours : 0}h / OT ${payroll.timesheet != null ? payroll.timesheet.overtimeWeekdayHours + payroll.timesheet.overtimeWeekendHours + payroll.timesheet.overtimeHolidayHours : 0}h|"></small>
+                    <small class="muted-text"
+                           th:text="|${payroll.timesheet != null ? payroll.timesheet.regularHours : 0}h / OT ${payroll.timesheet != null ? payroll.timesheet.overtimeWeekdayHours + payroll.timesheet.overtimeWeekendHours + payroll.timesheet.overtimeHolidayHours : 0}h|"></small>
                 </td>
                 <td th:text="|${#numbers.formatDecimal(payroll.grossSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
                 <td>
                     <div th:text="|BH ${#numbers.formatDecimal(payroll.insuranceAmount, 0, 'COMMA', 0, 'POINT')}|"></div>
-                    <small class="muted-text" th:text="|TNCN ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - NPT ${#numbers.formatDecimal(payroll.dependentDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
-                    <small class="muted-text" th:text="|Khác ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text"
+                           th:text="|TNCN ${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} - NPT ${#numbers.formatDecimal(payroll.dependentDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
+                    <small class="muted-text"
+                           th:text="|Khác ${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')}|"></small>
                 </td>
                 <td th:text="|${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} VND|"></td>
-                <td><span class="badge" th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'" th:text="${payroll.paymentStatus.label}"></span></td>
+                <td>
+                    <span class="badge"
+                          th:classappend="${payroll.paymentStatus.name() == 'PAID'} ? ' badge-success' : ' badge-warning'"
+                          th:text="${payroll.paymentStatus.label}"></span>
+                </td>
+                <td class="actions">
+                    <a class="btn btn-outline btn-sm" th:href="@{/payrolls/my/{id}(id=${payroll.id})}">Chi tiết</a>
+                    <a class="btn btn-outline btn-sm" th:href="@{/export/pdf/payslip/{id}(id=${payroll.id})}">Tải PDF</a>
+                </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(payrolls)}"><td colspan="6" class="empty-cell">Bạn chưa có bảng lương nào.</td></tr>
+            <tr th:if="${#lists.isEmpty(payrolls)}">
+                <td colspan="7" class="empty-cell">Bạn chưa có bảng lương nào.</td>
+            </tr>
             </tbody>
         </table>
     </section>

@@ -1,0 +1,77 @@
+<div th:fragment="content">
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-kicker">Phiếu lương cá nhân</p>
+                <h3 th:text="|Chi tiết phiếu lương tháng ${payroll.month}/${payroll.year}|"></h3>
+            </div>
+            <div class="actions-row">
+                <a class="btn btn-outline" th:href="@{/payrolls/my}">Quay lại</a>
+                <a class="btn btn-outline" th:href="@{/export/pdf/payslip/{id}(id=${payroll.id})}">Tải PDF</a>
+            </div>
+        </div>
+
+        <div class="detail-grid">
+            <div class="summary-box">
+                <div class="stat-label">Nhân viên</div>
+                <div class="stat-value" th:text="${employee.fullName}"></div>
+                <small class="muted-text" th:text="${employee.employeeCode != null ? employee.employeeCode : 'Chưa cấp mã'}"></small>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">Phòng ban</div>
+                <div class="stat-value" th:text="${employee.department != null ? employee.department.name : 'Chưa phân phòng'}"></div>
+                <small class="muted-text" th:text="${employee.position != null ? employee.position : 'Chưa có chức vụ'}"></small>
+            </div>
+            <div class="summary-box">
+                <div class="stat-label">Trạng thái chi lương</div>
+                <div class="stat-value" th:text="${payroll.paymentStatus.label}"></div>
+                <small class="muted-text" th:text="${payroll.paymentDate != null ? 'Ngày chi: ' + payroll.paymentDate : 'Chưa chi lương'}"></small>
+            </div>
+        </div>
+
+        <div class="detail-grid">
+            <div class="panel">
+                <div class="panel-header"><div><p class="panel-kicker">Chấm công</p><h3>Dữ liệu thời gian làm việc</h3></div></div>
+                <div class="stat-list">
+                    <div class="stat-row"><span>Ngày công</span><strong th:text="${payroll.timesheet != null ? payroll.timesheet.workDays : 0}"></strong></div>
+                    <div class="stat-row"><span>Giờ thường</span><strong th:text="|${payroll.timesheet != null ? payroll.timesheet.regularHours : 0}h|"></strong></div>
+                    <div class="stat-row"><span>OT ngày thường</span><strong th:text="|${payroll.timesheet != null ? payroll.timesheet.overtimeWeekdayHours : 0}h|"></strong></div>
+                    <div class="stat-row"><span>OT cuối tuần</span><strong th:text="|${payroll.timesheet != null ? payroll.timesheet.overtimeWeekendHours : 0}h|"></strong></div>
+                    <div class="stat-row"><span>OT ngày lễ</span><strong th:text="|${payroll.timesheet != null ? payroll.timesheet.overtimeHolidayHours : 0}h|"></strong></div>
+                    <div class="stat-row"><span>Nghỉ phép</span><strong th:text="${payroll.timesheet != null ? payroll.timesheet.leaveDays : 0}"></strong></div>
+                    <div class="stat-row"><span>Vắng</span><strong th:text="${payroll.timesheet != null ? payroll.timesheet.absentDays : 0}"></strong></div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header"><div><p class="panel-kicker">Thu nhập</p><h3>Chi tiết cấu phần lương</h3></div></div>
+                <div class="stat-list">
+                    <div class="stat-row"><span>Lương cơ bản tính theo công</span><strong th:text="|${#numbers.formatDecimal(payroll.baseSalaryAmount, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Tiền tăng ca</span><strong th:text="|${#numbers.formatDecimal(payroll.overtimePay, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Phụ cấp</span><strong th:text="|${#numbers.formatDecimal(payroll.totalAllowance, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Thưởng</span><strong th:text="|${#numbers.formatDecimal(payroll.totalBonus, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Gross</span><strong th:text="|${#numbers.formatDecimal(payroll.grossSalary, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-grid">
+            <div class="panel">
+                <div class="panel-header"><div><p class="panel-kicker">Khấu trừ</p><h3>Bảo hiểm và thuế</h3></div></div>
+                <div class="stat-list">
+                    <div class="stat-row"><span>Bảo hiểm</span><strong th:text="|${#numbers.formatDecimal(payroll.insuranceAmount, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Giảm trừ người phụ thuộc</span><strong th:text="|${#numbers.formatDecimal(payroll.dependentDeductionAmount, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Thu nhập tính thuế</span><strong th:text="|${#numbers.formatDecimal(payroll.taxableIncome, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Thuế TNCN</span><strong th:text="|${#numbers.formatDecimal(payroll.taxAmount, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                    <div class="stat-row"><span>Khấu trừ khác</span><strong th:text="|${#numbers.formatDecimal(payroll.otherDeductionAmount, 0, 'COMMA', 0, 'POINT')} VND|"></strong></div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <div class="stat-label">Lương thực nhận</div>
+                <div class="stat-value" th:text="|${#numbers.formatDecimal(payroll.actualSalary, 0, 'COMMA', 0, 'POINT')} VND|"></div>
+                <small class="muted-text">Đây là số tiền cuối cùng nhân viên nhận được sau các khoản khấu trừ.</small>
+            </div>
+        </div>
+    </section>
+</div>
