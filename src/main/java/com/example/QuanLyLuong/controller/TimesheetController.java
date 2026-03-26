@@ -205,8 +205,12 @@ public class TimesheetController {
                          @RequestParam Integer year,
                          @RequestParam(defaultValue = "month") String periodType,
                          RedirectAttributes redirectAttributes) {
-        timesheetService.delete(id);
-        redirectAttributes.addFlashAttribute("successMsg", "\u0110\u00e3 x\u00f3a b\u1ea3ng ch\u1ea5m c\u00f4ng.");
+        try {
+            timesheetService.delete(id);
+            redirectAttributes.addFlashAttribute("successMsg", "\u0110\u00e3 x\u00f3a b\u1ea3ng ch\u1ea5m c\u00f4ng.");
+        } catch (IllegalStateException exception) {
+            redirectAttributes.addFlashAttribute("errorMsg", exception.getMessage());
+        }
         String normalizedPeriodType = normalizePeriodType(periodType);
         return "redirect:/timesheets?month=" + month + "&year=" + year + "&periodType=" + normalizedPeriodType;
     }

@@ -4,12 +4,15 @@ import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.QuanLyLuong.common.PaymentStatus;
+import com.example.QuanLyLuong.entity.Payroll;
 import com.example.QuanLyLuong.dto.TimesheetSummary;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.SalaryConfig;
 import com.example.QuanLyLuong.entity.Timesheet;
 import com.example.QuanLyLuong.exception.ResourceNotFoundException;
 import com.example.QuanLyLuong.repository.EmployeeRepository;
+import com.example.QuanLyLuong.repository.PayrollRepository;
 import com.example.QuanLyLuong.repository.TimesheetRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ public class TimesheetService {
     private static final double DEFAULT_STANDARD_WORK_HOURS = 8.0;
 
     private final TimesheetRepository timesheetRepository;
+    private final PayrollRepository payrollRepository;
     private final EmployeeRepository employeeRepository;
     private final SalaryConfigService salaryConfigService;
 
@@ -96,7 +100,22 @@ public class TimesheetService {
     }
 
     public void delete(Long id) {
-        timesheetRepository.deleteById(id);
+        Timesheet timesheet = findById(id);
+        Optional<Payroll> payroll = payrollRepository.findByEmployeeIdAndMonthAndYear(
+                timesheet.getEmployee().getId(),
+                timesheet.getMonth(),
+                timesheet.getYear()
+        );
+
+        if (payroll.isPresent()) {
+            Payroll linkedPayroll = payroll.get();
+            if (linkedPayroll.getPaymentStatus() == PaymentStatus.PAID) {
+                throw new IllegalStateException("Khong the xoa bang cham cong vi bang luong da duoc chi.");
+            }
+            payrollRepository.delete(linkedPayroll);
+        }
+
+        timesheetRepository.delete(timesheet);
     }
 
     @Transactional(readOnly = true)
