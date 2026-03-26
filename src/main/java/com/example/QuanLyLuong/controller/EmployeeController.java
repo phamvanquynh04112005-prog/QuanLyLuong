@@ -1,5 +1,6 @@
 package com.example.QuanLyLuong.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.QuanLyLuong.common.EmployeeStatus;
@@ -46,6 +47,8 @@ public class EmployeeController {
     public String newForm(Model model) {
         Employee employee = new Employee();
         employee.setDepartment(new Department());
+        employee.setEmployeeCode(employeeService.generateNextEmployeeCode());
+        employee.setJoinDate(LocalDate.now());
         prepareForm(model, employee, "Thêm nhân viên");
         return "layout/base";
     }
@@ -55,6 +58,9 @@ public class EmployeeController {
         Employee employee = employeeService.findById(id);
         if (employee.getDepartment() == null) {
             employee.setDepartment(new Department());
+        }
+        if (employee.getJoinDate() == null) {
+            employee.setJoinDate(LocalDate.now());
         }
         prepareForm(model, employee, "Cập nhật nhân viên");
         return "layout/base";

@@ -373,6 +373,11 @@ textarea:focus {
     flex-wrap: wrap;
 }
 
+.actions form,
+.actions-row form {
+    margin: 0;
+}
+
 .employee-action-cell {
     white-space: nowrap;
 }

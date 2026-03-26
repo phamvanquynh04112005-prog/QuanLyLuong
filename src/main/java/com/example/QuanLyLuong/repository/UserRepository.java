@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByOrderByUsernameAsc();
 
+    List<User> findAllByEmployeeIsNullOrderByUsernameAsc();
+
     List<User> findAllByEmployeeStatusAndEmployeeInactiveSinceBefore(EmployeeStatus status, LocalDate cutoffDate);
 
     long countByRole(Role role);

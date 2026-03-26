@@ -17,7 +17,12 @@
             <div class="grid two-col">
                 <div>
                     <label class="field-label">Mã nhân viên</label>
-                    <input class="input" type="text" th:field="*{employeeCode}" placeholder="Ví dụ: EMP0101">
+                    <input class="input"
+                           type="text"
+                           th:field="*{employeeCode}"
+                           readonly
+                           placeholder="Mã được tạo tự động">
+                    <div class="muted-text">Hệ thống tự tăng mã theo các nhân viên đã có.</div>
                 </div>
                 <div>
                     <label class="field-label">Họ và tên</label>
@@ -28,27 +33,38 @@
                     <input class="input" type="email" th:field="*{email}" required>
                 </div>
                 <div>
-                    <label class="field-label">Chức vụ</label>
-                    <input class="input" type="text" th:field="*{position}">
+                    <label class="field-label">Phòng ban</label>
+                    <select class="input" id="departmentSelect" th:field="*{department.id}">
+                        <option value="">Chọn phòng ban</option>
+                        <option th:each="department : ${departments}"
+                                th:value="${department.id}"
+                                th:text="${department.name}"
+                                th:attr="data-department-name=${department.name}"></option>
+                    </select>
                 </div>
                 <div>
-                    <label class="field-label">Phòng ban</label>
-                    <select class="input" th:field="*{department.id}">
-                        <option value="">Chọn phòng ban</option>
-                        <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                    <label class="field-label">Chức vụ</label>
+                    <select class="input"
+                            id="positionSelect"
+                            th:field="*{position}"
+                            th:attr="data-current-position=*{position}">
+                        <option value="">Chọn chức vụ</option>
                     </select>
                 </div>
                 <div>
                     <label class="field-label">Lương cơ bản</label>
-                    <input class="input" type="number" min="0" step="1000" th:field="*{baseSalary}">
+                    <input class="input"
+                           id="baseSalaryInput"
+                           type="number"
+                           min="0"
+                           step="1000"
+                           th:field="*{baseSalary}">
+                    <div class="muted-text">Lương sẽ tự gợi ý theo phòng ban, bạn vẫn có thể chỉnh sửa.</div>
                 </div>
                 <div>
                     <label class="field-label">Ngày vào làm</label>
                     <input class="input" type="date" th:field="*{joinDate}">
-                </div>
-                <div>
-                    <label class="field-label">Số người phụ thuộc</label>
-                    <input class="input" type="number" min="0" step="1" th:field="*{dependentCount}">
+                    <div class="muted-text">Mặc định là ngày hiện tại, bạn có thể bấm vào để đổi.</div>
                 </div>
                 <div>
                     <label class="field-label">Trạng thái</label>
@@ -64,4 +80,110 @@
             </div>
         </form>
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const departmentSelect = document.getElementById("departmentSelect");
+            const positionSelect = document.getElementById("positionSelect");
+            const baseSalaryInput = document.getElementById("baseSalaryInput");
+            if (!departmentSelect || !positionSelect || !baseSalaryInput) {
+                return;
+            }
+
+            const departmentConfigs = {
+                "nhan su": {
+                    salary: 8000000,
+                    positions: [
+                        "Chuyên viên nhân sự",
+                        "Nhân viên tuyển dụng",
+                        "Trưởng nhóm nhân sự",
+                        "Trưởng phòng nhân sự"
+                    ]
+                },
+                "ke toan": {
+                    salary: 10000000,
+                    positions: [
+                        "Kế toán thanh toán",
+                        "Kế toán tổng hợp",
+                        "Kế toán tiền lương",
+                        "Trưởng phòng kế toán"
+                    ]
+                },
+                "cong nghe thong tin": {
+                    salary: 12000000,
+                    positions: [
+                        "Lập trình viên",
+                        "Kiểm thử phần mềm",
+                        "Phân tích nghiệp vụ",
+                        "Trưởng nhóm kỹ thuật"
+                    ]
+                }
+            };
+
+            const initialPosition = (positionSelect.dataset.currentPosition || "").trim();
+
+            function normalizeDepartmentName(value) {
+                return (value || "")
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, " ")
+                    .trim();
+            }
+
+            function buildPositionOptions(positions, selectedPosition) {
+                positionSelect.innerHTML = "";
+
+                const placeholder = document.createElement("option");
+                placeholder.value = "";
+                placeholder.textContent = "Chọn chức vụ";
+                positionSelect.appendChild(placeholder);
+
+                positions.forEach(function (position) {
+                    const option = document.createElement("option");
+                    option.value = position;
+                    option.textContent = position;
+                    if (selectedPosition === position) {
+                        option.selected = true;
+                    }
+                    positionSelect.appendChild(option);
+                });
+
+                if (selectedPosition && !positions.includes(selectedPosition)) {
+                    const customOption = document.createElement("option");
+                    customOption.value = selectedPosition;
+                    customOption.textContent = selectedPosition;
+                    customOption.selected = true;
+                    positionSelect.appendChild(customOption);
+                }
+            }
+
+            function applyDepartmentConfig(shouldApplySalary, selectedPositionOverride) {
+                const selectedOption = departmentSelect.options[departmentSelect.selectedIndex];
+                const departmentName = selectedOption ? selectedOption.dataset.departmentName : "";
+                const normalizedName = normalizeDepartmentName(departmentName);
+                const config = departmentConfigs[normalizedName];
+                const selectedPosition = selectedPositionOverride !== undefined
+                    ? selectedPositionOverride
+                    : positionSelect.value;
+
+                if (!config) {
+                    buildPositionOptions([], selectedPosition);
+                    return;
+                }
+
+                buildPositionOptions(config.positions, selectedPosition);
+
+                if (shouldApplySalary || !baseSalaryInput.value) {
+                    baseSalaryInput.value = String(config.salary);
+                }
+            }
+
+            applyDepartmentConfig(false, initialPosition);
+
+            departmentSelect.addEventListener("change", function () {
+                applyDepartmentConfig(true, "");
+            });
+        });
+    </script>
 </div>
