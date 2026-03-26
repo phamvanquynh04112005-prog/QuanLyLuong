@@ -55,18 +55,18 @@ public class DataInitializer implements ApplicationRunner {
 
         Department hr = ensureDepartment("Nh\u00e2n s\u1ef1", "Tr\u1ea7n Th\u1ecb Lan", "Nhan su");
         Department finance = ensureDepartment("K\u1ebf to\u00e1n", "Nguy\u1ec5n V\u0103n B\u00ecnh", "Ke toan");
-        Department it = ensureDepartment("Công nghệ thông tin", "Lê Hoàng Minh", "Cong nghe thong tin");
+        Department it = ensureDepartment("C\u00f4ng ngh\u1ec7 th\u00f4ng tin", "L\u00ea Ho\u00e0ng Minh", "Cong nghe thong tin");
 
         Employee adminEmployee = ensureEmployee("EMP0001", "admin@quanlyluong.local", "Nguy\u1ec5n V\u0103n Admin", "Gi\u00e1m s\u00e1t h\u1ec7 th\u1ed1ng", hr, 25000000d, LocalDate.of(2023, 1, 10), 1);
         Employee hrEmployee = ensureEmployee("EMP0002", "hr01@quanlyluong.local", "Tr\u1ea7n Th\u1ecb HR", "Chuy\u00ean vi\u00ean nh\u00e2n s\u1ef1", hr, 18000000d, LocalDate.of(2023, 4, 5), 0);
         Employee employee = ensureEmployee("EMP0003", "nv001@quanlyluong.local", "L\u00ea V\u0103n Nh\u00e2n Vi\u00ean", "L\u1eadp tr\u00ecnh vi\u00ean", it, 15000000d, LocalDate.of(2024, 2, 1), 2);
         Employee financeEmployee = ensureEmployee("EMP0004", "kt01@quanlyluong.local", "Ph\u1ea1m Th\u1ecb K\u1ebf To\u00e1n", "K\u1ebf to\u00e1n t\u1ed5ng h\u1ee3p", finance, 17000000d, LocalDate.of(2023, 8, 12), 1);
 
-        ensureSalaryConfig(adminEmployee.getId(), 2500000d, 800000d, "Phụ cấp quản trị");
+        ensureSalaryConfig(adminEmployee.getId(), 2500000d, 800000d, "Ph\u1ee5 c\u1ea5p qu\u1ea3n tr\u1ecb");
         ensureSalaryConfig(hrEmployee.getId(), 1500000d, 500000d, "Ph\u1ee5 c\u1ea5p nh\u00e2n s\u1ef1");
-        ensureSalaryConfig(employee.getId(), 1000000d, 400000d, "Phụ cấp kỹ thuật");
+        ensureSalaryConfig(employee.getId(), 1000000d, 400000d, "Ph\u1ee5 c\u1ea5p k\u1ef9 thu\u1eadt");
 
-        ensureUser(adminEmployee.getId(), "admin", "Admin@123", Role.ROLE_ADMIN);
+        ensureUser(adminEmployee.getId(), "admin", "Admin@123", Role.ROLE_SYSTEM_ADMIN);
         ensureUser(hrEmployee.getId(), "hr01", "Hr@123", Role.ROLE_HR);
         ensureUser(financeEmployee.getId(), "kt01", "Kt@123", Role.ROLE_ACCOUNTANT);
         ensureUser(employee.getId(), "nv001", "Nv@123", Role.ROLE_EMPLOYEE);
@@ -112,6 +112,7 @@ public class DataInitializer implements ApplicationRunner {
                     existing.setJoinDate(joinDate);
                     existing.setDependentCount(dependentCount == null ? 0 : dependentCount);
                     existing.setStatus(EmployeeStatus.ACTIVE);
+                    existing.setInactiveSince(null);
                     return employeeRepository.save(existing);
                 })
                 .orElseGet(() -> {
@@ -125,6 +126,7 @@ public class DataInitializer implements ApplicationRunner {
                     employee.setJoinDate(joinDate);
                     employee.setDependentCount(dependentCount == null ? 0 : dependentCount);
                     employee.setStatus(EmployeeStatus.ACTIVE);
+                    employee.setInactiveSince(null);
                     return employeeRepository.save(employee);
                 });
     }
@@ -138,7 +140,6 @@ public class DataInitializer implements ApplicationRunner {
 
     private void ensureUser(Long employeeId, String username, String password, Role role) {
         userRepository.findByUsername(username).ifPresentOrElse(existing -> {
-            // Keep seeded accounts deterministic so login hints always work.
             userService.updateUser(existing.getId(), employeeId, username, password, role, true);
         }, () -> userService.createUser(employeeId, username, password, role, true));
     }
@@ -162,8 +163,8 @@ public class DataInitializer implements ApplicationRunner {
 
             if (existingPayrolls.size() < activeEmployees.size()) {
                 for (Employee employee : activeEmployees) {
-                    int workDays = 20 + Math.floorMod((int) (employee.getId() + offset), 7); // 20..26
-                    int leaveDays = Math.floorMod((int) (employee.getId() + offset), 3); // 0..2
+                    int workDays = 20 + Math.floorMod((int) (employee.getId() + offset), 7);
+                    int leaveDays = Math.floorMod((int) (employee.getId() + offset), 3);
                     if (workDays + leaveDays > 26) {
                         leaveDays = Math.max(0, 26 - workDays);
                     }
@@ -173,11 +174,11 @@ public class DataInitializer implements ApplicationRunner {
                             year,
                             workDays,
                             leaveDays,
-                            "Dữ liệu mẫu tự động cho bộ lọc và dashboard"
+                            "D\u1eef li\u1ec7u m\u1eabu t\u1ef1 \u0111\u1ed9ng cho b\u1ed9 l\u1ecdc v\u00e0 dashboard"
                     );
                 }
 
-                runAsAdmin(() -> {
+                runAsAccountant(() -> {
                     List<Payroll> generatedPayrolls = payrollService.calculateForAll(month, year);
                     for (int index = 0; index < generatedPayrolls.size(); index++) {
                         Payroll payroll = generatedPayrolls.get(index);
@@ -210,16 +211,16 @@ public class DataInitializer implements ApplicationRunner {
             long seed = employeeId * 17L + period.getMonthValue() * 13L + period.getYear();
 
             double baseCost = safe(payroll.getBaseSalaryAmount()) + safe(payroll.getOvertimePay());
-            double allowanceRate = 0.05 + (Math.floorMod(seed, 6) * 0.01); // 5%..10%
-            double bonusRate = 0.02 + (Math.floorMod(seed, 5) * 0.015); // 2%..8%
+            double allowanceRate = 0.05 + (Math.floorMod(seed, 6) * 0.01);
+            double bonusRate = 0.02 + (Math.floorMod(seed, 5) * 0.015);
             if (period.getMonthValue() % 3 == 0) {
-                bonusRate += 0.04; // quarter-end boost
+                bonusRate += 0.04;
             }
             if (period.equals(YearMonth.now())) {
-                bonusRate += 0.08; // push current period for clearer trend highlight
+                bonusRate += 0.08;
             }
-            double insuranceRate = 0.095 + (Math.floorMod(seed, 3) * 0.003); // 9.5%..10.1%
-            double benefitsRate = 0.01 + (Math.floorMod(seed, 4) * 0.0075); // 1%..3.25%
+            double insuranceRate = 0.095 + (Math.floorMod(seed, 3) * 0.003);
+            double benefitsRate = 0.01 + (Math.floorMod(seed, 4) * 0.0075);
 
             double allowance = round2(baseCost * allowanceRate);
             double bonus = round2(baseCost * bonusRate);
@@ -249,14 +250,14 @@ public class DataInitializer implements ApplicationRunner {
         return Math.round(value * 100.0) / 100.0;
     }
 
-    private void runAsAdmin(Runnable action) {
+    private void runAsAccountant(Runnable action) {
         Authentication previous = SecurityContextHolder.getContext().getAuthentication();
-        Authentication admin = new UsernamePasswordAuthenticationToken(
+        Authentication accountant = new UsernamePasswordAuthenticationToken(
                 "seed-runner",
                 "N/A",
-                List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                List.of(new SimpleGrantedAuthority("ROLE_ACCOUNTANT"))
         );
-        SecurityContextHolder.getContext().setAuthentication(admin);
+        SecurityContextHolder.getContext().setAuthentication(accountant);
         try {
             action.run();
         } finally {
@@ -264,6 +265,3 @@ public class DataInitializer implements ApplicationRunner {
         }
     }
 }
-
-
-

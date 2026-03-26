@@ -29,15 +29,15 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/images/**", "/login", "/h2-console/**").permitAll()
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_SYSTEM_ADMIN")
                         .requestMatchers("/employees/**", "/salary-configs/**", "/timesheets/**", "/compensation-items/**")
-                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_HR")
+                        .hasAuthority("ROLE_HR")
                         .requestMatchers("/payrolls/my", "/export/pdf/payslip/**")
-                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_HR", "ROLE_ACCOUNTANT", "ROLE_EMPLOYEE")
+                        .hasAnyAuthority("ROLE_HR", "ROLE_ACCOUNTANT", "ROLE_EMPLOYEE")
                         .requestMatchers("/employee-cost-dashboard", "/employee-cost-dashboard/**")
-                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNTANT")
+                        .hasAuthority("ROLE_ACCOUNTANT")
                         .requestMatchers("/reports/**", "/payrolls/**", "/export/excel/**", "/export/pdf/payroll/**")
-                        .hasAnyAuthority("ROLE_ADMIN", "ROLE_ACCOUNTANT")
+                        .hasAuthority("ROLE_ACCOUNTANT")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

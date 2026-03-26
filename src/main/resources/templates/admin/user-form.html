@@ -1,21 +1,54 @@
-﻿<div th:fragment="content">
+<div th:fragment="content">
     <section class="panel form-panel">
-        <div class="panel-header compact"><div><p class="panel-kicker">Tạo và cập nhật tài khoản</p><h3 th:text="${user.id == null ? 'Thêm tài khoản' : 'Cập nhật tài khoản'}"></h3></div><a class="btn btn-outline" th:href="@{/admin/users}">Quay lại</a></div>
+        <div class="panel-header compact">
+            <div>
+                <p class="panel-kicker">System Admin chỉ quản lý tài khoản</p>
+                <h3 th:text="${user.id == null ? 'Thêm tài khoản' : 'Cập nhật tài khoản'}"></h3>
+            </div>
+            <a class="btn btn-outline" th:href="@{/admin/users}">Quay lại</a>
+        </div>
         <form class="stack-form" th:action="@{/admin/users/save}" method="post">
             <input type="hidden" name="id" th:value="${user.id}">
             <div class="grid two-col">
-                <div><label class="field-label">Nh&#226;n vi&#234;n li&#234;n k&#7871;t</label><select class="input" name="employeeId"><option value="">Kh&#244;ng li&#234;n k&#7871;t nh&#226;n vi&#234;n</option><option th:each="employee : ${employees}" th:value="${employee.id}" th:selected="${employeeId != null and employeeId == employee.id}" th:text="|${employee.fullName} - ${employee.department != null ? employee.department.name : 'Ch&#432;a c&#243; ph&#242;ng'}|"></option></select></div>
-                <div><label class="field-label">Role</label><select class="input" name="role"><option th:each="role : ${roles}" th:value="${role}" th:selected="${user.role != null and user.role == role}" th:text="${role.label}"></option></select></div>
-                <div><label class="field-label">Username</label><input class="input" type="text" name="username" th:value="${user.username}" required></div>
-                <div><label class="field-label">Mật khẩu <span class="stat-label" th:if="${user.id != null}">(bỏ trống nếu không đổi)</span></label><input class="input" type="password" name="password"></div>
+                <div>
+                    <label class="field-label">Nhân viên liên kết</label>
+                    <select class="input" name="employeeId">
+                        <option value="">Không liên kết nhân viên</option>
+                        <option th:each="employee : ${employees}"
+                                th:value="${employee.id}"
+                                th:selected="${employeeId != null and employeeId == employee.id}"
+                                th:text="|${employee.fullName} - ${employee.department != null ? employee.department.name : 'Chưa có phòng'}|">
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">Role</label>
+                    <select class="input" name="role">
+                        <option th:each="role : ${roles}"
+                                th:value="${role}"
+                                th:selected="${user.role != null and user.role == role}"
+                                th:text="${role.label}">
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">Username</label>
+                    <input class="input" type="text" name="username" th:value="${user.username}" required>
+                </div>
+                <div>
+                    <label class="field-label">Mật khẩu <span class="stat-label" th:if="${user.id != null}">(nhập mới để reset)</span></label>
+                    <input class="input" type="password" name="password">
+                </div>
             </div>
-            <label class="checkbox-row"><input type="checkbox" name="enabled" th:checked="${user.id == null or user.enabled}"><span>Cho phép tài khoản đăng nhập</span></label>
-            <div class="actions-row"><button class="btn btn-primary" type="submit">Lưu tài khoản</button><a class="btn btn-secondary" th:href="@{/admin/users}">Hủy</a></div>
+            <label class="checkbox-row">
+                <input type="checkbox" name="enabled" th:checked="${user.id == null or user.enabled}">
+                <span>Cho phép tài khoản đăng nhập</span>
+            </label>
+            <p class="stat-label">Tài khoản gắn với nhân viên đã nghỉ quá 6 tháng sẽ bị hệ thống tự động xóa.</p>
+            <div class="actions-row">
+                <button class="btn btn-primary" type="submit">Lưu tài khoản</button>
+                <a class="btn btn-secondary" th:href="@{/admin/users}">Hủy</a>
+            </div>
         </form>
     </section>
 </div>
-
-
-
-
-

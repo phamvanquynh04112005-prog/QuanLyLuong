@@ -18,6 +18,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,6 +57,8 @@ public class Employee {
 
     private LocalDate joinDate;
 
+    private LocalDate inactiveSince;
+
     @Column(nullable = false)
     private Integer dependentCount = 0;
 
@@ -79,4 +83,14 @@ public class Employee {
 
     @OneToOne(mappedBy = "employee")
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    void syncInactiveSince() {
+        if (status == EmployeeStatus.ACTIVE) {
+            inactiveSince = null;
+        } else if (inactiveSince == null) {
+            inactiveSince = LocalDate.now();
+        }
+    }
 }

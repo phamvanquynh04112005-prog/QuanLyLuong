@@ -1,9 +1,10 @@
-﻿<div th:fragment="content">
+<div th:fragment="content">
     <section class="panel">
         <div class="panel-header">
             <div>
                 <p class="panel-kicker">Quản trị truy cập</p>
-                <h3>Danh s&#225;ch t&#224;i kho&#7843;n &#273;&#259;ng nh&#7853;p</h3>
+                <h3>Danh sách tài khoản đăng nhập</h3>
+                <p class="stat-label">System Admin chỉ quản lý tài khoản, role và trạng thái đăng nhập.</p>
             </div>
             <a class="btn btn-primary" th:href="@{/admin/users/new}">Thêm tài khoản</a>
         </div>
@@ -13,10 +14,10 @@
             <tr>
                 <th>Username</th>
                 <th>Role</th>
-                <th>M&#227; nh&#226;n vi&#234;n</th>
-                <th>Nh&#226;n vi&#234;n li&#234;n k&#7871;t</th>
+                <th>Mã nhân viên</th>
+                <th>Nhân viên liên kết</th>
                 <th>Trạng thái</th>
-                <th>Thao tac</th>
+                <th>Thao tác</th>
             </tr>
             </thead>
             <tbody>
@@ -26,10 +27,15 @@
                 <td th:text="${user.employee != null and user.employee.employeeCode != null ? user.employee.employeeCode : '--'}"></td>
                 <td th:text="${user.employee != null ? user.employee.fullName : 'Không liên kết'}"></td>
                 <td>
-                    <span class="badge" th:classappend="${user.enabled} ? ' badge-success' : ' badge-muted'" th:text="${user.enabled ? 'Đang hoạt động' : 'Đã khóa'}"></span>
+                    <span class="badge"
+                          th:classappend="${user.enabled} ? ' badge-success' : ' badge-muted'"
+                          th:text="${user.enabled ? 'Đang hoạt động' : 'Đã khóa'}"></span>
                 </td>
                 <td class="actions">
                     <a class="btn btn-secondary btn-sm" th:href="@{/admin/users/edit/{id}(id=${user.id})}">Sửa</a>
+                    <form th:action="@{/admin/users/{id}/toggle-status(id=${user.id})}" method="post">
+                        <button class="btn btn-outline btn-sm" type="submit" th:text="${user.enabled ? 'Khóa' : 'Mở khóa'}"></button>
+                    </form>
                     <form th:action="@{/admin/users/{id}/delete(id=${user.id})}" method="post">
                         <button class="btn btn-danger btn-sm" type="submit">Xóa</button>
                     </form>
@@ -37,11 +43,7 @@
             </tr>
             </tbody>
         </table>
+
+        <p class="stat-label">Quy tắc hệ thống: tài khoản gắn với nhân viên nghỉ việc trên 6 tháng sẽ tự động bị xóa khỏi hệ thống.</p>
     </section>
 </div>
-
-
-
-
-
-

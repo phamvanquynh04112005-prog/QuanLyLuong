@@ -42,14 +42,14 @@ public class PayrollService {
     private final CompensationItemService compensationItemService;
     private final VietnamPersonalIncomeTaxService vietnamPersonalIncomeTaxService;
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ACCOUNTANT')")
+    @PreAuthorize("hasAuthority('ROLE_ACCOUNTANT')")
     public Payroll calculateForOne(Long employeeId, Integer month, Integer year) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên có ID: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("KhÃ´ng tÃ¬m tháº¥y nhÃ¢n viÃªn cÃ³ ID: " + employeeId));
 
         Timesheet timesheet = timesheetRepository.findByEmployeeIdAndMonthAndYear(employeeId, month, year)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Chưa có dữ liệu chấm công cho nhân viên ID " + employeeId + " tháng " + month + "/" + year));
+                        "ChÆ°a cÃ³ dá»¯ liá»‡u cháº¥m cÃ´ng cho nhÃ¢n viÃªn ID " + employeeId + " thÃ¡ng " + month + "/" + year));
 
         YearMonth yearMonth = YearMonth.of(year, month);
         SalaryConfig config = salaryConfigService.getEffectiveConfig(employeeId, yearMonth);
@@ -128,7 +128,7 @@ public class PayrollService {
         return payrollRepository.save(payroll);
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ACCOUNTANT')")
+    @PreAuthorize("hasAuthority('ROLE_ACCOUNTANT')")
     public List<Payroll> calculateForAll(Integer month, Integer year) {
         return timesheetRepository.findByMonthAndYearOrderByEmployeeFullNameAsc(month, year)
                 .stream()
@@ -136,7 +136,7 @@ public class PayrollService {
                 .toList();
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ACCOUNTANT')")
+    @PreAuthorize("hasAuthority('ROLE_ACCOUNTANT')")
     public Payroll markAsPaid(Long payrollId) {
         Payroll payroll = findById(payrollId);
         payroll.setPaymentStatus(PaymentStatus.PAID);
@@ -147,7 +147,7 @@ public class PayrollService {
     @Transactional(readOnly = true)
     public Payroll findById(Long id) {
         return payrollRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy bảng lương có ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("KhÃ´ng tÃ¬m tháº¥y báº£ng lÆ°Æ¡ng cÃ³ ID: " + id));
     }
 
     @Transactional(readOnly = true)
