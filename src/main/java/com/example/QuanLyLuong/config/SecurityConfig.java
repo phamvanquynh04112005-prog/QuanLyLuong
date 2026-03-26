@@ -29,6 +29,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/images/**", "/login", "/h2-console/**").permitAll()
+                        .requestMatchers("/", "/post-login").authenticated()
+                        .requestMatchers("/dashboard").hasAnyAuthority("ROLE_SYSTEM_ADMIN", "ROLE_HR", "ROLE_ACCOUNTANT")
                         .requestMatchers("/admin/**").hasAuthority("ROLE_SYSTEM_ADMIN")
                         .requestMatchers("/employees/**", "/salary-configs/**", "/timesheets/**", "/compensation-items/**")
                         .hasAuthority("ROLE_HR")
@@ -38,7 +40,8 @@ public class SecurityConfig {
                         .hasAuthority("ROLE_ACCOUNTANT")
                         .requestMatchers("/reports/**", "/payrolls/**", "/export/excel/**", "/export/pdf/payroll/**")
                         .hasAuthority("ROLE_ACCOUNTANT")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/access-denied").authenticated()
+                        .anyRequest().denyAll()
                 )
                 .exceptionHandling(exception -> exception
                         .accessDeniedPage("/access-denied")
@@ -46,7 +49,11 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/dashboard", true)
+                        .successHandler((request, response, authentication) -> {
+                            boolean employeeOnly = authentication.getAuthorities().stream()
+                                    .anyMatch(authority -> "ROLE_EMPLOYEE".equals(authority.getAuthority()));
+                            response.sendRedirect(employeeOnly ? "/payrolls/my" : "/dashboard");
+                        })
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )

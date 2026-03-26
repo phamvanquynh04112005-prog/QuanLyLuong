@@ -1,21 +1,24 @@
 package com.example.QuanLyLuong.controller;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.QuanLyLuong.common.Role;
 import com.example.QuanLyLuong.dto.DashboardStats;
 import com.example.QuanLyLuong.entity.Employee;
 import com.example.QuanLyLuong.entity.Payroll;
+import com.example.QuanLyLuong.entity.User;
 import com.example.QuanLyLuong.service.DashboardService;
 import com.example.QuanLyLuong.service.PayrollService;
+import com.example.QuanLyLuong.service.UserService;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -38,22 +41,42 @@ public class HomeController {
 
     private final DashboardService dashboardService;
     private final PayrollService payrollService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/dashboard";
+        return "redirect:/post-login";
     }
 
     @GetMapping("/login")
     public String login(Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/dashboard";
+            return "redirect:/post-login";
         }
         return "login";
     }
 
+    @GetMapping("/post-login")
+    public String postLogin(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
+        User currentUser = userService.getAuthenticatedUser(authentication);
+        if (currentUser.getRole() == Role.ROLE_EMPLOYEE) {
+            return "redirect:/payrolls/my";
+        }
+        return "redirect:/dashboard";
+    }
+
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
+    public String dashboard(Authentication authentication, Model model) {
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            User currentUser = userService.getAuthenticatedUser(authentication);
+            if (currentUser.getRole() == Role.ROLE_EMPLOYEE) {
+                return "redirect:/payrolls/my";
+            }
+        }
+
         LocalDate now = LocalDate.now();
         int month = now.getMonthValue();
         int year = now.getYear();
@@ -363,6 +386,7 @@ public class HomeController {
         );
         return rows;
     }
+
     private String resolveDepartmentName(Employee employee) {
         if (employee != null && employee.getDepartment() != null && employee.getDepartment().getName() != null
                 && !employee.getDepartment().getName().isBlank()) {
@@ -388,6 +412,7 @@ public class HomeController {
             default -> compact;
         };
     }
+
     private String normalizePeriodType(String periodType) {
         if ("day".equalsIgnoreCase(periodType)) {
             return "day";
@@ -467,6 +492,3 @@ public class HomeController {
         private boolean strongIncrease;
     }
 }
-
-
-
