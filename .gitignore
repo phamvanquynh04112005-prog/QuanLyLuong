@@ -33,6 +33,7 @@ build/
 .vscode/
 
 ### Local database ###
-data/
-*.mv.db
-*.trace.db
+data/*
+!data/quanlyluong.mv.db
+!data/quanlyluong-export.json
+data/*.trace.db
