@@ -15,12 +15,12 @@
       <aside class="sidebar">
         <div class="brand-block">
           <div class="brand-kicker">Payroll Web</div>
-          <a class="brand-title" th:href="@{/dashboard}">Quản Lý Lương</a>
+          <a class="brand-title" th:href="@{/post-login}">Quản Lý Lương</a>
           <p class="brand-subtitle">Spring Boot, Thymeleaf, JPA, Security</p>
         </div>
 
         <nav class="nav-menu">
-          <a class="nav-link" th:href="@{/dashboard}">Tổng quan</a>
+          <a class="nav-link" th:href="@{/dashboard}" sec:authorize="hasAnyAuthority('ROLE_SYSTEM_ADMIN','ROLE_HR','ROLE_ACCOUNTANT')">Tổng quan</a>
           <a class="nav-link" th:href="@{/employees}" sec:authorize="hasAuthority('ROLE_HR')">Nhân viên</a>
           <a class="nav-link" th:href="@{/salary-configs}" sec:authorize="hasAuthority('ROLE_HR')">Cấu hình lương</a>
           <a class="nav-link" th:href="@{/compensation-items}" sec:authorize="hasAuthority('ROLE_HR')">Phụ cấp và thưởng</a>
@@ -30,7 +30,8 @@
           <a class="nav-link" th:href="@{/reports/department}" sec:authorize="hasAuthority('ROLE_ACCOUNTANT')">Báo cáo</a>
           <a class="nav-link" th:href="@{/employee-cost-dashboard}" sec:authorize="hasAuthority('ROLE_ACCOUNTANT')">Chi phí nhân sự</a>
           <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_SYSTEM_ADMIN')">Tài khoản</a>
-          <a class="nav-link" th:href="@{/h2-console/}" target="_blank">H2 Console</a>
+          <a class="nav-link" th:href="@{/payrolls/my}" sec:authorize="hasAuthority('ROLE_EMPLOYEE')">Phiếu lương của tôi</a>
+          <a class="nav-link" th:href="@{/h2-console/}" target="_blank" sec:authorize="hasAuthority('ROLE_SYSTEM_ADMIN')">H2 Console</a>
         </nav>
       </aside>
 
