@@ -31,7 +31,6 @@
           <a class="nav-link" th:href="@{/employee-cost-dashboard}" sec:authorize="hasAuthority('ROLE_ACCOUNTANT')">Chi phí nhân sự</a>
           <a class="nav-link" th:href="@{/admin/users}" sec:authorize="hasAuthority('ROLE_SYSTEM_ADMIN')">Tài khoản</a>
           <a class="nav-link" th:href="@{/payrolls/my}" sec:authorize="hasAuthority('ROLE_EMPLOYEE')">Phiếu lương của tôi</a>
-          <a class="nav-link" th:href="@{/h2-console/}" target="_blank" sec:authorize="hasAuthority('ROLE_SYSTEM_ADMIN')">H2 Console</a>
         </nav>
       </aside>
 
